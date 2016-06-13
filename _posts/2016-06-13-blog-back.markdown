@@ -2,8 +2,11 @@
 published: true
 title: 博客回归
 layout: post
-tags: [github, blog]
-categories: [写作]
+tags:
+  - github
+  - blog
+categories:
+  - 写作
 ---
 ## 起源
 大约从2005年，我开始有自建博客，那时的博客还叫做weblog，后面才慢慢称为blog，刚开始我用的博客平台是一个自建平台，叫做[b2](http://cafelog.com/)，居然现在还可以访问，而且首页也和当时一样，图片、样式都没有变化，也算难得了。
