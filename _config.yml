@@ -1,7 +1,7 @@
 excerpt_separator: ""
 markdown: kramdown
 url: http://liuzhongshu.github.io
-title: liuzhongshu
-tagline: A log of everyday life
-description: 程序人生
-paginate: 5
+title: 程序人生
+tagline: A log of my life
+description: liuzhongshu
+paginate: 1
