@@ -2,6 +2,7 @@
 published: true
 title: 博客回归
 layout: post
+tags: [github, blog]
 categories: [写作]
 ---
 ## 起源
