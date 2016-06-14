@@ -3,6 +3,6 @@ published: true
 title: 测试贴
 layout: post
 ---
-## A New test
+## 新
 
 测试一下
