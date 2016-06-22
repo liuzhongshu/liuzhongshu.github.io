@@ -1,0 +1,7 @@
+---
+published: false
+title: 虚拟机软路由
+layout: post
+permalink: soft-router
+---
+虚机里安装软路由，记录下。
