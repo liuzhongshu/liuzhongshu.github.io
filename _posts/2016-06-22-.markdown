@@ -12,5 +12,5 @@ Client sent command that could not be decoded: 53 54 4F 52 20 E5 BC 80 E5 8F 91 
 
 https://social.technet.microsoft.com/Forums/en-US/6b4df752-51d1-42fb-baf1-8600fa0bdfc5/utf8-encoding-bug-report-about-using-ftp-with-windows-explorer?forum=w7itpronetworking
 
-###规避方法
+### 规避方法
 资源管理器在连接FTP服务器时，会通过opts utf8 on来协商编码，一般来说，支持UTF-8的服务器会回应这个协商，但是对于文件名错误的问题，也许强制服务器端编码为gb是一个规避方法。
