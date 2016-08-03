@@ -1,0 +1,8 @@
+---
+published: true
+title: 测试贴
+layout: post
+---
+## 新
+
+测试一下
