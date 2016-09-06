@@ -2,8 +2,6 @@
 layout: post
 title: "couchdb"
 date: 2013-11-10 22:13
-comments: true
-categories: 
 ---
 
 couchdb是流行的一个NoSQL数据库。
