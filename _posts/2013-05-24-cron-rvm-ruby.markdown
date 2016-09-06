@@ -3,7 +3,6 @@ published: true
 title: 用cron执行ruby脚本
 layout: post
 ---
-
 在Linux下cron是非常容易使用的自动化执行工具，类似windows的计划任务，cron的独特的定时设置方式，简洁而灵活，但在使用ruby脚本时却遇到了麻烦。 用crontab -e 添加了下面的脚本后：
 
 ```
