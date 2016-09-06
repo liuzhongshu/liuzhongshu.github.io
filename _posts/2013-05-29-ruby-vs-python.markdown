@@ -3,7 +3,6 @@ published: true
 title: ruby vs python
 layout: post
 ---
-
 Ruby和Python是我最常用的两门脚本语言，他们两个都足够通用，不像PHP和Javascript那么局限，所以很有必要从使用者的角度，给他们两个做一个比较。
 
 ### 语法
