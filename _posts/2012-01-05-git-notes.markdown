@@ -1,10 +1,9 @@
 ---
-layout: post
+published: true
 title: Git笔记
-date: 2012-01-05 20:26
-comments: true
-categories: git
+layout: post
 ---
+
 
 一图胜千言
 

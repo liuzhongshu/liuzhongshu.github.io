@@ -1,8 +1,7 @@
 ---
-layout: post
+published: true
 title: bash on osx
-comments: true
-categories: osx
+layout: post
 ---
 
 bash在运行的时候分两种情况，login shell和非login shell。

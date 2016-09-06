@@ -1,10 +1,9 @@
 ---
-layout: post
+published: true
 title: Rails在VPS的部署
-date: 2012-04-28 20:26
-comments: true
-categories: osx
+layout: post
 ---
+
 
 这是我们在VPS的部署方案。
 

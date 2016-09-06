@@ -1,10 +1,8 @@
 ---
-layout: post
+published: true
 title: Python XML
-comments: true
-categories: python
+layout: post
 ---
-
 
 Python的html/xml解析工具有很多
 

@@ -1,9 +1,9 @@
 ---
-layout: post
+published: true
 title: 远程执行textmate
-comments: true
-categories: osx
+layout: post
 ---
+
 
 textmate用起来很方便，在连上ssh时，自然也希望能够使用textmate，方法很多，列举几个：
 

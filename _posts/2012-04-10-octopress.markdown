@@ -1,10 +1,9 @@
 ---
+published: true
+title: Octopress
 layout: post
-title: "Octopress"
-date: 2012-04-10 13:01
-comments: true
-categories: 
 ---
+
 
 [Octopress](http://octopress.org)是非常方便的静态博客程序，尤其适合github。
 ### 安装

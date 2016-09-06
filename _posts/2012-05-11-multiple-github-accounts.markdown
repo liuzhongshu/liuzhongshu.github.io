@@ -1,9 +1,7 @@
 ---
-layout: post
+published: true
 title: 多Github帐号
-date: 2012-05-11 20:26
-comments: true
-categories: github
+layout: post
 ---
 
 如果有多Github帐号，想同时工作，ssh需要一番设置，才能工作正常。

@@ -1,8 +1,7 @@
 ---
-layout: post
+published: true
 title: Sublime Text 2
-comments: true
-categories: tools
+layout: post
 ---
 
 Sublime Text 2，OSX下最好的程序员编辑器：

@@ -1,9 +1,7 @@
 ---
+published: true
+title: vagrant
 layout: post
-title: "vagrant"
-date: 2013-11-04 08:49
-comments: true
-categories: 
 ---
 
 Vagrant是一个虚拟机控制工具，他可以用脚本和插件的方式驱动VirtualBox，VMWare等虚拟机，通常虚拟机使用无窗口的方式(headless)来运行，这样需要通过ssh的方式连接到虚拟机上做进一步的操作，这就得到了一个非常好的开发虚拟机，比传统的GUI方式要快，且省资源。

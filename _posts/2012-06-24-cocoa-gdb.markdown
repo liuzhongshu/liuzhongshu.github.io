@@ -1,8 +1,7 @@
 ---
-layout: post
+published: true
 title: Cocoa debug
-comments: true
-categories: rails
+layout: post
 ---
 
 ### F-Script 注入

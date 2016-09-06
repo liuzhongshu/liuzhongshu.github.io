@@ -1,8 +1,7 @@
 ---
+published: true
+title: Rails快速指南
 layout: post
-title: Rails向导
-comments: true
-categories: rails
 ---
 
 ### RVM

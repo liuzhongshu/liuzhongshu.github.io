@@ -1,10 +1,9 @@
 ---
-layout: post
+published: true
 title: CSS position和display
-date: 2013-06-19 07:00
-comments: true
-categories: css
+layout: post
 ---
+
 
 CSS规范中position的定义可以取四种值，并且又和其他属性，比如display，LRTB(left,right,top,bottom的缩写)相关，所以不容易理解清楚，下面是我的解释：
 
