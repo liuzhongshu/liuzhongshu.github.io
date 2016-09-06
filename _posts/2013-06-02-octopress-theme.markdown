@@ -3,7 +3,6 @@ published: true
 title: octopress theme
 layout: post
 ---
-
 octopress的theme一样体现了黑客风格，使用sass来做预编译。sass在这里物尽其用，使得修改theme更容易和一致。先看总体的文件：
 
 ```
