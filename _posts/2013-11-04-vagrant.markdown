@@ -3,7 +3,6 @@ published: true
 title: vagrant
 layout: post
 ---
-
 Vagrant是一个虚拟机控制工具，他可以用脚本和插件的方式驱动VirtualBox，VMWare等虚拟机，通常虚拟机使用无窗口的方式(headless)来运行，这样需要通过ssh的方式连接到虚拟机上做进一步的操作，这就得到了一个非常好的开发虚拟机，比传统的GUI方式要快，且省资源。
 
 vagrant使用box来保存原始虚拟机，box可以从网上下载，比如ubuntu 12.04等，在box的基础上，vagrant将每一个包含Vagrantfile的目录会当成一个vagrant项目，每个项目都是一个独立的虚拟机（即使来自同一个box，也是多个独立的虚拟机），这样的好处是多个项目可以共享基础box，并且每个项目都可以随时恢复到基础box的状态，当然vagrant允许你随时将一个项目打包为一个box，这样就可以将自己的project发布出去了。
@@ -18,7 +17,3 @@ vagrant up
 vagrant ssh
 vagrant reload
 vagrant destroy
-
-
-
-
