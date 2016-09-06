@@ -3,7 +3,6 @@ published: true
 title: couchdb
 layout: post
 ---
-
 couchdb是流行的一个NoSQL数据库。
 
 #安装
