@@ -1,7 +1,7 @@
 ---
-layout: post
+published: true
 title: couchdb
-date: 2013-11-10 22:13
+layout: post
 ---
 
 couchdb是流行的一个NoSQL数据库。
