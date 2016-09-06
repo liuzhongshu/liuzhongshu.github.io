@@ -3,8 +3,6 @@ published: true
 title: CSS position和display
 layout: post
 ---
-
-
 CSS规范中position的定义可以取四种值，并且又和其他属性，比如display，LRTB(left,right,top,bottom的缩写)相关，所以不容易理解清楚，下面是我的解释：
 
 # position
@@ -22,6 +20,3 @@ CSS规范中position的定义可以取四种值，并且又和其他属性，比
 但是注意absolute所相对的这个父元素必须不是static，通常就指定一下relative就好了，因为relative本身不改变元素的位置（前提是没有通过LRTB偏移），CSS这样设计的用意很容易理解，可以灵活的控制absolute元素想相对的元素，比如，想相对父的父，只要父为static，而父的父指定一下relative就可以了。
 
 # display
-
-
-
