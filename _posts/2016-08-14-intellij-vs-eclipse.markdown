@@ -13,7 +13,7 @@ File > settings > Editor > Colors&Fonts > Font 下把Primary font修改为 Conso
 
 ## 编辑能力
 
-Eclipse有个不方便的地方就是每次双击文件，可能都会是shell打开文件，而不是编辑文件，Intellij没有这个不便，并且内置了对大部分文件的高亮和编辑功能，比如css/js/html都可以不再借助外部编辑器了。
+Eclipse的编辑能力一般，尤其有个不方便的地方就是每次双击文件，可能都会是shell打开文件，而不是编辑文件，Intellij没有这个不便，并且内置了对大部分文件的高亮和编辑功能，比如css/js/html都可以不再借助外部编辑器了。所以从编辑能力来看，Inteliij是大胜Eclipse的，唯一让我想念的是Eclipse内置的WindowsBuilder吧。
 
 ## 集成的插件
 
@@ -23,5 +23,5 @@ Eclipse有个不方便的地方就是每次双击文件，可能都会是shell�
 
 这是Eclipse非常好用的一个功能。Intellij也实现，Eclipse里每次按Ctrl-S保存时，就会自动编译并作hotswap，IntelliJ里不需要Ctrl-S，但需要手动触发编译，按Ctrl-F9，这个键比Ctrl-S稍微难按一点。
 
-##快捷键
+## 快捷键
 Intellij号称快捷键很方便，但我发现一个问题是很多的快捷键在远程桌面里没法按（远程桌面屏蔽了一部分的快捷键组合），这使得透过远程桌面使用Inteliij变得不方便了。
