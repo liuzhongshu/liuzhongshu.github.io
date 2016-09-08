@@ -3,7 +3,6 @@ published: true
 title: Rails快速指南
 layout: post
 ---
-
 ### RVM
 
 ruby的包管理器叫做gem，有些类似Linux的apt-get，leopard下已经预装gem，不过版本号实在不敢恭维:1.0.1，一个让人不太信任的数字，所以第一步就是刷新gem，不过对于系统已经安装的ruby和gem，替换不太好，幸好有rvm这个极好的工具，可以让你在个人的目录下管理ruby和gems。安装的方法就是下面的一条bash命令。
@@ -46,12 +45,14 @@ capify .
 
 ### application.rb
 这个文件中，有一些全局的应用程序设置，很多情况下需要修改的是时区，默认为UTC
+
 ```
 config.time_zone = 'Beijing'
 ```
 
 ### database.yml
 配置数据库，大部分情况下，我们喜欢postgresql，所以：
+
 ```
 production:
   adapter: postgresql
@@ -61,5 +62,5 @@ production:
   username: user
   password: pass
 ```
-上面是设置的生产环境，开发环境我们有时会直接使用sqlite，sqlite和postgresql的兼容性很好，当然有时也会直接使用postgresql，那么就同时需要修改配置文件中的development段落的相关设置。
 
+上面是设置的生产环境，开发环境我们有时会直接使用sqlite，sqlite和postgresql的兼容性很好，当然有时也会直接使用postgresql，那么就同时需要修改配置文件中的development段落的相关设置。
