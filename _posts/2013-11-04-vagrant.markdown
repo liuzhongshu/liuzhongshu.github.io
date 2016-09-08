@@ -9,11 +9,10 @@ vagrant使用box来保存原始虚拟机，box可以从网上下载，比如ubun
 
 常用命令：
 
-vagrant box list
-vagrant box add
-vagrant box remove
-
-vagrant up
-vagrant ssh
-vagrant reload
-vagrant destroy
+- vagrant box list
+- vagrant box add
+- vagrant box remove
+- vagrant up
+- vagrant ssh
+- vagrant reload
+- vagrant destroy
