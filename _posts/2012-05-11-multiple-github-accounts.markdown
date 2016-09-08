@@ -3,7 +3,6 @@ published: true
 title: 多Github帐号
 layout: post
 ---
-
 如果有多Github帐号，想同时工作，ssh需要一番设置，才能工作正常。
 
 ### 创建多个key
@@ -30,8 +29,8 @@ Host github-bbb
   HostName github.com
   User git
   IdentityFile ~/.ssh/id_rsa_bbb
-
 ```
+
 ### 调试
 
 分别用下面两条命令来测试ssh key使用是否正确。
