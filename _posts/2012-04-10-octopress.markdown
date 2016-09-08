@@ -68,4 +68,4 @@ git pull origin master
 
 ### 缺点
 
-Octopress需要整套ruby的环境，
+Octopress需要整套ruby的环境。
