@@ -3,6 +3,7 @@ published: true
 title: OSX推荐软件
 layout: post
 ---
+Update: 2014年，我的Mac被盗，又回到Windows家族，所以下面的软件只更新到2014年。
 
 使用Mac已经很久了，推荐一些应用软件，因为我自己是程序员，所以有些软件可能带稍有一些偏向性。
 
