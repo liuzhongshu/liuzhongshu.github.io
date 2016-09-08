@@ -3,6 +3,8 @@ published: true
 title: Octopress
 layout: post
 ---
+Update(2016): 现在我已经不推荐Octopress了，对大部分人，使用Jeklly和TinyPress的组合更方便一些。
+
 [Octopress](http://octopress.org)是非常方便的静态博客程序，尤其适合github。
 
 ### 安装
@@ -61,3 +63,5 @@ rake install['xxx']
 cd .themes/xxx
 git pull origin master
 ```
+### 缺点
+Octopress需要整套ruby的环境，
