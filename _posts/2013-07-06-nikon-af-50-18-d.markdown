@@ -3,7 +3,6 @@ published: true
 title: 入手尼康AF 50/1.8 D
 layout: post
 ---
-
 手中的D3000服役多年，却一直使用套头，因为想试试大光圈、浅景深的效果，入手了尼家经典的50 1.8d，来张特写:
 
 ![](http://img5.pcpop.com/ProductImages/Original/3/3701/003701188.jpg)
@@ -15,4 +14,3 @@ layout: post
 
 ![](http://img1.gtimg.com/digi/pics/hv1/211/216/590/38420041.jpg)
 
-最后来张合影
