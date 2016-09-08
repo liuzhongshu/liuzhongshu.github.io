@@ -525,3 +525,19 @@ a.pagination-item:hover {
 .theme-base-0f .related-posts li a:hover {
   color: #8f5536;
 }
+
+/* for index page */
+li.listing-seperator {
+    display: block;
+    font-size: 28px;
+    border-bottom: 1px solid #e5e5e5;
+    margin: 20px 0px;
+}
+li.listing-item {
+    display: block;
+}
+li.listing-item time {
+    color: #999;
+    font-size: 18px;
+    margin-right: 30px;
+}
