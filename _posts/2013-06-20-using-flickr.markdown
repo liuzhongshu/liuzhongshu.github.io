@@ -3,14 +3,13 @@ published: true
 title: 玩转Flickr
 layout: post
 ---
+update(2016): 现在又挂了。
 
 曾经以为flickr永远的挂了，不想现在又复活了，不知道是不是昙花一现，而且免费用户的容易也提升到了1T（这个比较给力），又有了继续用的动力，总结一下flickr的玩法：
 
 ## 上传照片
 
 上传有很多方法，我目前在用[苹果](http://liuzhongshu.github.io/blog/2012/01/23/software-on-osx/)的系统，因此用的最多的是从iPhoto里直接将一个事件上传，这样上传到flickr之后就成了一个Set（照片集合），省去整理了。
-
-![](/images/2013-06-22-flickr.png)
 
 上传之后除了Set之外，flickr还提供了几种维度整理照片，比如：
 
@@ -51,7 +50,3 @@ flickr有数量惊人的用户，而照片的exif信息中可以照片拍这张�
 ### 用户排名
 
 flickr官方并没有用户排名，不过因为有Explore，就有第三方的网站通过Expolre来统计flickr用户，[flickrooster](http://www.flickrooster.com/)就是这样的一个排名网站，他根据每个flickr用户照片上Explore的情况，换算为分值，并进行加权求和，量化为一个指标，再将这个指标排序，于是就有了flickr用户排行榜，并且因为exif，又得到算出每个用户的相机情况，当前的榜单上，排名第一的用户，用的是宾得相机。有趣的是，这个排名中，前100的用户所用相机，一个手机厂商也没有了。
-
-
-
-
