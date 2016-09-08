@@ -3,9 +3,7 @@ published: true
 title: Rails在VPS的部署
 layout: post
 ---
-
-
-这是我们在VPS的部署方案。
+这是Rails在VPS的部署方案，记录备查。
 
 ### 需求
 - VPS安装Ubuntu 11.04
@@ -29,6 +27,7 @@ rvmsudo passenger-install-nginx-module
 ```
 
 安装nginx启动脚本
+
 ```
 wget http://www.smashingmagazine.com/files/nginx
 sudo mv nginx /etc/init.d/nginx
@@ -38,6 +37,7 @@ sudo /usr/sbin/update-rc.d -f nginx defaults
 
 ### PostgreSQL
 我们偏爱PostgreSQL，除了PostgreSQL成熟以外，还因为PostgreSQL和Sqlite比较接近的SQL语句，这样可以在两者间随意切换。
+
 ```
 sudo apt-get install postgresql libpq-dev
 ```
