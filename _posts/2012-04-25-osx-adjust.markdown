@@ -46,11 +46,20 @@ exec bash
 
 ### 脚本
 
-在Apple Script中些下面的脚本，并保存为app放在下载目录下，就可以一次清空下载目录了：
+在Apple Script中写下面的脚本，并保存为app放在下载目录下，就可以一次清空下载目录了（脚本很酷不是）：
 
 ```
 tell application "Finder" to move (every item of (container of item (path to me) as alias) whose name is not (name of item (path to me) as text)) to trash
 ```
+
+### 系统字典
+OSX下有系统字典，好处不言而喻，稳定且可以在任意程序中使用Option+Ctrl+D取词，添加词库方法如下：
+
+- 下载[DictUnifier](http://code.google.com/p/mac-dictionary-kit/)
+- 找一些词库，比如stardict的词库文件(tar.bz2)
+- 运行DictUnifier，将词库拖放过去，开始转换词库。
+
+转换过程比较慢，耐心等候就好，一个发现是DictUnifier我只能使用2.0，最新的2.1反而会转换失败，估计可能和我是osx10.6有关系。
 
 ### 其它
 
