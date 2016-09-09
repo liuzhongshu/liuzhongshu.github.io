@@ -64,3 +64,37 @@ production:
 ```
 
 上面是设置的生产环境，开发环境我们有时会直接使用sqlite，sqlite和postgresql的兼容性很好，当然有时也会直接使用postgresql，那么就同时需要修改配置文件中的development段落的相关设置。
+
+### 部署
+
+需求
+- VPS安装Ubuntu 11.04
+- RVM安装ruby和rails
+- Nginx和Passenger模块
+- PostgreSQL
+
+ruby要用1.9.3以上版本，因为1.9.3版本解决了一个性能问题，Rails用3.1以上版本，因为在之前的版本会有assets方面的兼容性问题。
+
+
+安装 Nginx
+
+```
+gem install passenger
+sudo apt-get install libcurl4-openssl-dev
+rvmsudo passenger-install-nginx-module
+```
+
+安装nginx启动脚本
+
+```
+wget http://www.smashingmagazine.com/files/nginx
+sudo mv nginx /etc/init.d/nginx
+sudo chmod +x /etc/init.d/nginx
+sudo /usr/sbin/update-rc.d -f nginx defaults
+```
+
+安装 PostgreSQL，偏爱PostgreSQL，除了PostgreSQL成熟以外，还因为PostgreSQL和Sqlite比较接近的SQL语句，这样可以在两者间随意切换。
+
+```
+sudo apt-get install postgresql libpq-dev
+```
