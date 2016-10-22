@@ -3,4 +3,8 @@ published: false
 title: android开发环境
 layout: post
 ---
-从[这里](http://www.androiddevtools.cn/) 下载Android Studio
+## Android Studio
+
+从[这里](http://www.androiddevtools.cn/) 下载Android Studio，下载最大的那个，含sdk的，省得后续下载的痛苦。
+
+安装的时候，可以选择安装路径，如果不按缺省路径，安装完成后记得设置ANDROID_HOME到sdk的目录。
