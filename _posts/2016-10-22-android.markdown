@@ -1,13 +1,38 @@
 ---
-published: false
+published: true
 title: Android开发环境
 layout: post
 ---
 ## Android Studio
 
-从[这里](http://www.androiddevtools.cn/) 下载Android Studio，下载最大的那个，含sdk和各种tools，省得后续下载的痛苦。
+从[这里](http://www.androiddevtools.cn/) 下载Android Studio，下载最大最新的那个，含sdk和各种tools，省得后续下载的痛苦。
 
-安装的时候，可以选择安装路径，如果不按缺省路径，安装完成后记得设置ANDROID_HOME到sdk的目录。sdk的目录下有个SDK Manager.exe，这个可以用来继续安装更多的sdk，但一般没有必要。
+安装的时候，可以选择安装路径，如果不按缺省路径，安装完成后记得设置环境变量ANDROID_HOME到sdk的目录。因为很多命令行编译构建是依赖这个变量来找sdk。
+
+sdk的目录下有个SDK Manager.exe，这个可以用来继续安装更多的sdk，默认的话，一般只带一个sdk，可以多安装几个sdk。
+
+
+## 国情设置
+
+在启动Android Studio之前，针对我们国情，建议做以下两个设置：
+
+修改bin\idea.properties文件，增加或修改下面的属性，防止第一次运行是更新sdk被网络卡死。
+
+···
+disable.android.first.run=true
+···
+
+增加c:\users\xxx\.gradle\init.gradle文件，内容如下：
+
+```
+allprojects {
+    repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
+    }
+}
+```
+
+这个为gradle设置一个镜像，可以防止gradle从中央库下载文件（非常慢）。
 
 ## 模拟器
 
