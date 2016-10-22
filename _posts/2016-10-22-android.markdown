@@ -1,14 +1,18 @@
 ---
 published: false
-title: android开发环境
+title: Android开发环境
 layout: post
 ---
 ## Android Studio
 
-从[这里](http://www.androiddevtools.cn/) 下载Android Studio，下载最大的那个，含sdk的，省得后续下载的痛苦。
+从[这里](http://www.androiddevtools.cn/) 下载Android Studio，下载最大的那个，含sdk，省得后续下载的痛苦。
 
 安装的时候，可以选择安装路径，如果不按缺省路径，安装完成后记得设置ANDROID_HOME到sdk的目录。
 
 ## 模拟器
 
 在Android Studio内管理模拟器，一定记得使能Intel Haxm，可以大大加速模拟器的速度，使能Intel Haxm会自动从intel下载一个驱动并自动安装，但是要在下次重启计算机之后，Haxm才会起到加速效果。
+
+## Cordova
+
+如果使用Cordova创建工程，可以在cordova build android之后，就可以使用Android Studio来打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。
