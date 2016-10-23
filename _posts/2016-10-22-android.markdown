@@ -46,6 +46,8 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-2.14.1-all.zip
 在Android Studio内管理模拟器，一定记得使能Intel Haxm，可以大大加速模拟器的速度，使能Intel Haxm会自动从intel下载一个驱动并自动安装，但是要在下次重启计算机之后，Haxm才会起到加速效果。
 
 
-## Cordova
+## Cordova/Ionic
 
-如果使用Cordova创建工程，可以在cordova build android之后，就可以使用Android Studio来打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。
+如果使用Cordova或者Ionic创建工程，可以在cordova build android之后，就可以使用Android Studio来打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。 
+
+但是一样的问题，cordova build android可能会非常慢，所以另一方法是在platform add android之后，就用Android studio去打开工程，这时Android studio会自动建立一个gradle wrapper，然后就可以在Studio里编译调试了。
