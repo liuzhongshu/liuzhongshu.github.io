@@ -70,4 +70,4 @@ start项目这个过程中，会多次下载一些依赖，国情决定了可能
 cordova platform add android
 ```
 
-之后，可以尝试`cordova build android`，但是又可能卡死，因为又去下载东西了。。。。，参考上面的修改gradle-wrapper.proerties，重新用Android Studio应该可以打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。
+之后，可以尝试`cordova build android`，但是又可能卡死，因为又去下载东西了，参考上面的修改gradle-wrapper.proerties，重新用Android Studio应该可以打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。
