@@ -3,7 +3,7 @@ published: true
 title: Linux命令行
 layout: post
 ---
-Linux命令行(termial)可以做很多有趣的事情，以Ubuntu为例做个记录
+Linux命令行(termial)可以做很多有趣的事情，以Ubuntu为例做个记录。
 
 ## mosh
 
@@ -13,7 +13,7 @@ Linux命令行(termial)可以做很多有趣的事情，以Ubuntu为例做个记
 sudo apt-get install mosh
 ```
 
-遗憾的是mosh在库的版本有个问题，对于鼠标支持不好，如果有鼠标的需求（比如下面的w3m），就需要安装最新的mosh，这样做：
+遗憾的是mosh在各大发行版仓库里的最新版本(1.2.4)有个问题，对于鼠标支持不好，如果有鼠标的需求（比如下面的w3m），就需要安装最新的mosh，这样做：
 
 ```
 sudo add-apt-repository ppa:keithw/mosh-dev
@@ -36,7 +36,7 @@ w3m是命令行下的浏览器，比Lynx好用的地方在于支持鼠标，对�
 - B：返回前页
 - q: 退出
 
-注意：如果想支持鼠标，对终端有要求，Windows下的Putty是可以支持的，除此之外还没有发现其他终端可以。
+注意：如果想支持鼠标，对终端有要求，Windows下的Putty是可以支持的，除此之外还没有发现其他终端可以支持鼠标。
 
 ## googler
 
@@ -63,7 +63,7 @@ export BROWSER=w3m
 
 ## Gmail
 
-要访问gmail，可以用命令行的邮件客户端alpine, apt-get安装，参考这个(帖子)[http://askubuntu.com/questions/130899/how-can-i-configure-alpine-to-read-my-gmail-in-ubuntu]设置，很好用，理论上也可以使用别的邮件。
+要访问gmail，可以用命令行的邮件客户端alpine, 用apt-get安装即可，参考这个[帖子](http://askubuntu.com/questions/130899/how-can-i-configure-alpine-to-read-my-gmail-in-ubuntu)设置，很好用，理论上也可以设置多个gmail，或者使用别的邮箱也可以。
 
 这样设置好之后，收发邮件都没有问题。
 
@@ -78,4 +78,4 @@ export BROWSER=w3m
 * ctrl-a n：切换到下一个 session
 * ctrl-a p：切换到上一个 session
 * ctrl-a 0…9：同样是切换各个 session
-* ctrl-a d：退出 Screen 
+* ctrl-a d：退出 Screen
