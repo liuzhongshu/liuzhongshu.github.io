@@ -60,3 +60,22 @@ export BROWSER=w3m
 ```
 
 这样用googler查询的结果，就可以用w3m打开浏览了。
+
+## Gmail
+
+要访问gmail，可以用命令行的邮件客户端alpine, apt-get安装，参考这个(帖子)[http://askubuntu.com/questions/130899/how-can-i-configure-alpine-to-read-my-gmail-in-ubuntu]设置，很好用，理论上也可以使用别的邮件。
+
+这样设置好之后，收发邮件都没有问题。
+
+## Screen
+
+这个是终端下的又一神器，可以在一个终端下多任务，切换多个窗口，apt-get安装，执行screen启动，然后就可以放行的执行各种任务了，也不用担心ssh断开后任务会终止，下次重练后，用screen -ls可以列出还在运行的session，用screen -r [sessionid] 就可以恢复工作。
+
+更棒的是，可以随时切换session，下面是几个常用快捷键：
+
+* ctrl-a c：创建一个新的 session
+* ctrl-a ctrl-a：在 session 间切换
+* ctrl-a n：切换到下一个 session
+* ctrl-a p：切换到上一个 session
+* ctrl-a 0…9：同样是切换各个 session
+* ctrl-a d：退出 Screen 
