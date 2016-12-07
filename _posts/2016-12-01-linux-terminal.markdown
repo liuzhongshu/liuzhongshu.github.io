@@ -25,7 +25,7 @@ sudo apt-get install mosh
 
 ## w3m
 
-w3m是命令行下的浏览器，比Lynx好用的地方在于支持鼠标，对的，Terminal下的鼠标操作，有时候（你懂的）值得一用，安装就apt-get就好了。常用的键盘操作：
+w3m是命令行下的浏览器，比Lynx好用的地方在于支持鼠标，对的，Terminal下的鼠标操作，点击和滚动都支持，有时候（你懂的）值得一用，安装就apt-get就好了。常用的键盘操作：
 
 - 空格：向下翻屏
 - b: 往前翻屏
@@ -69,7 +69,7 @@ export BROWSER=w3m
 
 ## Screen
 
-这个是终端下的又一神器，可以在一个终端下多任务，切换多个窗口，apt-get安装，执行screen启动，然后就可以放行的执行各种任务了，也不用担心ssh断开后任务会终止，下次重练后，用screen -ls可以列出还在运行的session，用screen -r [sessionid] 就可以恢复工作。
+这个是终端下的又一神器，可以在一个终端下多任务，切换多个窗口，apt-get安装，执行screen启动，然后就可以放行的执行各种任务了，也不用担心ssh断开后任务会终止，下次重连后，用screen -ls可以列出还在运行的session，用screen -R 就可以恢复最近一个session，如果你又几个窗口开了putty，可以用screen -x复用到一个session上。
 
 更棒的是，可以随时切换session，下面是几个常用快捷键：
 
@@ -79,3 +79,9 @@ export BROWSER=w3m
 * ctrl-a p：切换到上一个 session
 * ctrl-a 0…9：同样是切换各个 session
 * ctrl-a d：退出 Screen
+
+如果想在screen里也支持鼠标，需要启动screen时指定终端类型：
+
+```
+screen -T xterm
+```
