@@ -3,8 +3,7 @@ published: true
 title: Windows下的VPN
 layout: post
 ---
-
-![](http://blog.osteele.com/images/2008/git-transport.png)
+Windows下自带的VPN主要是PPTP和L2TP两种，两种都用过，Server端用Windows 2008R2，客户端各种Windows都可以。总的来说还是方便的，毕竟都内置，不用再安装软件。
 
 ## 获取
 
