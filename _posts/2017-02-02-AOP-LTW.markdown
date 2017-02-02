@@ -1,0 +1,13 @@
+---
+published: true
+title: LTW方式的AOP
+layout: post
+---
+AOP需要对类对改变，所以通常有编译时刻(CTW) 、运行时刻(LTW)等几种方式。个人比较喜欢LTW方式，因为比较灵活，而且CTW有个很大的缺点就是，Eclipse生成的class就不能用了。 这个就不太方便了。
+
+## CTW
+如果使用CTW，比较简单，在Maven中增加一个插件即可
+
+## LTW
+如果是Web应用，LTW细分也有两种方式，一种借助java agent，一种借助class loader，实测下来java agent支持的更完整一些，因为class loader方式做LTW，显然在AOP注册到class loader之前，已经加载的类就没办法LTW了。
+
