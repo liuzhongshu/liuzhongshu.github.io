@@ -6,3 +6,4 @@ tagline: A log of my life
 description: liuzhongshu
 paginate: 1
 disqus_shortname: liuzhongshu
+permalink: /:title/
