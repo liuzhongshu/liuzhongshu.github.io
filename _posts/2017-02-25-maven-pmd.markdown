@@ -27,7 +27,9 @@ PMD和Find-bugs是Java里最常用的两个静态检查工具，前者基于源�
    </rulesets>                    
   </configuration>
 </plugin>
-```            
+```
+
+如果不想在某些构建命令不执行PMD，可以增加一个Maven参数-Dpmd.skip=true
 
 ## 自定义规则
 
