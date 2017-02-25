@@ -14,18 +14,18 @@ PMD和Find-bugs是Java里最常用的两个静态检查工具，前者基于源�
 
 ```
 <plugin>
-   <groupId>org.apache.maven.plugins</groupId>
-   <artifactId>maven-pmd-plugin</artifactId>
-   <configuration>
-   	 <excludes>
-      	<exclude>**/com/xxx/**/*.java</exclude>
-       	<exclude>**/org/**/*.java</exclude>
-      </excludes>
-			<rulesets>
-				<ruleset>/rulesets/java/strictexception.xml</ruleset>
-				<ruleset>${basedir}/pmd-rules.xml</ruleset>
-			</rulesets>                    
-    </configuration>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-pmd-plugin</artifactId>
+  <configuration>
+     <excludes>
+     <exclude>**/com/xxx/**/*.java</exclude>
+     <exclude>**/org/**/*.java</exclude>
+   </excludes>
+   <rulesets>
+    <ruleset>/rulesets/java/strictexception.xml</ruleset>
+    <ruleset>${basedir}/pmd-rules.xml</ruleset>
+   </rulesets>                    
+  </configuration>
 </plugin>
 ```            
 
@@ -37,13 +37,13 @@ PMD可以通过Java或Xpath自定义规则，Xpath很方便灵活，上面例子
 <?xml version="1.0"?>
 <ruleset name="MyRules">
 <rule name="RestApiThrowException" message="REST API should not throw exception" class="net.sourceforge.pmd.lang.rule.XPathRule" language="java">
-	<properties>
-		<property name="xpath">
-			<value><![CDATA[
+ <properties>
+  <property name="xpath">
+   <value><![CDATA[
 //MethodDeclaration[../Annotation//Name[@Image='Path' or @Image='GET' or @Image='POST']]/NameList
-			]]></value>
-		</property>
-	</properties>
+   ]]></value>
+  </property>
+ </properties>
 </rule>
 </ruleset>
 ```
@@ -58,4 +58,4 @@ PMD可以通过Java或Xpath自定义规则，Xpath很方便灵活，上面例子
 
 ## 参考规则
 
-* https://github.com/luchenyao/the_1st/tree/master/rules
+PMD自带的规则很多，在PMD标准版上，展开lib/pmd-java-xxx.jar，里面的rulesets/java下就保存了所有的自带rule，学习这些rule，也可以更好的帮助自定义规则的设计。
