@@ -31,12 +31,31 @@ PMD和Find-bugs是Java里最常用的两个静态检查工具，前者基于源�
 
 ## 自定义规则
 
+PMD可以通过Java或Xpath自定义规则，Xpath很方便灵活，上面例子中就引用了一个自定义规则pmd-rules.xml
+
 ```
+<?xml version="1.0"?>
+<ruleset name="MyRules">
+<rule name="RestApiThrowException" message="REST API should not throw exception" class="net.sourceforge.pmd.lang.rule.XPathRule" language="java">
+	<properties>
+		<property name="xpath">
+			<value><![CDATA[
+//MethodDeclaration[../Annotation//Name[@Image='Path' or @Image='GET' or @Image='POST']]/NameList
+			]]></value>
+		</property>
+	</properties>
+</rule>
+</ruleset>
 ```
 
 ## 设计规则
 
-PMD可以通过Java或Xpath自定义规则，Xpath很方便灵活，通常过程如下:
+定义一个XPath规则是一个反复调整的过程，通常借助于PMD Designer来做:
 
+* 下载标准PMD版本（含PMD Designer)
 * 使用PMD Designer分析源码，得到AST
 * 验证自己的XPath规则
+
+## 参考规则
+
+* https://github.com/luchenyao/the_1st/tree/master/rules
