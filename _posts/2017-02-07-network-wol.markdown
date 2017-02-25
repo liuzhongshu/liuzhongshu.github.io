@@ -14,6 +14,8 @@ typora-copy-images-to: ..\public\images\2017
 
 ![](../public/images/2017/lan-wol-1.png)
 
+有意思的是，下面一个选项“唤醒功能”可以设置多种唤醒方式，缺省的方式会导致很多误唤醒，甚至关机后自动唤醒，我将这个选项设置为“幻数据包”就解决了。
+
 * 网卡的电源管理
 
 ![](../public/images/2017/lan-wol-2.png)
