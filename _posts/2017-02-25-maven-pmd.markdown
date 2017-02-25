@@ -1,0 +1,33 @@
+---
+published: true
+title: Maven集成PMD
+layout: post
+typora-copy-images-to: ..\public\images\2017
+---
+
+
+PMD和Find-bugs是Java里最常用的两个静态检查工具，前者基于源码，后者基于字节码，两个都用效果不过，先说说PMD。
+
+## Maven集成
+
+虽然PMD很强大，可是文档写的非常糟糕，我试了很久，其实就是为了下面一段代码
+
+```
+<plugin>
+   <groupId>org.apache.maven.plugins</groupId>
+   <artifactId>maven-pmd-plugin</artifactId>
+   <configuration>
+   	 <excludes>
+      	<exclude>**/com/xxx/**/*.java</exclude>
+       	<exclude>**/org/**/*.java</exclude>
+      </excludes>
+			<rulesets>
+				<ruleset>/rulesets/java/strictexception.xml</ruleset>
+				<ruleset>${basedir}/pmd-rules.xml</ruleset>
+			</rulesets>                    
+    </configuration>
+</plugin>
+```            
+
+## 自定义规则
+PMD通过Xpath自定义规则很灵活。
