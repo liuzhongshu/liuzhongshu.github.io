@@ -30,4 +30,13 @@ PMD和Find-bugs是Java里最常用的两个静态检查工具，前者基于源�
 ```            
 
 ## 自定义规则
-PMD通过Xpath自定义规则很灵活。
+
+```
+```
+
+## 设计规则
+
+PMD可以通过Java或Xpath自定义规则，Xpath很方便灵活，通常过程如下:
+
+* 使用PMD Designer分析源码，得到AST
+* 验证自己的XPath规则
