@@ -85,3 +85,7 @@ export BROWSER=w3m
 ```
 screen -T xterm
 ```
+
+## NCDU
+
+控制台下没有好用的文件管理器，有时管理文件就比较麻烦，还好有一个神器 NCDU，可以用 apt-get 安装，然后执行 ncdu / 就知道有多好用了。
