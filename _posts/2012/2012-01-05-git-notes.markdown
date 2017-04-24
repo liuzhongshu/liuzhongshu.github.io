@@ -38,3 +38,5 @@ git diff HEAD~2
 添加远程服务器```git remote add origin url```
 
 ## 其它
+
+在使用github时每次都输入密码是很麻烦的事，可以设置```git config credential.helper store```之后就可以缓存账号密码了。
