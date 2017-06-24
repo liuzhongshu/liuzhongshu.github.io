@@ -56,6 +56,8 @@ adb connect 192.168.xx.xx
 
 如果找不到adb，先进入sdk下的platfrom-tools这个目录再执行。这样手机上会弹出提示，确认之后，就可以通过wifi调试真机了。
 
+运行的时候如果出This version of android studio is incompatible with the gradle version used.Try disabling the instant run，可以在 Settings/Preferences > Build, Execution, Deployment option > Instant Run 下面禁用Instance run所有选项即可。
+
 ## Cordova/Ionic
 
 如果使用Cordova或者Ionic创建工程，先安装node，安装之后设置一下npm，在用户目录下创建.npmrc，增加下面的一行，以加快npm的速度。
