@@ -80,3 +80,24 @@ cordova platform add android
 ```
 
 之后，可以尝试`cordova build android`，但是又可能卡死，因为又去下载东西了，参考上面的修改gradle-wrapper.proerties，重新用Android Studio应该可以打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。
+
+## cordova 插件
+可以为cordova项目安装插件
+
+```
+cordova plugin add https://github.com/don/cordova-plugin-hello.git
+```
+
+这样的话，plugins目录下就会多出通过git下载的插件了，后面build的话，插件会自动生效，如果增加比较多的插件，而这些插件又不上版本库的话，需要在config.xml里把插件记录下来，所以上面的命令可以加--save自动记录，或者可以使用
+
+```
+cordova plugin save
+```
+
+一次性统一记录到config.xml，下次从版本库checkout出来之后，需要用
+
+```
+cordova prepare
+```
+
+来重新下载这些插件。
