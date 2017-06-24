@@ -33,7 +33,14 @@ allprojects {
 distributionUrl=https\://services.gradle.org/distributions/gradle-2.14.1-all.zip
 ```
 
-也就是说，所有的项目都要修改这个proerties文件，确保用同一个gradle版本，以免去下载，理论上这样可能有些问题（万一gradle不兼容），但实际上我没遇到问题。
+也就是说，所有的项目都要修改这个proerties文件，确保用同一个gradle版本，以免去下载，理论上这样可能有些问题（万一gradle不兼容），所以另一个解决下载gradle卡死的方法是先让他卡，然后杀掉Android Studio，再去 [这里](http://services.gradle.org/distributions/) 下载对应的版本，然后放到
+
+```
+C:\Users\用户名\.gradle\wrapper\dists\gradle-xxx-all\sdfdfa4w5fzrksdfaweeut
+```
+
+后面这串乱码是Android Studio在打开工程时自动建出来的，所以要让他先卡一下，把这个目录建出来（有点奇葩的设计），然后就可以放进去了。
+
 
 ## 模拟器
 
