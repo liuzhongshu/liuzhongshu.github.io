@@ -48,13 +48,19 @@ C:\Users\用户名\.gradle\wrapper\dists\gradle-xxx-all\sdfdfa4w5fzrksdfaweeut
 
 ## 真机调试
 
-真机调试需要在手机上开USB调试选项，然后用USB接到开发机上，安装驱动，就可以调试了，如果和我一样不喜欢安装驱动的话，可以使用无线调试，需要手机和开发机在同一局域网内，在Android Studio的命令行下输入
+真机调试需要在手机上开USB调试选项，然后用USB接到开发机上，安装驱动，就可以调试了，不过不是每个手机都容易安装驱动，有些手机非常不容易安装驱动，如果实在搞不定，参考[这个帖子](http://www.makeuseof.com/tag/android-wont-connect-windows-adb-fix-it-three-steps/) 一步一步安装应该可以成功。
+
+** 批评：小米手机就是非常不友好的典型，不推荐使用 **
+
+也可以使用无线调试，需要手机和开发机在同一局域网内，推荐在Android Studio下安装一个插件ADB Wifi, 
+
+然后在USB连上手机的情况下，选择 Tools/Android/ADB Wifi/ADB USB to Wifi，就建立了无线的ADB链接了，以后断开之后，需要在Android Studio的命令行下输入
 
 ```
 adb connect 192.168.xx.xx
 ```
 
-如果找不到adb，先进入sdk下的platfrom-tools这个目录再执行。这样手机上会弹出提示，确认之后，就可以通过wifi调试真机了。
+可以重新建立无线连接（再也不需要USB线了），如果找不到adb，先进入sdk下的platfrom-tools这个目录再执行。
 
 运行的时候如果出This version of android studio is incompatible with the gradle version used.Try disabling the instant run，可以在 Settings/Preferences > Build, Execution, Deployment option > Instant Run 下面禁用Instance run所有选项即可。
 
