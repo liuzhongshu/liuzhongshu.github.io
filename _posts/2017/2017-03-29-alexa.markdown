@@ -1,0 +1,39 @@
+---
+published: true
+title: Alexa
+layout: post
+---
+
+海淘了一个Amazon Dot。
+
+
+## 安装
+
+因为网络的原因，整个过程被官方的过程要复杂，需要一些`特别`的步骤：
+
+### 手机安装Alexa APP
+
+正常的步骤是下载不了这个Alexa APP的，需要通过代理。
+
+### 准备一个带Proxy的wifi
+
+我用Windows的网络共享，把带Proxy或VPN的有线网络，通过wifi共享，如果路由器上有proxy，就不需要这个复杂的步骤了。
+
+```
+netsh wlan set hostednetwork mode=allow ssid=laptop key=password
+netsh wlan start hostednetwork
+```
+然后在有线网卡上右键，通过上面创建的虚拟无线网卡共享，就可以了。
+
+不需要的时候，执行
+
+```
+netsh wlan stop hostednetwork
+netsh wlan set hostednetwork mode=disallow
+```
+
+### 初始化
+启动Alexa，按照提示去设置Dot，就可以了，如果提示register failed，通常就是因为wifi没有走proxy。时间长了之后，Dot退出了安装状态，可以常按Action键，重新进入安装状态重来一次。
+
+安装完后后，可以通过 setting里的update wifi恢复到没有代理的wifi。
+

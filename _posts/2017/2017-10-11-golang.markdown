@@ -1,0 +1,45 @@
+---
+published: true
+title: go语言
+layout: post
+---
+
+golang是当下最火的通用
+
+
+## 安装
+
+安装下载的exe安装包，就自动安装好go语言了。 
+
+go语言自带包管理器，所以下一步很重要，设置一个GOPATH环境变量，作为所有package的根，在go 1.8之后，这个变量有缺省值了，是%userdir%/go，但是通常还是设置一下比较好，比如：
+
+```
+GOPATH=d:\dev\go
+```
+
+## 调试器
+设置好GOPATH后，新启动一个命令行窗口，输入
+
+```
+go get github.com/derekparker/delve/cmd/dlv
+```
+安装go调试器，这是比较令人困惑的一点，为什么没有内置在语言的安装包里。
+
+## IDE
+
+以VSCode为例，直接安装运行, 然后点击扩展安装lukehoban的go插件，重启VSCode，这就好了，然后
+
+* 用打开目录的方式打开GOPATH这个目录
+* 新建文件，输入go代码，VSCode会提示安装一些go package，点击**安装全部**
+* 语法提示和调试应该都已经好了。
+
+
+## 代理
+
+众所周知的原因，某些库无法下载，需要先做以下设置（当然你得有这个8888的proxy）
+
+```
+set http_proxy=socks5://127.0.0.1:8888
+set https_proxy=socks5://127.0.0.1:8888
+```
+

@@ -1,0 +1,23 @@
+---
+published: true
+title: WebRTC
+layout: post
+---
+
+WebRTC允许通过浏览器建立音视频、数据的p2p链接，典型应用就是视频通话。
+
+
+## TURN
+
+* [安装方法](https://www.webrtc-experiment.com/docs/TURN-server-installation-guide.html)
+* [测试方法](https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/)
+
+## 信令
+
+* peerjs
+
+## cordova
+
+* 使用crosswalk以集成新的浏览器内核
+* `<uses-permission android:name="android.permission.CAMERA" />`
+* 使用非https信令，否则会出ERR_INSECURE_RESPONSE
