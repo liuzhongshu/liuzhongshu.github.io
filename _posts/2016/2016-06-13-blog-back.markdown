@@ -23,3 +23,5 @@ layout: post
 ## 2017更新
 
 最近发现Tinypress没法用了，只能重新使用github在线编辑或者本地编辑再上传的方式。经过这几年，Markdown编辑器有很大进步，有些本地编辑器（比如Typora）可以黏贴图片了，算是对本地编辑复杂步骤的补偿吧。
+
+现在我切换到Visual Studio Code了，加上一个好用的Paste Image插件，基本就全部ok了，和git也直接集成了。
