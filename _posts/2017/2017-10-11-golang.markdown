@@ -63,7 +63,7 @@ go build  -ldflags "-s -w"
 实际上这么大的主要原因在于fmt包（加上依赖）比较大，如果不使用fmt，大概可以降低到700k左右，这基本上是go的runtime的大小了。
 
 ## Go工具链
-Go工具链是一致受到推崇的，主要包括format、lint、vet等
+Go工具链是一致受到推崇的，主要包括format、lint、vet等。
 
 ## 说说go
 以Java背景来看，除了稍怪异的语法，还有一些地方Go和Java有明显不同，记录一下：
