@@ -31,8 +31,9 @@ go get github.com/derekparker/delve/cmd/dlv
 以VSCode为例，直接安装运行, 然后点击扩展安装lukehoban的go插件，重启VSCode，这就好了，然后
 
 * 用打开目录的方式打开GOPATH这个目录
-* 新建文件，输入go代码，VSCode会提示安装一些go package，点击**安装全部**
+* 新建文件，输入go代码，VSCode会提示安装一些go package，点击**安装全部**(关于代理，参考下面一节)
 * 语法提示和调试应该都已经好了。
+* 语法和编译错误，需要在保存之后调用go build，根据结果来提示错误，好在速度还比较快，如果很慢，可能以为在save的时候做了一些多余的操作，比如go vet，可以通过配置关闭这些多余的save操作。
 
 
 ## 代理
@@ -43,6 +44,7 @@ go get github.com/derekparker/delve/cmd/dlv
 set http_proxy=socks5://127.0.0.1:8888
 set https_proxy=socks5://127.0.0.1:8888
 ```
+在这种情况下，VSCdode中的提示，就不要直接安装，而是复制到命令行下通过代理就安装，当然如果你能设置好VSCode的代理，也就直接可以在VSCode中安装了。
 
 ## 包管理
 go自带了一个包管理，go get，但是没有版本管理，也就是存在一个基本的问题，就是所有的包依赖都没有版本，如果依赖包更新了，很可能导致编译失败，go官方认为版本管理比较复杂，所有把这个复杂问题回避了，并给出一个规避方法就是把依赖放入自己项目中。
@@ -60,6 +62,9 @@ go build  -ldflags "-s -w"
 
 实际上这么大的主要原因在于fmt包（加上依赖）比较大，如果不使用fmt，大概可以降低到700k左右，这基本上是go的runtime的大小了。
 
+## Go工具链
+Go工具链是一致受到推崇的，主要包括format、lint、vet等
+
 ## 说说go
 以Java背景来看，除了稍怪异的语法，还有一些地方Go和Java有明显不同，记录一下：
 
@@ -67,7 +72,7 @@ go build  -ldflags "-s -w"
 * Go的Map基本和Java比较接近
 * Go支持指针，类似C语言，这在Java里没有，Go的指针不支持加减运算，也不需要用->访问元素,相对简单一些。
 * Go的struct，结合method，部分具有class的封装功能，但是method的this缺省是传值的，需要声明为指针才能传引用。
-
+* Go的defer，虽然语义上有些类似Java的finally，但是
 
 Go的nil和Java的null虽然类似，但很多地方似乎设计的很不一致：
 - struct, array的初值不是nil，而是每个元素都为缺省值
