@@ -28,7 +28,7 @@ go get github.com/derekparker/delve/cmd/dlv
 
 ## IDE
 
-以VSCode为例，直接安装运行, 然后点击扩展安装lukehoban的go插件，重启VSCode，这就好了，然后
+支持Go的当前最好的IDE应该是VSCode和Jetbrain的Gogland，以VSCode为例，直接安装运行, 然后点击扩展安装lukehoban的go插件，重启VSCode，这就好了，然后还有一点操作和设置记录一下：
 
 * 用打开目录的方式打开GOPATH这个目录
 * 新建文件，输入go代码，VSCode会提示安装一些go package，点击**安装全部**(关于代理，参考下面一节)
