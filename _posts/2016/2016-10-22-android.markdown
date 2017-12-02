@@ -107,3 +107,21 @@ cordova prepare
 ```
 
 来重新下载这些插件。
+
+## logcat
+
+logcat用来看android日志，不过这个命令设计的不那么友好，常见的使用场景都要加很多参数，不琢磨一会，用起来比较麻烦，下面是两个例子：
+
+导出日志到文件(-v time是为了加时间，-d是为了导出后退出，否则他一直监听日志就退不出了)：
+
+```
+adb logcat -v time -d > logcat.txt 
+```
+
+要想过滤某个进程的日志，logcat并不支持，logcat只支持按tag（就是log命令的第一个参数）和level过滤，显然按tag过滤很多时候不合适，多个进程可能有同名的tag，所以只能再加grep来按pid过滤，用 adb shell ps，找到进程pid，再用下面的命令来过滤：
+
+```
+adb logcat -v time | grep pid
+```
+
+这样的话，windows下只能用findstr了，总之logcat的设计有点反人性。

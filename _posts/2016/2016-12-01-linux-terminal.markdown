@@ -86,6 +86,11 @@ export BROWSER=w3m
 screen -T xterm
 ```
 
-## NCDU
+## 文件管理
 
-控制台下没有好用的文件管理器，有时管理文件就比较麻烦，还好有一个神器 NCDU，可以用 apt-get 安装，然后执行 ncdu / 就知道有多好用了。
+控制台下没有好用的文件管理器，有时管理文件就比较麻烦，还好有几个工具可用
+
+* ncdu，可以用 apt-get 安装，然后执行 ncdu / 就知道有多好用了，类似windows下的treesize
+* ranger 如果想浏览文件，这个还不错，按i可以预览文本文件
+
+
