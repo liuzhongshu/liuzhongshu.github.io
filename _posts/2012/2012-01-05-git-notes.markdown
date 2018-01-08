@@ -37,6 +37,23 @@ git diff HEAD~2
 
 添加远程服务器```git remote add origin url```
 
+## 初始化远程仓库
+这是很常见的操作，比如在github上已经创建了一个仓库，要将本地的目录上传上去，如果本地目录还不是库，先做以下操作
+
+```
+cd <localdir>
+git init
+编辑好.gitignore文件
+git add .
+git commit -m 'message'
+```
+
+然后将远端地址加上，并同步：
+```
+git remote add origin <url>
+git push -u origin master
+```
+
 ## 其它
 
 在使用github时每次都输入密码是很麻烦的事，可以设置```git config credential.helper store```之后就可以缓存账号密码了。

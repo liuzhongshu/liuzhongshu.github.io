@@ -10,7 +10,7 @@ layout: post
 - 虚拟机内存要尽量大，CPU核数尽量多，VideoRam设置到最大（128M）
 - 取消软驱，芯片组使用PIIX3
 
-然后需要**关闭VirtualBox**, 修改以下参数：
+然后需要**关闭VirtualBox**, 并修改以下参数：
 
 ```
 cd "C:\Program Files\Oracle\VirtualBox\"
@@ -46,3 +46,12 @@ VBoxManage setextradata "OSX10.11" "VBoxInternal/Devices/smc/0/Config/GetKeyFrom
 ## 真机连接
 
 使用真机调试的前提是USB可以通，连接iOS设备后，可以在设备 》 USB 》 设置USB里配置过滤器选中iOS设备即可，很好用。
+
+如果使用xcode连接真机总是发生Lost Connection，需要做以下操作：
+* 下载VirtualBox的Extension pack
+* 在VirualBox的设置中安装下载的Extension pack
+* 在虚拟机设置中，USB设置从1.0改为2.0
+
+## AD-HOC分发
+
+为了测试，有时需要注册一些ios设备udid到开发者账号中，生成证书编译后，就可以在这些设备上测试，叫做AD-HOC分发，但是如果想通过网络安装(OTA)，参考[这里](https://stackoverflow.com/questions/23561370/download-and-install-an-ipa-from-url-on-ios), 整个过程还是比较复杂的，但有一个[网站](https://www.diawi.com/)可以大幅简化这个步骤。

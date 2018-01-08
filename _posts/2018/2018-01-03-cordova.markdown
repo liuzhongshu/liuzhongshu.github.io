@@ -1,0 +1,61 @@
+---
+published: true
+title: Cordova
+layout: post
+---
+
+和React Native类似，Cordova是跨平台应用开发的三驾马车之一。
+
+## HelloWorld
+
+先安装node，安装之后设置一下npm，在用户目录下创建.npmrc，增加下面的一行，以加快npm的速度。
+
+```
+registry =http://registry.npm.taobao.org
+```
+
+再安装和创建cordova/ionic工程就会快些了
+
+```
+npm install cordova -g
+cordova create hello
+cd hello
+cordova platform add android
+cordova run android
+```
+
+run的过程中又可能卡死，因为又去下载东西了，参考android一文中修改gradle-wrapper.proerties，也可以尝试用Android Studio去打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。如果不想直接运行，可以用`cordova build android`来编译出apk。
+
+
+## 使用Node模块
+
+在Cordova工程中使用node模块并不简单，npm install之后，模块被安装到根下面的node\_modules下, 需要手工复制到www下，否则无法引用，另一个问题是大部分nodejs module是服务器端模块，并不能直接用在cordova下使用，和在浏览器里无法使用node模块一个道理。
+
+一个简单的方法是通过[wzrd.in](https://wzrd.in/)转换出来，wzrd.in实际上就是通过Browserify来做到的，但无需手工安装Browserify和执行命令行了，并且wzrd.in提供了CDN服务，让你可以直接在html中引用而无需提前下载转换后的文件。
+
+
+## cordova 插件
+可以为cordova项目安装插件
+
+```
+cordova plugin add https://github.com/don/cordova-plugin-hello.git
+```
+
+这样的话，plugins目录下就会多出通过git下载的插件了，后面build的话，插件会自动生效，如果增加比较多的插件，而这些插件又不上版本库的话，需要在config.xml里把插件记录下来，所以上面的命令可以加--save自动记录，或者可以使用
+
+```
+cordova plugin save
+```
+
+一次性统一记录到config.xml，下次从版本库checkout出来之后，需要用
+
+```
+cordova prepare
+```
+
+来重新下载这些插件, 还有几个常用的命令：
+
+* cordova plugin list 列举当前项目的插件
+* cordova plugin rm xxx 删除某个插件
+
+## 多线程

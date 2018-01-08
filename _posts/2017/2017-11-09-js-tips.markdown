@@ -1,0 +1,38 @@
+---
+published: true
+title: js tips
+layout: post
+---
+
+import @ 这是webpack的一个alias，用来代替src目录
+
+## Framework7
+移动端UI框架 
+
+## Quasar
+
+桌面、移动自适应UI框架，[演示页面](quasar-framework.org/)看起来很不错，下面是Getting Started的精简版本：
+
+```bash
+#列出可以用的模板，不是必须的步骤
+quasar list
+#default是模板名
+quasar init default helloworld
+cd helloworld
+npm install
+#运行dev server
+quasar dev
+```
+
+其他有用的命令：
+* quasar build 构建product版本
+* quasar serve  运行一个静态http服务，其实和quasar无关，但是用起来比较方便，如果之前有build，这个命令自动serve dist这个目录
+* quasar new template name 基于模板生成一个名称为name的组件
+
+
+缺点：
+* 对浏览器的要求IE11+，并且对IE11需要特别的[修正](http://quasar-framework.org/guide/browser-support.html)
+
+
+## bulma
+足够轻量

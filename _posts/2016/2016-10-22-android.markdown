@@ -52,6 +52,10 @@ C:\Users\用户名\.gradle\wrapper\dists\gradle-xxx-all\sdfdfa4w5fzrksdfaweeut
 
 ** 批评：小米手机就是非常不友好的典型，不推荐使用 **
 
+有的时候，换个手机还是不能识别，可以从设备管理器里手动安装驱动，选择上面安装好的驱动程序，就可以了，参考下图：
+
+![](../../public/images/2017-12-02-15-49-37.png)
+
 也可以使用无线调试，需要手机和开发机在同一局域网内，推荐在Android Studio下安装一个插件ADB Wifi, 
 
 然后在USB连上手机的情况下，选择 Tools/Android/ADB Wifi/ADB USB to Wifi，就建立了无线的ADB链接了，以后断开之后，需要在Android Studio的命令行下输入
@@ -63,50 +67,6 @@ adb connect 192.168.xx.xx
 可以重新建立无线连接（再也不需要USB线了），如果找不到adb，先进入sdk下的platfrom-tools这个目录再执行。
 
 运行的时候如果出This version of android studio is incompatible with the gradle version used.Try disabling the instant run，可以在 Settings/Preferences > Build, Execution, Deployment option > Instant Run 下面禁用Instance run所有选项即可。
-
-## Cordova/Ionic
-
-如果使用Cordova或者Ionic创建工程，先安装node，安装之后设置一下npm，在用户目录下创建.npmrc，增加下面的一行，以加快npm的速度。
-
-```
-registry =http://registry.npm.taobao.org
-```
-
-再安装和创建cordova/ionic工程就会快些了
-
-```
-npm install ionic cordova -g
-ionic start demo tabs --verbose
-```
-
-start项目这个过程中，会多次下载一些依赖，国情决定了可能会失败，也可能会成功，取决与运气（所以我加了--verbose可以看的更清楚一些）。如果成功，就可以下一步了：
-
-```
-cordova platform add android
-```
-
-之后，可以尝试`cordova build android`，但是又可能卡死，因为又去下载东西了，参考上面的修改gradle-wrapper.proerties，重新用Android Studio应该可以打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。
-
-## cordova 插件
-可以为cordova项目安装插件
-
-```
-cordova plugin add https://github.com/don/cordova-plugin-hello.git
-```
-
-这样的话，plugins目录下就会多出通过git下载的插件了，后面build的话，插件会自动生效，如果增加比较多的插件，而这些插件又不上版本库的话，需要在config.xml里把插件记录下来，所以上面的命令可以加--save自动记录，或者可以使用
-
-```
-cordova plugin save
-```
-
-一次性统一记录到config.xml，下次从版本库checkout出来之后，需要用
-
-```
-cordova prepare
-```
-
-来重新下载这些插件。
 
 ## logcat
 
@@ -124,4 +84,8 @@ adb logcat -v time -d > logcat.txt
 adb logcat -v time | grep pid
 ```
 
-这样的话，windows下只能用findstr了，总之logcat的设计有点反人性。
+这样的话，windows下只能用findstr了，另一个常见的问题是，logcat的内容太多了，有时候某些进程不停的写log，导致log很快满了而冲掉有用的log，但是android没有提供一个方法可以禁止某个进程记录log（除了杀死进程），有的时候（定位一些偶发问题）很不方便。
+
+总之logcat的设计有点反人性。
+
+如果设备不再手边，或没有条件使用USB线，可以在设备上安装一个[catlog](https://play.google.com/store/apps/details?id=com.nolanlawson.logcat&hl=en)工具，可以直接显示或保存日志，挺好用，但是这个工具需要root权限。
