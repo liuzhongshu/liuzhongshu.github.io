@@ -1,0 +1,59 @@
+---
+published: true
+title: js ui
+layout: post
+---
+
+
+## Framework7
+移动端UI框架，提供Mat和iOS两个样式，对iOS原生的模拟达到了非常逼真的模拟。 
+
+## Quasar
+
+桌面、移动自适应UI框架，[演示页面](quasar-framework.org/)看起来很不错，文档写的很好。下面是Getting Started的精简版本：
+
+```bash
+#列出可以用的模板，不是必须的步骤
+quasar list
+#default是模板名
+quasar init default helloworld
+cd helloworld
+npm install
+#运行dev server
+quasar dev
+```
+
+上面用的default模板基本上基于VUE的webpack模板，所以可以参考vue的资料，quasar dev具备hot reload特性。
+
+
+### cordova
+quasar最有特色的特性是对移动端的支持，通过wrap命令完成，比如增加cordova支持，可以
+
+```
+quasar wrap cordova
+```
+
+这样会在目录下建一个cordova子目录，cordova下是一个标准cordova工程，但通过符号链接把www目录链接到quasar的dist目录，但是wrap的时候在我的机器上符号连接建不起来，报一个Permission错误，这里有[调整权限](https://superuser.com/questions/104845/permission-to-make-symbolic-links-in-windows-7)的解决方法，不过我还是不能成功，只能手工用管理员模式启动命令行，删除cordova目录，再执行一遍quasar wrap cordova就好了。
+
+之所以把dist目录而不是src目录链接过去，是因为src目录未经过webpack是不能直接在webview中运行的, 使用dist带来了手机调试的困难，每次修改代码，quasar build，然后再重新cordova run都是比较漫长的过程。官方的一个推荐方法是修改cordova的配置文件，把其中`<content src="index.html" />`替换为quasar dev服务的地址，比如`<content src="http://192.168.1.1:8080" />`，这样构建出来的应用实际上是一个指向开发机的空壳，同时也可以做hot reload了, cordova插件也可以访问，一举多得。
+
+### quasar play
+cordova建好之后，可以通过标准的cordova工具链就进行移动端编译、运行，也可以通过quasar play这个工具去做，quasar play非常类似React Native使用的Expo，好处自然是支持部署方便，且支持hot reload，但目前不能支持cordova plugin功能，官方文档是这样写的：
+
+```
+While playing with your App in Quasar Play, Cordova functionality will currently not be available. This is due to Cordova Javascript code causing a crash in its Java container.
+```
+
+
+其他有用的命令：
+* quasar build 构建product版本
+* quasar serve  运行一个静态http服务，其实和quasar无关，但是用起来比较方便，如果之前有build，这个命令自动serve dist这个目录
+* quasar new template name 基于模板生成一个名称为name的组件
+
+
+缺点：
+* 对浏览器的要求IE11+，并且对IE11需要特别的[修正](http://quasar-framework.org/guide/browser-support.html)
+
+
+## bulma
+足够轻量

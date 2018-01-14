@@ -89,3 +89,7 @@ adb logcat -v time | grep pid
 总之logcat的设计有点反人性。
 
 如果设备不再手边，或没有条件使用USB线，可以在设备上安装一个[catlog](https://play.google.com/store/apps/details?id=com.nolanlawson.logcat&hl=en)工具，可以直接显示或保存日志，挺好用，但是这个工具需要root权限。
+
+## 开发与亮屏
+
+开发调试时，通常需要不停查看屏幕，默认的安卓设置会导致一会就熄屏了，虽然可以修改设置来禁止熄屏，但是改来改去还是蛮麻烦的，简单的方法当然是安装一个软件，这里软件很多，我用的是Stay Alive，还不错。

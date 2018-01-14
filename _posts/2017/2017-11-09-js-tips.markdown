@@ -6,33 +6,40 @@ layout: post
 
 import @ 这是webpack的一个alias，用来代替src目录
 
-## Framework7
-移动端UI框架 
+## vue
 
-## Quasar
+vue的目录结构建议(使用vue-router和vuex)：
 
-桌面、移动自适应UI框架，[演示页面](quasar-framework.org/)看起来很不错，下面是Getting Started的精简版本：
-
-```bash
-#列出可以用的模板，不是必须的步骤
-quasar list
-#default是模板名
-quasar init default helloworld
-cd helloworld
-npm install
-#运行dev server
-quasar dev
+```
+app/
+    modelA/
+        components/
+            xxx.vue
+        vuex/
+            xxx.js
+            index.js
+            mutations.js
+        index.js
+        routes.js
+    App.vue
+    index.js
+    routes.js
+    vuex.js
+assets/
+router/index.js
+vuex/index.js
+components/     (共享的模块)
+main.js
+index.html
 ```
 
-其他有用的命令：
-* quasar build 构建product版本
-* quasar serve  运行一个静态http服务，其实和quasar无关，但是用起来比较方便，如果之前有build，这个命令自动serve dist这个目录
-* quasar new template name 基于模板生成一个名称为name的组件
+export大多通过index.js方式，写法是这样：
+```
+export { default as AAA } from './AAA';
+export { default as BBB } from './BBB';
+```
+这样的好处是在import时可以比较简洁，参考[这里](https://stackoverflow.com/questions/29722270/import-modules-from-files-in-directory)。
 
+##router
 
-缺点：
-* 对浏览器的要求IE11+，并且对IE11需要特别的[修正](http://quasar-framework.org/guide/browser-support.html)
-
-
-## bulma
-足够轻量
+route也可以按照模块拼装到一起，这样每个模块的目录都有自己的router，代码的分割和维护更好一些。router的一个重要的需要考虑的地方是history，如果不加任何控制，每次通过<router-Link>的跳转都会在history中加一条，这在手机端做为app是不合适的，比如几个平行tab，切换几次Tab，然后按手机的back，就会不停的逆向切换Tab，这多半不是用户想要的（应该直接退出），解决方法就是在route-link中加replace来控制history不增长。
