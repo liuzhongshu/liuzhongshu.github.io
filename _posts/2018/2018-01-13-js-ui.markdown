@@ -25,9 +25,43 @@ quasar dev
 
 上面用的default模板基本上基于VUE的webpack模板，所以可以参考vue的资料，quasar dev具备hot reload特性。
 
+### quasar layout
+quasar layout(QLayout)很有特色，支持了一个自定义的九宫格，可以对整体的布局通过九个字符做自定义，参考下图：
+
+![](../../public/images/2018-01-16-10-23-34.png)
+
+四个角落的h/f可以控制header、footer是否延伸到左右，上下的大写的H/F控制header、footer是否绝对定位，左右的L/R则控制左右的侧栏（left和right）是否独立滚动，所有的组合起来，还是蛮灵活的，这里有[测试页面](http://quasar-framework.org/quasar-play/android/index.html#/showcase/layout/play-with-layout)
+
+QLayout下面的slot除了上面header、footer、left、right还可以有navigation，这样组合起来的话，大部分常规的ui布局都可以做到了，下面是一个例子：
+```
+<q-layout ref="layout" view="lHh Lpr fff">
+    <q-toolbar slot="header" class="glossy">
+      <q-btn flat @click="$refs.layout.toggleLeft()">
+        <q-icon name="menu" />
+      </q-btn>
+      <q-toolbar-title>
+        <div slot="subtitle"></div>
+      </q-toolbar-title>
+    </q-toolbar>
+
+    <div slot="left">
+      <q-list >
+        <q-list-header>xxx</q-list-header>
+        <!-- replace告诉vueroute替换当前路由，而不是push，这样回退按钮不会退回上级 -->
+        <q-side-link item to="/practice" replace>
+          <q-item-side icon="music note" />
+          <q-item-main label="yyy" sublabel="zzz" />
+        </q-side-link>
+      </q-list>
+    </div>
+    <router-view />
+  </q-layout>
+  ```
+
+上面的ref是vue的一个属性，用于在下面的q-btn中可以访问，参考[这里](https://stackoverflow.com/questions/44063606/whats-the-real-purpose-of-ref-attribute)
 
 ### cordova
-quasar最有特色的特性是对移动端的支持，通过wrap命令完成，比如增加cordova支持，可以
+quasar对移动端也支持的，对移动端的支持通过wrap命令完成，比如增加cordova支持，可以
 
 ```
 quasar wrap cordova

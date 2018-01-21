@@ -59,3 +59,7 @@ cordova prepare
 * cordova plugin rm xxx 删除某个插件
 
 ## 多线程
+
+
+## 一些插件
+* 

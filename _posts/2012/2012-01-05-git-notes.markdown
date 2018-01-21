@@ -30,6 +30,8 @@ git remote add origin <url>
 git push -u origin master
 ```
 
+url通常有两种，一种是https格式，一种是ssh格式，ssh格式需要事先在服务器端配置好ssh key，好处是以后都不需要输入账号密码了。
+
 ## 本地操作
 
 - 添加所有修改，包括删除的文件```git add . -A```

@@ -3,7 +3,77 @@ published: true
 title: js tips
 layout: post
 ---
+## arrow function
+和普通function的一个巨大的差异是this，arrow function保留了this为定义时刻的this，所以在vue的组件method定义中基本上不能使用arrow function
 
+## VSCode
+VSCode如果按照ESLint插件，可以设置以下参数以打开vue文件支持和autoFix
+
+```
+"eslint.validate": [
+    "javascript",
+    {"language": "vue", "autoFix": true },
+    "javascriptreact"
+],
+"eslint.autoFixOnSave": true
+```
+
+## ES6 import/export
+
+命名方式：
+```
+//------ lib.js ------
+export const sqrt = Math.sqrt;
+export function square(x) {
+    return x * x;
+}
+export function diag(x, y) {
+    return sqrt(square(x) + square(y));
+}
+
+//------ main.js ------
+import { square, diag } from 'lib';
+console.log(square(11)); // 121
+console.log(diag(4, 3)); // 5
+或者
+import * as lib from 'lib';
+console.log(lib.square(11)); // 121
+console.log(lib.diag(4, 3)); // 5
+```
+
+default方式：
+```
+//------ myFunc.js ------
+export default function () { ... };
+
+//------ main1.js ------
+import myFunc from 'myFunc';
+myFunc();
+```
+
+混合方式：
+```
+//------ underscore.js ------
+export default function (obj) {
+    ...
+};
+export function each(obj, iterator, context) {
+    ...
+}
+export { each as forEach };
+
+//------ main.js ------
+import _, { each } from 'underscore';
+```
+
+和非ES6代码的对应关系
+```
+export { Tiger }        <=> module.exports.Tiger = Tiger
+module.exports = Tiger  <=> export default Tiger
+
+```
+
+## webpack
 import @ 这是webpack的一个alias，用来代替src目录
 
 ## vue
@@ -40,6 +110,6 @@ export { default as BBB } from './BBB';
 ```
 这样的好处是在import时可以比较简洁，参考[这里](https://stackoverflow.com/questions/29722270/import-modules-from-files-in-directory)。
 
-##router
+### router
 
 route也可以按照模块拼装到一起，这样每个模块的目录都有自己的router，代码的分割和维护更好一些。router的一个重要的需要考虑的地方是history，如果不加任何控制，每次通过<router-Link>的跳转都会在history中加一条，这在手机端做为app是不合适的，比如几个平行tab，切换几次Tab，然后按手机的back，就会不停的逆向切换Tab，这多半不是用户想要的（应该直接退出），解决方法就是在route-link中加replace来控制history不增长。
