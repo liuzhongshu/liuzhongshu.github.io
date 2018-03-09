@@ -77,9 +77,23 @@ cordova建好之后，可以通过标准的cordova工具链就进行移动端编
 ```
 While playing with your App in Quasar Play, Cordova functionality will currently not be available. This is due to Cordova Javascript code causing a crash in its Java container.
 ```
+所以quasar play其实没什么用，不如直接使用上面的替换content src的方法，更方便快捷。
 
+### 轻量化
 
-其他有用的命令：
+缺省的quasar mat模板带了google roboto字体（ios模板不带），这个会被webpack build到dist，占用200k空间，如果不想用这个字体，直接在main.js里注释掉
+```
+if (__THEME === 'mat') {
+  require('quasar-extras/roboto-font')
+}
+```
+就可以了。类似的，如果不需要Material Icon(50k)，可以注释
+```
+import 'quasar-extras/material-icons
+```
+
+### 其他
+
 * quasar build 构建product版本
 * quasar serve  运行一个静态http服务，其实和quasar无关，但是用起来比较方便，如果之前有build，这个命令自动serve dist这个目录
 * quasar new template name 基于模板生成一个名称为name的组件
@@ -87,7 +101,17 @@ While playing with your App in Quasar Play, Cordova functionality will currently
 
 缺点：
 * 对浏览器的要求IE11+，并且对IE11需要特别的[修正](http://quasar-framework.org/guide/browser-support.html)
-
+* 移动端缺乏一些流行的控件，比如可滑动的Tab页。
 
 ## bulma
-足够轻量
+足够轻量，但因为quasar也足够轻量，这个基本上没有什么优势了。
+
+## 和React Native比较
+
+| | ReactNative | Cordova
+- | :-: | -:
+HotReload | | 增加插件需要重新编译和下载debug版本
+控件 | 原生，速度快 | Web
+样式 | 比CSS好用 | CSS
+布局 | Flex | Flex，CSS BOX等
+桌面调试 | 不支持 | 支持
