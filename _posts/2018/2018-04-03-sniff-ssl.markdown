@@ -1,0 +1,11 @@
+---
+published: true
+title: Android HTTPS协议调试
+layout: post
+---
+
+## 工具
+* [Charles](https://www.charlesproxy.com/)
+
+## 限制
+官方的文档写Android N版本就不可行了，但我实测下来Android 7.0.1仍然可行，不知为什么。

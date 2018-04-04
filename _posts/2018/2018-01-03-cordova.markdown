@@ -58,8 +58,29 @@ cordova prepare
 * cordova plugin list 列举当前项目的插件
 * cordova plugin rm xxx 删除某个插件
 
+## 定时
+和web端一样，定时主要依靠setInterval和setTimeout两个API，但因为移动端app在熄屏之后会被系统挂起，因此永远不能依赖定时来计时。正确的方式是用Data.now()来计时，只用定时来刷新显示。
+
+## 手机状态栏
+Android上Material设计对状态栏的颜色修改有支持，并且也可以通过APP隐藏上面的状态栏，这些可以通过cordova-plugin-statusbar这个插件做到，比如：
+```
+if (cordova.platformId === 'android') {
+  window.StatusBar.backgroundColorByHexString('#027be3')
+}
+```
+
 ## 多线程
 
 
 ## 一些插件
-* 
+
+常用的几个插件
+* cordova-plugin-statusbar 控制手机状态栏
+* cordova-plugin-device 获取设备信息
+* cordova-plugin-app-version 获取APP的版本号
+* cordova-plugin-insomnia 防止app锁屏（某些应用交互少，阅读多）
+
+## 问题
+
+* cordova requirements 报错Android target: not installed, 并显示一些乱码
+这应该是一个bug，执行chcp 65001切换到UTF-8之后就不报错了，不过通常不需要管这个错，没什么影响。

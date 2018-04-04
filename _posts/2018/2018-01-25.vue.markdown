@@ -5,7 +5,9 @@ layout: post
 ---
 
 ## router
-router是必备的
+route的代码组织也可以按照模块拼装到一起，这样每个模块的目录都有自己的router，代码的分割和维护更好一些。
+
+router的一个重要的需要考虑的地方是history，如果不加任何控制，每次通过<router-Link>的跳转都会在history中加一条，这在手机端做为app是不合适的，比如几个平行tab，切换几次Tab，然后按手机的back，就会不停的逆向切换Tab，这多半不是用户想要的（应该直接退出），解决方法就是在route-link中加replace来控制history不增长。
 
 ## vuex
 状态管理vuex是可选的

@@ -3,6 +3,10 @@ published: true
 title: js tips
 layout: post
 ---
+
+## yarn 和 npm
+所有新项推荐使用yarn代替npm，最大的好处是对小版本的锁定。
+
 ## arrow function
 和普通function的一个巨大的差异是this，arrow function保留了this为定义时刻的this，所以在vue的组件method定义中基本上不能使用arrow function
 
@@ -16,6 +20,16 @@ VSCode如果按照ESLint插件，可以设置以下参数以打开vue文件支�
     "javascriptreact"
 ],
 "eslint.autoFixOnSave": true
+```
+
+如果不想在search的时候包括一些文件，可以在设置中加入exclude，比如：
+```
+"search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/build":true,
+    "**/dist":true
+  }
 ```
 
 ## ES6 import/export
@@ -110,6 +124,3 @@ export { default as BBB } from './BBB';
 ```
 这样的好处是在import时可以比较简洁，参考[这里](https://stackoverflow.com/questions/29722270/import-modules-from-files-in-directory)。
 
-### router
-
-route也可以按照模块拼装到一起，这样每个模块的目录都有自己的router，代码的分割和维护更好一些。router的一个重要的需要考虑的地方是history，如果不加任何控制，每次通过<router-Link>的跳转都会在history中加一条，这在手机端做为app是不合适的，比如几个平行tab，切换几次Tab，然后按手机的back，就会不停的逆向切换Tab，这多半不是用户想要的（应该直接退出），解决方法就是在route-link中加replace来控制history不增长。

@@ -74,8 +74,6 @@ console.disableYellowBox = true;
 * render() 
 * componentDidUpdate(object prevProps, object prevState)
 
-
-
 ### 属性Props
 ```
 class Greeting extends Component {
@@ -125,8 +123,7 @@ class Blink extends Component {
   }
 }
 ```
-注意: 状态在构造函数中可以直接赋值，除此之外，只能通过setState来修改，每次修改会自动触发控件的刷新。
-this.state may be accessed from within component methods. Unlike props, parent elements may not access a child's state, as it is intended to manage the child's internal state rather than external configuration.
+注意: 状态在构造函数中可以直接赋值，在method中可以读取this.state, 但只能通过setState来修改，每次修改会自动触发控件的刷新。如果不需要自动触发刷新，可以不通过state来管理状态，可以直接在this里创建新的变量。
 
 ### 样式
 类似CSS，但去除了CSS中‘难用’的Cascade带来的一些问题，RN中样式的一个常见用法是把样式定义为一个数组，在代码中引用不同的样式名就可以了，达到了Web上class的效果，比如：
@@ -179,9 +176,23 @@ const styles = StyleSheet.create({
 ```
 
 ### 布局
-主要的布局方式兼容Web的Flex布局，但比Web要好用,参考下面的文档：
+主要的布局方式兼容Web的Flex布局，但比Web要简单并且好用,参考下面的文档：
 
 * https://medium.freecodecamp.com/an-animated-guide-to-flexbox-d280cf6afc35
+
+简单的说，Flex容器的几个属性：
+* flex-direction 控制主轴方向，row为横排，column为竖排
+* flex-wrap 控制主轴方向溢出如何处理，缺省为滚动，wrap则折行
+* justify-content 控制主轴的布局，可选flex-start，flex-end，center，space-between，space-around
+* align-items 控制主轴垂直方面行内的布局，可选flex-start，flex-end，center，stretch，baseline （因为在垂直方向只有一个元素，所以没有space控制）
+* align-content 控制主轴垂直方面多行的布局，当然如果没有多行就不起作用了。
+
+Flex元算的属性：
+* flex-grow 
+* flex-shink
+* flex-basis
+* flex 由上面三个属性组合出来
+* align-self 对容器的align-items在子元素上的重载
 
 除了Flex，另一个常用的布局方法是使用Dimensions，参考下面：
 
@@ -198,21 +209,25 @@ const { width, height } = Dimensions.get('window')
 <StatusBar hidden />
 ```
 
-#### 应用名称和图标
+#### 应用名称、图标和版本
 相对于Cordova，RN对应用名称和图标几乎没有封装，修改起来非常不便，好在都有工具可以做到，下面是做法：
-
-* 修改应用名称
-```
-npm install react-native-rename -g
-react-native-rename <newName>
-```
 
 * 修改图标
 ```
 npm install -g yo generator-rn-toolbox
 yo rn-toolbox:assets --icon .\src\assets\icon.png
 ```
-注意修改图标需要预先安装image-magick
+注意修改图标需要预先安装image-magick，修改名称就比较麻烦了，简单的方法是删除android和ios目录后，重新react-native eject
+
+* 修改package名称
+
+```
+npm install react-native-rename -g
+react-native-rename "myapp" -b com.mycompany.myapp
+```
+*修改版本号
+
+只能手工修改，或者通过build.gradle文件自动化，参考[这里](https://stackoverflow.com/questions/35924721/how-to-update-version-number-of-react-native-app)
 
 ### 路由和导航
 和VUE一样，路由模块不属于核心模块，不过大部分RN项目使用了某个路由模块，其中最流行的为[React Navigation](https://reactnavigation.org)。它提供了最基础的StackNavigator模块，这个类似Web导航（Stack的概念），差别就是StackNavigator还提供了切换时的动画。
@@ -261,8 +276,16 @@ const RootStack = StackNavigator(
 RN内置两个列表控件，ListView和FlatList，建议使用新的FlatList，性能更好，并且将来应该会替代ListView
 
 ## 第三方组件
+除了RN自带的组件，还有一些重要的第三方组件：
 
-除了RN自带的组件，可以找到很多第三方组件库（类似Cordova下可以用Quasar等库），比如：
+### react-native-vector-icons
+* yarn add react-native-vector-icons
+* react-native link
+* 在android/app/build.gradle的dependencies下加入compile project(':react-native-vector-icons')
+
+还可以找到很多第三方组件库（类似Cordova下可以用Quasar等库），比如：
+* [react-native-elements]()
+* [nativeBase](https://nativebase.io/)
 * [react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view)
 * [rn-viewpager](https://github.com/zbtang/React-Native-ViewPager)
 
@@ -277,7 +300,7 @@ RN内置两个列表控件，ListView和FlatList，建议使用新的FlatList，
 总的来说RN的体系坑比较多，比Cordova环境难一些，从github上找一些RN的项目，大多在编译时都会遇到各种各样的问题，下面是一些我踩过的：
 
 ### 编译时 Could not delete path 'android\app\build\generated\source\r\release\android\support'
-不知道原因是什么，但是有时会出现这个问题，需要cd android && gradlew clean，再重新来过
+不知道原因是什么，但是有时会出现这个问题，通常重新编译就好了，实在不行，需要cd android && gradlew clean，再重新来过
 
 ### 编译时com.android.ddmlib.InstallException: Failed to install all
 我在一台android手机上遇到了这个问题，尝试下面几个方法：
@@ -286,10 +309,13 @@ RN内置两个列表控件，ListView和FlatList，建议使用新的FlatList，
 * 还不行，换一台手机
 
 ### 运行Android debug版本不覆盖手机老版本
-这个还没有特别好的解决方法，只能现在手机上卸载。
+这个还没有特别好的解决方法，只能先在手机上卸载，或者自己在构建脚本中加入adb uninstall命令。
 
 ### 运行时报错 set canOverrideExistingModule=true
-在MainApplication.java(android/app/src/main/java/../..)下找看看，去除getPackages函数下重复的MapsPackage和import。
+在MainApplication.java(android/app/src/main/java/../..)下找看看，去除getPackages函数下重复的MapsPackage和import，这应该是RN的bug，也许未来的版本会解决。
+
+### 运行Android debug版本一段时间后出现could not connect to development server
+packager的端口断了，解决方法是再次运行adb reverse tcp:8081 tcp:8081
 
 ### Debug版本打不开开发者菜单
 有些手机没有菜单键，可以通过下面几个方法尝试：

@@ -93,4 +93,6 @@ screen -T xterm
 * ncdu，可以用 apt-get 安装，然后执行 ncdu / 就知道有多好用了，类似windows下的treesize
 * ranger 如果想浏览文件，这个还不错，按i可以预览文本文件
 
+## 程序员
 
+Java程序员可以安装一个bsh，随时试用Java语法，非常方便。

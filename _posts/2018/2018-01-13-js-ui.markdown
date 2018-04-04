@@ -106,12 +106,3 @@ import 'quasar-extras/material-icons
 ## bulma
 足够轻量，但因为quasar也足够轻量，这个基本上没有什么优势了。
 
-## 和React Native比较
-
-| | ReactNative | Cordova
-- | :-: | -:
-HotReload | | 增加插件需要重新编译和下载debug版本
-控件 | 原生，速度快 | Web
-样式 | 比CSS好用 | CSS
-布局 | Flex | Flex，CSS BOX等
-桌面调试 | 不支持 | 支持
