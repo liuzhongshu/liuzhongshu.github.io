@@ -92,6 +92,10 @@ if (__THEME === 'mat') {
 import 'quasar-extras/material-icons
 ```
 
+### 兼容性
+
+quasar借助cordova实现了对android和iOS的支持，但是有一个坑，Material Icon在android 4的webview下不支持（大量图标显示不正常或错位），所以如果希望兼容Android 4，必须使用替代的图标，个人觉得ionicons非常不错，足以代替本来就不怎么好用的Material Icon。
+
 ### 其他
 
 * quasar build 构建product版本

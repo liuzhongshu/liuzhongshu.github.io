@@ -7,5 +7,21 @@ layout: post
 ## 工具
 * [Charles](https://www.charlesproxy.com/)
 
+方法如下：
+* PC上运行Charles，会自动启动基于8888端口的proxy，配置Charles，允许对ssl进行解析
+
+![](../../public/images/2018-04-04-16-56-25.png)
+
+这里的重点是Location里全部留空。
+
+* 在Android手机端配置wifi里的proxy，设置到PC的8888端口，这样流量会经过Charles。
+
+* 手机需要设置信任Charles的证书，通过Charles菜单上一个帮助选项去安装就可以了：
+
+![](../../public/images/2018-04-04-17-03-08.png)
+
+* 然后运行手机端软件就可以了，不过在我这里，我发现重启一下手机可能更保险一点。
+
 ## 限制
-官方的文档写Android N版本就不可行了，但我实测下来Android 7.0.1仍然可行，不知为什么。
+
+官方的文档写Android N版本即使安装证书也不允许被Proxy，但我实测下来Android 7.0.1仍然可行，不知为什么。

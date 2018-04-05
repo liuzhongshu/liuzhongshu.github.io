@@ -20,6 +20,9 @@ Cordova+Webpack对hot reload的支持非常非常好，几乎大部分的修改�
 
 在连接chrome调试时，Cordova项目和调试一个本地Web应用没什么差别，ReactNative也不错，但是不能调试界面元素（inspect），这点不如Cordova。
 
+## 权限
+
+因为Webview对权限的要求很低，所以一般使用Cordova开发，基本上要的权限也很少，在安装APP的时候比ReactNative看起来要好一些。
 
 ## 总结
 
