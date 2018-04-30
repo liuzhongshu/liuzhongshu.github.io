@@ -3,12 +3,20 @@ published: true
 title: js tips
 layout: post
 ---
+## lodash
+几乎所有的JS项目都应该使用lodash，类似Apache common在Java中地位一样。
 
 ## yarn 和 npm
-所有新项推荐使用yarn代替npm，最大的好处是对小版本的锁定。
+所有新项推荐使用yarn代替npm，最大的好处是对小版本的锁定，性能也好一些。
 
 ## arrow function
 和普通function的一个巨大的差异是this，arrow function保留了this为定义时刻的this，所以在vue的组件method定义中基本上不能使用arrow function
+
+## ESLint
+如果代码中引用全局变量被ESLint报错，比如Media，可以在相应文件开头上加下面的注释来临时禁止报错。
+```
+/* global Media */
+```
 
 ## VSCode
 VSCode如果按照ESLint插件，可以设置以下参数以打开vue文件支持和autoFix
@@ -16,11 +24,17 @@ VSCode如果按照ESLint插件，可以设置以下参数以打开vue文件支�
 ```
 "eslint.validate": [
     "javascript",
-    {"language": "vue", "autoFix": true },
+    {
+      "language": "vue", 
+      "autoFix": true 
+    },
     "javascriptreact"
 ],
-"eslint.autoFixOnSave": true
+"eslint.autoFixOnSave": true,
+"eslint.packageManager": "yarn",
+"vetur.validation.template": false
 ```
+上面最后一句是让vscode忽略一些\<template\>上的错误。
 
 如果不想在search的时候包括一些文件，可以在设置中加入exclude，比如：
 ```

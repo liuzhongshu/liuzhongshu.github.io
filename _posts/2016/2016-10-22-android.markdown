@@ -93,3 +93,12 @@ adb logcat -v time | grep pid
 ## 开发与亮屏
 
 开发调试时，通常需要不停查看屏幕，默认的安卓设置会导致一会就熄屏了，虽然可以修改设置来禁止熄屏，但是改来改去还是蛮麻烦的，简单的方法当然是安装一个软件，这里软件很多，我用的是Stay Alive，还不错。
+
+## 多语言
+如果开发多语言APP，想测试英文版本，需要修改测试手机的locale，可以安装小软件来做，比如MoreLocale 2，切换的时候，需要ROOT权限，或者也可以通过adb赋给权限，这样做：
+```
+adb shell pm grant jp.co.c_lis.ccl.morelocale android.permission.CHANGE_CONFIGURATION
+```
+修改后，app都不需要重启，权限即刻生效。
+
+应用程序想要支持多语，自然是要在应用里做，比如Vue可以用vue-i18n，但是如果想要应用程序的名称、权限根据语言来定，就需要在cordova上安装这个[插件](https://github.com/kelvinhokk/cordova-plugin-localization-strings),很好用。

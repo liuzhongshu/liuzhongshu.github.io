@@ -21,7 +21,7 @@ sudo apt-get update
 sudo apt-get install mosh
 ```
 
-服务器端安装好之后，客户端也同样安装一下，然后不需要启动任何服务，就可以和平时使用ssh一样使用了。Windows下也可以使用MobaXterm做客户端，自带mosh。
+服务器端安装好之后，客户端也同样安装一下，然后不需要启动任何服务，就可以和平时使用ssh一样使用了。Windows下也可以使用MobaXterm做客户端，自带mosh。mosh的额外的一个优点是断线（比如客户端关机）后，启动的进程不会被杀掉。
 
 ## w3m
 
@@ -78,7 +78,9 @@ export BROWSER=w3m
 * ctrl-a n：切换到下一个 session
 * ctrl-a p：切换到上一个 session
 * ctrl-a 0…9：同样是切换各个 session
-* ctrl-a d：退出 Screen
+* ctrl-a k：退出当前session，切换到下一个
+* ctrl-a d：退出 Screen(所有的session都还在)
+
 
 如果想在screen里也支持鼠标，需要启动screen时指定终端类型：
 

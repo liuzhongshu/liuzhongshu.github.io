@@ -60,6 +60,12 @@ QLayout下面的slot除了上面header、footer、left、right还可以有naviga
 
 上面的ref是vue的一个属性，用于在下面的q-btn中可以访问，参考[这里](https://stackoverflow.com/questions/44063606/whats-the-real-purpose-of-ref-attribute)
 
+### flex布局
+quasar对flex布局做了简单封装，其中最容易疑惑的三个class是对flex子元素的封装：
+* col-auto  相当于 flex 0 0 auto, 也就是固定元素
+* col 相当于 flex 1 ，也就是 flex 1 0 0， 就是自动扩展
+* col-N 相当于 flex 0 0 N/12%，就是传统的12格布局
+
 ### cordova
 quasar对移动端也支持的，对移动端的支持通过wrap命令完成，比如增加cordova支持，可以
 
@@ -79,6 +85,19 @@ While playing with your App in Quasar Play, Cordova functionality will currently
 ```
 所以quasar play其实没什么用，不如直接使用上面的替换content src的方法，更方便快捷。
 
+### 手势
+
+quasar支持三种手势Pan、Swipe、Hold。
+
+* Hold 在按下手指没有移动，并持续一段时间后触发，没有拿起手指之前只触发一次。并且在时间不足的时候，如果移动手指，即使后面持续按住，也不触发事件。
+* Swipe 在按下并移动，然后松开的时候触发一次，方向由总体的方向决定，只有上下左右四个方向，即使斜向移动，也只触发一个最接近的方向。
+* Pan 在按下并移动时连续触发。
+
+上面三种手势可以同时挂接在同一个DOM元素上，Quasar可以正确的按照上面的逻辑处理。
+
+### grid
+UI框架对grid(data table)的支持是至关重要的，遗憾的是quasar 0.14虽然自带了一个dataTable,但功能上不是很完善，基本复杂一些的表格很难完成，期待后续版本完善吧。
+
 ### 轻量化
 
 缺省的quasar mat模板带了google roboto字体（ios模板不带），这个会被webpack build到dist，占用200k空间，如果不想用这个字体，直接在main.js里注释掉
@@ -95,6 +114,10 @@ import 'quasar-extras/material-icons
 ### 兼容性
 
 quasar借助cordova实现了对android和iOS的支持，但是有一个坑，Material Icon在android 4的webview下不支持（大量图标显示不正常或错位），所以如果希望兼容Android 4，必须使用替代的图标，个人觉得ionicons非常不错，足以代替本来就不怎么好用的Material Icon。
+
+另一个需要考虑的兼容性是浏览器可能不支持Promise等特性（如IE，或低版本Android），通常可以[导入Polyfill](https://babeljs.io/docs/usage/polyfill/)来解决这个问题。
+
+quasar也有一些兼容性需要考虑，比如quasar 0.15需要node 8以上版本，所以如果不能使用node8，就需要使用quasar 0.14的版本了。
 
 ### 其他
 

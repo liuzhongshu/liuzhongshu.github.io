@@ -80,6 +80,12 @@ if (cordova.platformId === 'android') {
 * cordova-plugin-app-version 获取APP的版本号
 * cordova-plugin-insomnia 防止app锁屏（某些应用交互少，阅读多）
 
+## 工程
+cordova工程使用版本控制时，那些文件入库，哪些不入库，需要系统考虑，我的经验是：
+
+* plugins目录，因为插件变动的可能性大，另外插件重现安装时偶尔有时不可重复，所以建议入库
+* platforms和node_modules目录就不建议入库了，同时也保证了不要手工修改这两个目录。
+
 ## 问题
 
 * cordova requirements 报错Android target: not installed, 并显示一些乱码

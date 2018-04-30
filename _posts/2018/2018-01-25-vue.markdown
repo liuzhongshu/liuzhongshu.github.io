@@ -10,7 +10,53 @@ route的代码组织也可以按照模块拼装到一起，这样每个模块的
 router的一个重要的需要考虑的地方是history，如果不加任何控制，每次通过<router-Link>的跳转都会在history中加一条，这在手机端做为app是不合适的，比如几个平行tab，切换几次Tab，然后按手机的back，就会不停的逆向切换Tab，这多半不是用户想要的（应该直接退出），解决方法就是在route-link中加replace来控制history不增长。
 
 ## vuex
-状态管理vuex是可选的
+状态管理vuex是可选的,稍大的app都应该使用。一个常见场景是，多个page间切换、回退，如果每次都从服务器端加载数据，操作体验不好，所以要通过vuex把很多数据管理在全局store里，这样切换页面时，可以接近本地应用的体验。
+
+## 模板
+有时为了使用v-if，或v-for，但不用不想绑定到任何tag上，可以使用内置的template标签，这样用：
+
+```
+<template v-if="ok">
+  <h1>Title</h1>
+  <p>Paragraph 1</p>
+  <p>Paragraph 2</p>
+</template>
+```
+
+## 动态模板
+
+在很多时间需要从服务器端返回一段模板，插入当前页面，这是动态模板的应用，要做到支持动态模板，需要完整版本的vue（包括compiler），而不仅是runtime版本，在webpack配置中需要增加一个alias，类似
+
+```
+vue: 'vue/dist/vue.js'
+```
+
+然后在模板文件中，使用下面的方式来嵌入动态模板
+```
+<component :is="dynamicTemplate()" />
+```
+
+dynamicTemplate函数需要返回编译好的模块，类似：
+```
+return Vue.compile('<div>' + dynamicContent +'</div>')
+```
+
+之所以再套一个div，是因为Vue的模块需要单根。另一个需要注意的问题是，如果在动态模板内容中依赖一些组件，这些组件需要提前注册好，可以使用vue的全局模块注册。
+
+## css
+在vue的模块css部分，可以用scoped指定是否这个css全局生效。
 
 ## ajax
 ajax组件在vue2中不是缺省内置的，在这里有[解释](https://medium.com/the-vue-point/retiring-vue-resource-871a82880af4), 官方的推荐是[Axios](https://github.com/mzabriskie/axios)。
+
+### 通用处理
+使用axios很容易做通用处理，包括异常处理，比如
+```
+Vue.prototype.$http = Axios.create({
+  baseURL: 'http://xxx.com/api',
+  headers: {'token': 'abcdefg'}
+})
+Vue.prototype.$http.interceptors.response.use(
+  response => { return response },
+  error => { return error.response ? Promise.reject(error) : Toast.create.negative('网络出错了') })
+```
