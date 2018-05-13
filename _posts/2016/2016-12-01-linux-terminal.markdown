@@ -3,7 +3,7 @@ published: true
 title: Linux命令行
 layout: post
 ---
-Linux命令行(termial)可以做很多有趣的事情，以Ubuntu为例做个记录。
+Linux命令行(terminal)可以做很多有趣的事情，以Ubuntu为例做个记录。
 
 ## mosh
 

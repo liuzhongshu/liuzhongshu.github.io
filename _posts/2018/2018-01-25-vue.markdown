@@ -12,6 +12,10 @@ router的一个重要的需要考虑的地方是history，如果不加任何控�
 ## vuex
 状态管理vuex是可选的,稍大的app都应该使用。一个常见场景是，多个page间切换、回退，如果每次都从服务器端加载数据，操作体验不好，所以要通过vuex把很多数据管理在全局store里，这样切换页面时，可以接近本地应用的体验。
 
+vuex的核心是state，就是要管理的状态对象，同时封装了对state的两类操作mutation和action，可以把mutation理解为对state的同步修改，无关业务逻辑，action则是包含异步业务逻辑代码的，并且action并不直接修改state，而要通过mutation来修改（可以调用多次），这样整个封装就很清楚了。
+
+为什么mutation要同步修改state，因为mutation遵循vux的响应规则，可以触发view的自动修改，所以必须同步修改掉state，因此所有需要异步操作后再修改state的操作必须封装在action里，另一个原因是同步的修改才可以被跟踪维护。
+
 ## 模板
 有时为了使用v-if，或v-for，但不用不想绑定到任何tag上，可以使用内置的template标签，这样用：
 
@@ -22,6 +26,9 @@ router的一个重要的需要考虑的地方是history，如果不加任何控�
   <p>Paragraph 2</p>
 </template>
 ```
+## 转义
+* 一般变量替换的时候内容都会被转义，html格式不再保留，可以用v-html="var"来保留html格式。
+* 如果不希望vue处理一段标签，可以在上层标签加v-pre属性。
 
 ## 动态模板
 

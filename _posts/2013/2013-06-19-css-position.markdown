@@ -19,4 +19,9 @@ CSS规范中position的定义可以取四种值，并且又和其他属性，比
 
 但是注意absolute所相对的这个父元素必须不是static，通常就指定一下relative就好了，因为relative本身不改变元素的位置（前提是没有通过LRTB偏移），CSS这样设计的用意很容易理解，可以灵活的控制absolute元素想相对的元素，比如，想相对父的父，只要父为static，而父的父指定一下relative就可以了。
 
+LRTB四个元素是可以同时用的，同时用的时候，如果元素大小未定，则修改元素大小，如果元素大小已经确定，则bottom和right被忽略。
+
 # display
+
+* display: none 不显示，也不分配空间（相当于元素从页面上删除）
+* display: flex Flex布局

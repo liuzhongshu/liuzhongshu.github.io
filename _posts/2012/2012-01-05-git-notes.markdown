@@ -48,8 +48,21 @@ git reset --hard
 
 ```
 git diff 
-git diff HEAD^
+git diff HEAD~
 git diff HEAD~2
+```
+
+更高级一点的用法，调用外部工具比较一个特定版本(用hash)的修改：
+```
+git difftool c1ac~ c1ac
+```
+
+## 撤销
+和svn不一样，git里本地的commit，如果没有push，是可以撤销的，方法很简单，比如撤销最后三次修改
+
+```
+git reset --soft HEAD~3
+git commit -m 'comment'
 ```
 
 ## Rebase
@@ -58,6 +71,25 @@ git diff HEAD~2
 
 * [smartgit](http://www.syntevo.com/smartgit/) 还不错
 
+## diff和merge工具
+git可以配置调用外部diff工具，通常我习惯用beyond compare，可以在~/.gitconfig下增加以下配置
+
+```
+[diff]
+    tool = bc3
+[difftool]
+    prompt = false
+[difftool "bc3"]
+    cmd = \"c:/program files (x86)/beyond compare 3/bcomp.exe\" \"$LOCAL\" \"$REMOTE\"
+[merge]
+    tool = bc3
+[mergetool]
+    prompt = false
+    keepBackup = false
+[mergetool "bc3"]
+    cmd = \"c:/program files (x86)/beyond compare 3/bcomp.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+    trustExitCode = true
+```
 ## 其它
 
 在使用github时每次都输入密码是很麻烦的事，可以设置```git config credential.helper store```之后就可以缓存账号密码了。
