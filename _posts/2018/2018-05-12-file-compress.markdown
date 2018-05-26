@@ -17,9 +17,10 @@ ffmpeg -i input.mp3 -b:a 16k output.mp3
 
 我的测试结果，对于人声文件，我能结受的最低质量就是 -q:a 10和-b:a 16k，-q:a 10产生的平均比特率大约20k，所以要想得到最小的文件，我通常使用-b:a 16k，虽然-b:a 8k可以再减小一半大小，但质量已经明显不可接受了。最后给出ffmpge的[官网说明](https://trac.ffmpeg.org/wiki/Encode/MP3)。
 
-另一个常见的用来减小文件的手段是crop，就是指定头尾，使用ffmpeg也很简单，下面是从第10秒截取30秒的例子：
+另一个常见的用来减小文件的手段是crop，就是掐头去尾，使用ffmpeg也很简单，下面是从1分10秒点2截到1分30秒的例子：
 
 ```
-ffmpeg -i input.mp3 -ss 1:10.2 -t 1:30 -b:a 16k output.mp3
+ffmpeg -i input.mp3 -ss 1:10.2 -to 1:30 -b:a 16k output.mp3
 ```
 
+如果是截取一定长度，用-t替代-to就可以了。

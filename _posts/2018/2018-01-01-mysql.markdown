@@ -4,10 +4,22 @@ title: MySQL
 layout: post
 ---
 
-MySQL如果使用事务，常用Innodb引擎。
+## Join子表最新的一条
+
+一次查出父表和子表里的最新一条，两次Join，第一次INNER JOIN找出所有子，第二次LEFT JOIN，做了一个N平方展开，其中为空的那条就是最新的一条，搞定但效率不高。
+
+```
+ SELECT parent.*, t1.*
+  FROM parent
+  INNER JOIN child AS t1
+  ON (parent.id = child.parent_id)
+  LEFT JOIN child AS t2
+  ON (t1.parent_id = t2.parent_id and t1.datestamp < t2.datestamp)
+  WHERE t2.datestamp IS NULL
+```    
 
 ## 事务隔离
-Innodb的事务缺省隔离级别是REPEATABLE_READ，这个意思是可重复的读，也就是在事务中，任何读取操作都是可重复的，不会因为其他事务的提交而发生变化。同时还包括了几个其他意思：
+MySQL如果使用事务，常用Innodb引擎，Innodb的事务缺省隔离级别是REPEATABLE_READ，这个意思是可重复的读，也就是在事务中，任何读取操作都是可重复的，不会因为其他事务的提交而发生变化。同时还包括了几个其他意思：
 
 * 不会读取其他未提交事务的数据（脏数据）
 * 事务里的第一个读取语句会建立整个数据库的快照（snapshot），后续的读取都基于这个快照。

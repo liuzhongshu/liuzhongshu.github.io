@@ -1,0 +1,41 @@
+---
+published: true
+title: H2数据库
+layout: post
+---
+
+[H2]()数据库是我个人非常喜欢的一个数据库，简单好用，非常适合开发用，但因为并发性能差，不适用生产环境。
+
+
+## JDBC
+H2的Jdbc驱动很巧妙，可以双击运行，就会开启web服务，通过web服务可以连数据库，不过这个web的功能一般，一般性的浏览下还可以。
+
+## Tcp和Web服务
+
+在Java应用里，也可以手动开启Tcp服务和Web服务，端口号可以自定义
+
+```
+Server.createWebServer("-webPort", "8071", "-tcpAllowOthers").start();
+Server.createTcpServer("-tcpPort" ,"8073", "-tcpAllowOthers").start();
+```
+
+开启了tcp服务后，可以这样来连h2，tcp不会独占数据库，因此很适合服务器在运行的情况下，连接一个第三方的数据库工具。
+
+![](../../public/images/2018-05-20-10-16-03.png)
+
+
+## 导出和导入
+
+jdbc驱动里包括了导出和导入数据库的工具，可以直接在命令行用，这样：
+
+```
+java -classpath h2.jdbc.jar org.h2.tools.Script -url jdbc:h2:./dbname -user sa
+```
+
+这样会在当前目录下生成一个backup.sql文件，恢复的时候，这样
+
+```
+java -classpath h2.jdbc.jar org.h2.tools.RunScript -url jdbc:h2:./dbname -user sa
+```
+
+导出的sql文件包含有h2特有的格式，如果想把h2数据库迁移到别的数据库，就不要用这个了，可以用第三方工具来导出，比如dbeaver。

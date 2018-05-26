@@ -83,8 +83,20 @@ if (cordova.platformId === 'android') {
 ## 工程
 cordova工程使用版本控制时，那些文件入库，哪些不入库，需要系统考虑，我的经验是：
 
-* plugins目录，因为插件变动的可能性大，另外插件重现安装时偶尔有时不可重复，所以建议入库
-* platforms和node_modules目录就不建议入库了，同时也保证了不要手工修改这两个目录。
+* platforms、node_modules、plugins目录都不入库，同时也保证了不手工修改这几个目录。
+
+入库的问题在于，当clean项目的时候，重新安装platform，plugin可能和预留的文件冲突，导致编译不过。
+
+## 创建自己的插件
+
+* 从github上复制cordova-plugin-hello，作为基础
+* 使用plugman为新插件创建package.json
+
+这样就创建了一个最基本的插件，并可以通过cordova plugin add 去添加了（后面使用本地文件的相对路径，比如..\plugin-demo），插件在add的时候，根据plugin.xml里的指示，cordova会做一些事情，将一些代码和配置文件丢到android目录下，然后就可以编译了。
+
+但是，非常重要的一点是，插件add的时候所做的事情在一起build的时候是不会再做的，所以如果直接修改插件源码或plugin.xml，直接build是不会生效的，必须在android目录下修改插件生成的文件，这就给插件开发者带了一些不便，通常在android目录下调通插件所有功能后，再把相关文件和配置反向复制回插件源码中，这一步只能手工来做了。
+
+插件的调试离不开Native调试器了，Android的话就要用android studio，如果不用IDE的话，只用log也可以，相对比较痛苦。
 
 ## 问题
 

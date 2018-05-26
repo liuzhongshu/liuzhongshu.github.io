@@ -1,31 +1,27 @@
 ---
 published: true
-title: js ui
+title: Quasar框架
 layout: post
 ---
 
+## 简介
 
-## Framework7
-移动端UI框架，提供Mat和iOS两个样式，对iOS原生的模拟达到了非常逼真的模拟。 
-
-## Quasar
-
-桌面、移动自适应UI框架，[演示页面](quasar-framework.org/)看起来很不错，文档写的很好。下面是Getting Started的精简版本：
+Quasar是我用的最多的一个桌面、移动自适应UI框架，[演示页面](quasar-framework.org/)看起来很不错，文档写的很好。下面是Getting Started的精简版本：
 
 ```bash
 #列出可以用的模板，不是必须的步骤
 quasar list
-#default是模板名
-quasar init default helloworld
+#初始化一个项目，需要回答一些问题
+quasar init helloworld
 cd helloworld
-npm install
+yarn
 #运行dev server
 quasar dev
 ```
 
 上面用的default模板基本上基于VUE的webpack模板，所以可以参考vue的资料，quasar dev具备hot reload特性。
 
-### quasar layout
+## layout
 quasar layout(QLayout)很有特色，支持了一个自定义的九宫格，可以对整体的布局通过九个字符做自定义，参考下图：
 
 ![](../../public/images/2018-01-16-10-23-34.png)
@@ -60,13 +56,13 @@ QLayout下面的slot除了上面header、footer、left、right还可以有naviga
 
 上面的ref是vue的一个属性，用于在下面的q-btn中可以访问，参考[这里](https://stackoverflow.com/questions/44063606/whats-the-real-purpose-of-ref-attribute)
 
-### flex布局
+## flex布局
 quasar对flex布局做了简单封装，其中最容易疑惑的三个class是对flex子元素的封装：
 * col-auto  相当于 flex 0 0 auto, 也就是固定元素
 * col 相当于 flex 1 ，也就是 flex 1 0 0， 就是自动扩展
 * col-N 相当于 flex 0 0 N/12%，就是传统的12格布局
 
-### cordova
+## cordova
 quasar对移动端也支持的，对移动端的支持通过wrap命令完成，比如增加cordova支持，可以
 
 ```
@@ -77,7 +73,7 @@ quasar wrap cordova
 
 之所以把dist目录而不是src目录链接过去，是因为src目录未经过webpack是不能直接在webview中运行的, 使用dist带来了手机调试的困难，每次修改代码，quasar build，然后再重新cordova run都是比较漫长的过程。官方的一个推荐方法是修改cordova的配置文件，把其中`<content src="index.html" />`替换为quasar dev服务的地址，比如`<content src="http://192.168.1.1:8080" />`，这样构建出来的应用实际上是一个指向开发机的空壳，同时也可以做hot reload了, cordova插件也可以访问，一举多得。
 
-### quasar play
+## quasar play
 cordova建好之后，可以通过标准的cordova工具链就进行移动端编译、运行，也可以通过quasar play这个工具去做，quasar play非常类似React Native使用的Expo，好处自然是支持部署方便，且支持hot reload，但目前不能支持cordova plugin功能，官方文档是这样写的：
 
 ```
@@ -85,7 +81,7 @@ While playing with your App in Quasar Play, Cordova functionality will currently
 ```
 所以quasar play其实没什么用，不如直接使用上面的替换content src的方法，更方便快捷。
 
-### 手势
+## 手势
 
 quasar支持三种手势Pan、Swipe、Hold。
 
@@ -95,10 +91,10 @@ quasar支持三种手势Pan、Swipe、Hold。
 
 上面三种手势可以同时挂接在同一个DOM元素上，Quasar可以正确的按照上面的逻辑处理。
 
-### grid
+## grid
 UI框架对grid(data table)的支持是至关重要的，遗憾的是quasar 0.14虽然自带了一个dataTable,但功能上不是很完善，基本复杂一些的表格很难完成，期待后续版本完善吧。
 
-### 轻量化
+## 轻量化
 
 缺省的quasar mat模板带了google roboto字体（ios模板不带），这个会被webpack build到dist，占用200k空间，如果不想用这个字体，直接在main.js里注释掉
 ```
@@ -111,7 +107,7 @@ if (__THEME === 'mat') {
 import 'quasar-extras/material-icons
 ```
 
-### 兼容性
+## 兼容性
 
 quasar借助cordova实现了对android和iOS的支持，但是有一个坑，Material Icon在android 4的webview下不支持（大量图标显示不正常或错位），所以如果希望兼容Android 4，必须使用替代的图标，个人觉得ionicons非常不错，足以代替本来就不怎么好用的Material Icon。
 
@@ -119,7 +115,7 @@ quasar借助cordova实现了对android和iOS的支持，但是有一个坑，Mat
 
 quasar也有一些兼容性需要考虑，比如quasar 0.15需要node 8以上版本，所以如果不能使用node8，就需要使用quasar 0.14的版本了。
 
-### 其他
+## 其他
 
 * quasar build 构建product版本
 * quasar serve  运行一个静态http服务，其实和quasar无关，但是用起来比较方便，如果之前有build，这个命令自动serve dist这个目录
@@ -130,6 +126,11 @@ quasar也有一些兼容性需要考虑，比如quasar 0.15需要node 8以上版
 * 对浏览器的要求IE11+，并且对IE11需要特别的[修正](http://quasar-framework.org/guide/browser-support.html)
 * 移动端缺乏一些流行的控件，比如可滑动的Tab页。
 
-## bulma
-足够轻量，但因为quasar也足够轻量，这个基本上没有什么优势了。
+## 版本升级
+
+quasar 0.14到0.15有巨大的升级，有很多不兼容的地方，如果有项目仍在使用0.14，一旦全局的quasar-cli升级后，老的项目下quasar命令都不能正常运行了，在老项目下推荐使用npm run的方式去启动编译和构建，还能保持兼容。新项目还是应该使用新版本，新版本提供了几个明显优点：
+
+* 不需要在页面里注册控件了，在quasar.conf.js里统一注册了
+* webpack4即时编译的效率明显提高
+* datatable控件改进明显
 

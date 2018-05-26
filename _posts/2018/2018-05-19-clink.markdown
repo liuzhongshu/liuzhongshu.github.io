@@ -1,0 +1,24 @@
+---
+published: true
+title: clink
+layout: post
+---
+
+长久以来windows缺乏一个真正好用的命令行环境，clink尝试补足这一环。
+
+## 可持久化的命令历史
+clink支持了可持久化的命令历史
+
+可以加一个history.bat来列举历史命令，内容如下：
+
+```
+type "%LOCALAPPDATA%\clink\.history"
+```
+
+缺省情况下，clink只在退出时才记录命令到历史文件，这个我不喜欢，修改 %LOCALAPPDATA%\clink\setting中的history_io，设置为1即可。
+
+## 编辑
+
+clink为命令行增加了很多编辑功能，比如ctrl-r，搜索
+
+
