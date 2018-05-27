@@ -11,7 +11,9 @@ Intellij实在是名气太大，尝试数次，记录一下。
 
 File > settings > Editor > Colors&Fonts > Font 下把Primary font修改为 Consolas，一切都ok了。
 
-窗口布局方面，我喜欢Itellij的统一方式，编辑和调试，都是同一个布局，不需要像Eclipse切来切去。
+窗口布局方面，我喜欢Itellij的统一方式，编辑和调试，都是同一个布局，不需要像Eclipse切来切去。后来我把elipse也做了这个设置，debug窗口拖放到左侧，也不用切换布局了，参考下图：
+
+![](../../public/images/2018-05-26-09-41-25.png)
 
 ## 编辑能力
 
@@ -23,7 +25,7 @@ Eclipse的编辑能力一般，尤其有个不方便的地方就是很多文件�
 
 ## hotswap
 
-这是Eclipse非常好用的一个功能。Intellij也实现，Eclipse里每次按Ctrl-S保存时，就会自动编译并作hotswap，IntelliJ里不需要Ctrl-S，但需要手动触发编译，按Ctrl-F9，这个键比Ctrl-S稍微难按一点，但和Eclipse的效果基本一样，如果是在外部修改文件，Eclipse需要按右键，Refresh工程，Itellij还是按Ctrl-F9。
+这是Eclipse非常好用的一个功能。Intellij也实现了，Eclipse里每次按Ctrl-S保存时，就会自动编译并作hotswap，IntelliJ里不需要Ctrl-S，但需要手动触发编译，按Ctrl-F9，这个键比Ctrl-S稍微难按一点，但和Eclipse的效果基本一样，如果是在外部修改文件，Eclipse需要按右键，Refresh工程，Itellij还是按Ctrl-F9。
 
 ## 快捷键
 Intellij号称快捷键很方便，但我发现一个问题是很多的快捷键在远程桌面里没法按（远程桌面屏蔽了一部分的快捷键组合），这使得透过远程桌面使用Inteliij变得不方便了。 Itellij下常用的快捷键：
@@ -31,3 +33,8 @@ Intellij号称快捷键很方便，但我发现一个问题是很多的快捷键
 - Ctrl-Alt-left  回退
 - Shft-F6 Refactor的改名
 - Ctrl-F3 当前选中的搜索，类似Eclipse Ctrl-K
+
+有个快捷键：redo，我很不适应，不是ctrl-y，而是ctrl-sift-z。
+
+## 半年过后
+现在基本上两个IDE我都用，用久了，感觉差别已经不大了。

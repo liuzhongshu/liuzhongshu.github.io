@@ -19,6 +19,6 @@ type "%LOCALAPPDATA%\clink\.history"
 
 ## 编辑
 
-clink为命令行增加了很多编辑功能，比如ctrl-r，搜索
+clink为命令行增加了很多编辑功能，比如ctrl-r，搜索历史命令，这个和linux下的shell工作方式一致。
 
 
