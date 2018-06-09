@@ -57,6 +57,20 @@ return Vue.compile('<div>' + dynamicContent +'</div>')
 
 之所以再套一个div，是因为Vue的模块需要单根。另一个需要注意的问题是，如果在动态模板内容中依赖一些组件，这些组件需要提前注册好，可以使用vue的全局模块注册。
 
+## 组件
+自定义组件中实现v-model需要做一些事情，把v-model替换为：
+```
+<custom-component  :value="xxx"  @input="xxx = $event"></custom-component>
+```
+就知道组件里应该做什么了，通常类似这样：
+```
+Vue.component('custom-input', {
+  props: ['value'],
+  template: `<input value="value" @input="$emit('input', $event.target.value)">`
+})
+```
+这里有一点不统一，$event.target.value是html的intput送出的input事件参数，而自定义组件里，需要直接把这个值放出做event参数，不再需要target了。
+
 ## css
 在vue的模块css部分，可以用scoped指定是否这个css全局生效。
 

@@ -1,6 +1,6 @@
 ---
 published: true
-title: clink
+title: Clink
 layout: post
 ---
 

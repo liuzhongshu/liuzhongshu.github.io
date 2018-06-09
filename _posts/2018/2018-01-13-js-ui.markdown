@@ -107,6 +107,13 @@ if (__THEME === 'mat') {
 import 'quasar-extras/material-icons
 ```
 
+## form
+quasar在q-btn组件上使用了div，因此想使用enter提交form的话，需要在相应的input上做文章，简单的说就是增加下面这个属性：
+
+```
+@keyup.enter="submit"
+```
+
 ## 兼容性
 
 quasar借助cordova实现了对android和iOS的支持，但是有一个坑，Material Icon在android 4的webview下不支持（大量图标显示不正常或错位），所以如果希望兼容Android 4，必须使用替代的图标，个人觉得ionicons非常不错，足以代替本来就不怎么好用的Material Icon。
@@ -121,8 +128,12 @@ quasar也有一些兼容性需要考虑，比如quasar 0.15需要node 8以上版
 * quasar serve  运行一个静态http服务，其实和quasar无关，但是用起来比较方便，如果之前有build，这个命令自动serve dist这个目录
 * quasar new template name 基于模板生成一个名称为name的组件
 
+## 自定义组件
 
-缺点：
+vue不支持类似对组件进行继承，只能通过"合并"（composite）的方式来实现自己的组件。这种方式在改写quasar已有的组件就比较麻烦，需要将已有组件的"依赖"全部找到并合并进来，尤其是quasar使用了很多mixin的写法，导致依赖比较多，暂时没有发现更好的方法。
+
+
+## 缺点
 * 对浏览器的要求IE11+，并且对IE11需要特别的[修正](http://quasar-framework.org/guide/browser-support.html)
 * 移动端缺乏一些流行的控件，比如可滑动的Tab页。
 

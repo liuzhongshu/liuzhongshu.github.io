@@ -24,3 +24,6 @@ ffmpeg -i input.mp3 -ss 1:10.2 -to 1:30 -b:a 16k output.mp3
 ```
 
 如果是截取一定长度，用-t替代-to就可以了。
+
+## jpg
+jpg的算法里，mozilla有个很多的算法
