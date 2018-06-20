@@ -9,8 +9,8 @@ layout: post
 
 ## 工具
 1. [ConEmu](https://conemu.github.io/) : 多标签页的命令行，用来替换CMD
-1. [Clink](https://mridgers.github.io/clink/) : 支持CMD记录历史
-1. [Classic Shell](http://www.classicshell.net/) : Windows8下用来找回经典开始菜单
+1. [Clink](https://mridgers.github.io/clink/) : 支持CMD记录历史，可以和ConEmu集成
+1. [Classic Shell](http://www.classicshell.net/) : Windows8下用来找回开始菜单
 1. [7Zip](http://www.7-zip.org/) : 压缩工具
 1. [Everything](https://www.voidtools.com/) 快速文件搜索
 1. [UltraSearch](https://www.jam-software.com/ultrasearch/) 文件内容搜索
@@ -26,15 +26,16 @@ layout: post
 ## 媒体
 1. [Vlc](http://www.videolan.org/vlc/) : 播放器
 1. [IrfanView](http://www.irfanview.com/) : 图片查看
+1. [GreenShot](http://getgreenshot.org/) : 截屏工具
 1. [LICEcap](https://www.cockos.com/licecap/) : 制作动态GIF
 1. [FFmpeg](https://ffmpeg.org/) : 转换音视频
-1. [ShareX](https://getsharex.com/) : 录制屏幕（含录音）
+1. [OBS](https://obsproject.com/) : 直播和录制视频，比ShareX性能要好
 
 ## 编程
-1. [Sublime Text](https://www.sublimetext.com/) : 小项目IDE
+1. [Visual Studio Code](https://code.visualstudio.com/) : 大部分项目的IDE
 1. [Notepad++](https://notepad-plus-plus.org/) : 文件编辑器
-1. [Visual Studio Code](https://code.visualstudio.com/) : IDE
-1. [git](https://git-scm.com/) : 版本控制
+1. [git](https://git-scm.com/) : 版本控制和linux工具集
+1. [eclipse](https://www.eclipse.org/) : Java IDE，最爱3.7版本
 
 ## 设计
 1. [Just Color Picker](http://annystudio.com/software/colorpicker/) : 取色工具

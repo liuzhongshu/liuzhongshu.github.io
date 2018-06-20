@@ -11,11 +11,14 @@ layout: post
 
 ## 安装几个运行环境
 
+```
 apt-get install default-jre
 apt-get install nginx
 apt-get install mariadb-server
-
+```
 ## 几个工具
+
+```
 apt-get install mosh
 apt-get install screen
-
+```
