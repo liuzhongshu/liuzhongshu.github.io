@@ -25,7 +25,7 @@ sudo apt-get install mosh
 
 注意：
 * mosh需要你的服务器开放60000-61000的udp端口。
-* mosh对于多行输出命令的缓冲有问题，上一屏的终端输出会丢失。
+* mosh对于多行输出命令的缓冲有问题，上一屏的终端输出会丢失, 这是我发现的mosh唯一的缺点。
 
 ## w3m
 
@@ -98,6 +98,17 @@ screen -T xterm
 
 * ncdu，可以用 apt-get 安装，然后执行 ncdu / 就知道有多好用了，类似windows下的treesize
 * ranger 如果想浏览文件，这个还不错，按i可以预览文本文件
+
+## rsync
+
+复制文件到远端，有几个方法可以，scp、rsync、ssh、nc等，他们性能上有些差异，通常来说rsync综合最优，主要是因为rsync有增量功能，但是对于单个压缩文件，比如jar，通常增量不能发挥作用，对于gz，有一个特别的参数--rsyncable，可以生成rsync优化的gz文件，可惜jar没有这个参数, 一般的，rsync的参数为
+
+```
+rsync -avz sourcedir/ user@remote:/path/target/
+```
+其中-a为archive模式，-v为一级verbose，-z为压缩，另外，--delete参数可以在远端删除本地没有的文件，但是一定小心，因为可能远端主动生成的文件会被删除。-P 可以显示进度条。
+
+
 
 ## 程序员
 

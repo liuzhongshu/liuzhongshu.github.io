@@ -43,7 +43,7 @@ layout: post
 ## 网络
 1. [ipScan](http://angryip.org/) : IP搜索
 1. [Putty](http://www.putty.org/) : SSH客户端
-1. [MobaXTerm](http://mobaxterm.mobatek.net/) SSH客户端，支持Mosh
+1. [MobaXTerm](http://mobaxterm.mobatek.net/) SSH客户端，支持Mosh，以及一套cygwin工具集（rsync等）
 1. [mongoose](https://www.cesanta.com/products/binary) Http服务器
 
 ## 数据库

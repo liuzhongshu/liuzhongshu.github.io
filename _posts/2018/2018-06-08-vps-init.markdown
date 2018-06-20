@@ -6,3 +6,16 @@ layout: post
 
 我一般喜欢用ubuntu 14.04或16.04，通常的初始化动作如下
 
+## 修改hostname
+修改/etc/hosts 和 /etc/hostname 两个文件，起一个好记的名字，再reboot
+
+## 安装几个运行环境
+
+apt-get install default-jre
+apt-get install nginx
+apt-get install mariadb-server
+
+## 几个工具
+apt-get install mosh
+apt-get install screen
+

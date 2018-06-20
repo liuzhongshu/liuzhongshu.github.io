@@ -69,7 +69,8 @@ git commit -m 'comment'
 
 ## GUI工具
 
-* [smartgit](http://www.syntevo.com/smartgit/) 还不错
+* 很多人低估了内置的gui，使用git gui可以方便调出，在查看log和diff时，还是比较方便的。
+* [smartgit](http://www.syntevo.com/smartgit/) 也还不错
 
 ## diff和merge工具
 git可以配置调用外部diff工具，通常我习惯用beyond compare，可以在~/.gitconfig下增加以下配置
@@ -90,6 +91,12 @@ git可以配置调用外部diff工具，通常我习惯用beyond compare，可�
     cmd = \"c:/program files (x86)/beyond compare 3/bcomp.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
     trustExitCode = true
 ```
-## 其它
+## 密码
 
-在使用github时每次都输入密码是很麻烦的事，可以设置```git config credential.helper store```之后就可以缓存账号密码了。
+在使用github时每次都输入密码是很麻烦的事，两个方法：
+* 可以设置```git config credential.helper store```之后就可以缓存账号密码了。
+* 如果服务器端支持ssh协议，可以把远端地址迁移到ssh协议上，这样：
+
+```
+git remote set-url origin git@xxx.git
+```
