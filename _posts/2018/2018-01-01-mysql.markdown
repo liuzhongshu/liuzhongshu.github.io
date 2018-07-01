@@ -4,19 +4,12 @@ title: MySQL
 layout: post
 ---
 
-## Join子表最新的一条
+## 变量
+mysql有user variables和system variables之分，前者以@为前缀，并且可以自己定义，后者不可以，system variables按作用域又可以分为session（或称为local）和global，参考下图：
 
-一次查出父表和子表里的最新一条，两次Join，第一次INNER JOIN找出所有子，第二次LEFT JOIN，做了一个N平方展开，其中为空的那条就是最新的一条，搞定但效率不高。
+![](../../public/images/2018-07-01-20-26-54.png)
 
-```
- SELECT parent.*, t1.*
-  FROM parent
-  INNER JOIN child AS t1
-  ON (parent.id = child.parent_id)
-  LEFT JOIN child AS t2
-  ON (t1.parent_id = t2.parent_id and t1.datestamp < t2.datestamp)
-  WHERE t2.datestamp IS NULL
-```    
+session的生命周期就是connection，connection断开就消失了。所以如果要设置跨connection的变量，要用global，缺省的set和show variables命令都是session级别，如果要针对global生效，记得加上global参数。
 
 ## 事务隔离
 MySQL如果使用事务，常用Innodb引擎，Innodb的事务缺省隔离级别是REPEATABLE_READ，这个意思是可重复的读，也就是在事务中，任何读取操作都是可重复的，不会因为其他事务的提交而发生变化。同时还包括了几个其他意思：
@@ -48,3 +41,17 @@ MySQL如果使用事务，常用Innodb引擎，Innodb的事务缺省隔离级别
 * B事务读取余额
 * B事务校验余额，并扣款保存
 * B事务提交
+
+## Join子表最新的一条
+
+一次查出父表和子表里的最新一条，两次Join，第一次INNER JOIN找出所有子，第二次LEFT JOIN，做了一个N平方展开，其中为空的那条就是最新的一条，搞定但效率不高。
+
+```
+ SELECT parent.*, t1.*
+  FROM parent
+  INNER JOIN child AS t1
+  ON (parent.id = child.parent_id)
+  LEFT JOIN child AS t2
+  ON (t1.parent_id = t2.parent_id and t1.datestamp < t2.datestamp)
+  WHERE t2.datestamp IS NULL
+```    

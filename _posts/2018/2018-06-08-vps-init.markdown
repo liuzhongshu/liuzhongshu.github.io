@@ -9,13 +9,43 @@ layout: post
 ## 修改hostname
 修改/etc/hosts 和 /etc/hostname 两个文件，起一个好记的名字，再reboot
 
-## 安装几个运行环境
+## jre
 
 ```
 apt-get install default-jre
+```
+
+## nginx
+
+```
 apt-get install nginx
+```
+
+nginx缺省没有完全开放gzip(只对html压缩)，修改/etc/nginx/nginx.conf，gzip相关的配置修改为：
+
+```
+gzip on;
+gzip_disable "msie6";
+
+gzip_vary on;
+gzip_proxied any;
+gzip_comp_level 6;
+gzip_buffers 16 8k;
+gzip_http_version 1.1;
+gzip_min_length 256;
+gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon;
+```
+
+然后service nginx restart
+
+## mariadb
+
+```
 apt-get install mariadb-server
 ```
+
+在16.04上，如果是升级安装mysql，可能需要配置root账号的访问权限。
+
 ## 几个工具
 
 ```
