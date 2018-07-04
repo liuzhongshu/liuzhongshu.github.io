@@ -71,8 +71,29 @@ Vue.component('custom-input', {
 ```
 这里有一点不统一，$event.target.value是html的intput送出的input事件参数，而自定义组件里，需要直接把这个值放出做event参数，不再需要target了。
 
+## 全局变量
+一般不应该使用全局变量，如果是希望在所有组件共用，可以用instance Properties：
+
+```
+Vue.prototype.$var = 'value'
+```
+
 ## css
 在vue的模块css部分，可以用scoped指定是否这个css全局生效。
+
+如果某些css需要依据环境动态加载，比如移动端使用，桌面不使用，可以在index.template.html里用条件模板的方式加入，比如：
+
+```
+<% if (htmlWebpackPlugin.options.ctx.mode.cordova) { %>
+  <style type="text/css">
+    *:not(input):not(textarea) {
+      -webkit-user-select: none; /* disable selection/Copy of UIWebView */
+      -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
+    }
+  </style>      
+<% } %>
+```
+
 
 ## ajax
 ajax组件在vue2中不是缺省内置的，在这里有[解释](https://medium.com/the-vue-point/retiring-vue-resource-871a82880af4), 官方的推荐是[Axios](https://github.com/mzabriskie/axios)。

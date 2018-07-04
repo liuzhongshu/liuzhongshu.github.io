@@ -19,7 +19,11 @@ yarn
 quasar dev
 ```
 
-上面用的default模板基本上基于VUE的webpack模板，所以可以参考vue的资料，quasar dev具备hot reload特性。
+上面用的default模板基本上基于VUE的webpack模板，所以可以参考vue的资料，quasar dev具备hot reload特性。其他一些命令举例：
+
+* quasar build 构建product版本
+* quasar serve  运行一个静态http服务，其实和quasar无关，但是用起来比较方便，如果之前有build，这个命令自动serve dist这个目录
+* quasar new template name 基于模板生成一个名称为name的组件
 
 ## layout
 quasar layout(QLayout)很有特色，支持了一个自定义的九宫格，可以对整体的布局通过九个字符做自定义，参考下图：
@@ -73,6 +77,8 @@ quasar wrap cordova
 
 之所以把dist目录而不是src目录链接过去，是因为src目录未经过webpack是不能直接在webview中运行的, 使用dist带来了手机调试的困难，每次修改代码，quasar build，然后再重新cordova run都是比较漫长的过程。官方的一个推荐方法是修改cordova的配置文件，把其中`<content src="index.html" />`替换为quasar dev服务的地址，比如`<content src="http://192.168.1.1:8080" />`，这样构建出来的应用实际上是一个指向开发机的空壳，同时也可以做hot reload了, cordova插件也可以访问，一举多得。
 
+注： 这是quasar 0.14对cordova的支持方式，从0.15开始，quasar对cordova的支持做了很大改变，不再需要符号连接，参考下文。
+
 ## quasar play
 cordova建好之后，可以通过标准的cordova工具链就进行移动端编译、运行，也可以通过quasar play这个工具去做，quasar play非常类似React Native使用的Expo，好处自然是支持部署方便，且支持hot reload，但目前不能支持cordova plugin功能，官方文档是这样写的：
 
@@ -92,7 +98,7 @@ quasar支持三种手势Pan、Swipe、Hold。
 上面三种手势可以同时挂接在同一个DOM元素上，Quasar可以正确的按照上面的逻辑处理。
 
 ## grid
-UI框架对grid(data table)的支持是至关重要的，遗憾的是quasar 0.14虽然自带了一个dataTable,但功能上不是很完善，基本复杂一些的表格很难完成，期待后续版本完善吧。
+UI框架对grid(data table)的支持是至关重要的，遗憾的是quasar 0.14虽然自带了一个dataTable,但功能上不是很完善，基本复杂一些的表格很难完成，期待后续版本完善吧。0.15要好很多，可以支持了服务器端分页等重要特性。
 
 ## 轻量化
 
@@ -116,17 +122,12 @@ quasar在q-btn组件上使用了div，因此想使用enter提交form的话，需
 
 ## 兼容性
 
-quasar借助cordova实现了对android和iOS的支持，但是有一个坑，Material Icon在android 4的webview下不支持（大量图标显示不正常或错位），所以如果希望兼容Android 4，必须使用替代的图标，个人觉得ionicons非常不错，足以代替本来就不怎么好用的Material Icon。
+quasar借助cordova实现了对android和iOS的支持，但是有一个坑，Material Icon在android 4的webview下不支持（大量图标显示不正常或错位），所以如果希望兼容Android 4，必须使用替代的图标，个人觉得ionicons非常不错，可以作为不怎么好用的Material Icon的替代和补充。
 
 另一个需要考虑的兼容性是浏览器可能不支持Promise等特性（如IE，或低版本Android），通常可以[导入Polyfill](https://babeljs.io/docs/usage/polyfill/)来解决这个问题。
 
 quasar也有一些兼容性需要考虑，比如quasar 0.15需要node 8以上版本，所以如果不能使用node8，就需要使用quasar 0.14的版本了。
 
-## 其他
-
-* quasar build 构建product版本
-* quasar serve  运行一个静态http服务，其实和quasar无关，但是用起来比较方便，如果之前有build，这个命令自动serve dist这个目录
-* quasar new template name 基于模板生成一个名称为name的组件
 
 ## 自定义组件
 
@@ -139,9 +140,14 @@ vue不支持类似对组件进行继承，只能通过"合并"（composite）的
 
 ## 版本升级
 
-quasar 0.14到0.15有巨大的升级，有很多不兼容的地方，如果有项目仍在使用0.14，一旦全局的quasar-cli升级后，老的项目下quasar命令都不能正常运行了，在老项目下推荐使用npm run的方式去启动编译和构建，还能保持兼容。新项目还是应该使用新版本，新版本提供了几个明显优点：
+quasar 0.14到0.15有巨大的升级，尤其是工程方面变化巨大，几乎完全不兼容，如果有项目仍在使用0.14，一旦全局的quasar-cli升级后，老的项目下quasar命令都不能正常运行了，在老项目下推荐使用npm run的方式去启动编译和构建，还能保持兼容。新项目还是应该使用新版本，新版本几个明显优点：
 
 * 不需要在页面里注册控件了，在quasar.conf.js里统一注册了
 * webpack4即时编译的效率明显提高
 * datatable控件改进明显
+* cordova的支持不再需要符号链接www目录
+
+新版本发现的一些问题：
+
+* quasar 0.15在处理cordova下的返回键时，有特殊处理，只有在根route才能退出应用，不知道为什么有这个限制。
 

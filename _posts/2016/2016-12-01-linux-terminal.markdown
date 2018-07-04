@@ -108,6 +108,14 @@ rsync -avz sourcedir/ user@remote:/path/target/
 ```
 其中-a为archive模式，-v为一级verbose，-z为压缩，另外，--delete参数可以在远端删除本地没有的文件，但是一定小心，因为可能远端主动生成的文件会被删除。-P 可以显示进度条。
 
+rsync一般情况下会复制权限，有时这不合适，比如从cygwin环境复制到linux，如果希望重置权限，可以加两个参数--no-p --chmod=ugo=rwX，所以我有时会用：
+
+```
+rsync -avz --delete --no-p --chmod=ugo=rwX sourcedir/ user@remote:/path/target/
+```
+
+
+
 ## 程序员
 
 Java程序员可以安装一个bsh，随时试用Java语法，非常方便。
