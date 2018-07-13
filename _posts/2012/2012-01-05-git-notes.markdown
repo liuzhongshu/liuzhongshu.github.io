@@ -100,3 +100,24 @@ git可以配置调用外部diff工具，通常我习惯用beyond compare，可�
 ```
 git remote set-url origin git@xxx.git
 ```
+
+## hook
+我最常用的一个hook，是自动push，在.git\hooks下放一个post-commit文件，内容为：
+```
+#!/bin/sh
+git push origin master
+```
+
+可惜的是这个hook文件没有入库，导致每次clone后这个hook文件都要手工重建，替代方案是git有个全局配置，设置
+
+```
+git config --global init.templatedir "~/.git_template"
+```
+
+然后在~/.git_template/hooks下面放上脚本就可以让以后的新库也有这个文件，但还是解决不了新clone的问题，git2.9以后版本引入新的配置
+
+```
+git config --global core.hooksPath /path/to/my/centralized/hooks
+```
+
+勉强算是部分解决了这个问题（但很不灵活），挺遗憾，为什么hook不入库呢~
