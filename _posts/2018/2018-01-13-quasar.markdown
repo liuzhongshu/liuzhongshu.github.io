@@ -134,6 +134,21 @@ quasar也有一些兼容性需要考虑，比如quasar 0.15需要node 8以上版
 vue不支持类似对组件进行继承，只能通过"合并"（composite）的方式来实现自己的组件。这种方式在改写quasar已有的组件就比较麻烦，需要将已有组件的"依赖"全部找到并合并进来，尤其是quasar使用了很多mixin的写法，导致依赖比较多，暂时没有发现更好的方法。
 
 
+## 自定义脚手架模板
+quasar高版本的cli的init不支持自定义模板了，但是还好，可以通过vue的init来自定义自己的模板，这样对于团队使用自己的统一模板还是很有帮助的，但如果以这种方式做模板，模板文件并不是简单复制到目标项目，而是经过metalsmith处理，所以模板里的vue文件需要再经过一次render，巧合的是metalsmith的render也是用{{}}这个格式，所以对于vue文件本身的模板变量，需要加反斜杠转义，这点颇有不便。
+
+```
+vue init user/repo
+```
+
+这个模板的repo需要是github上的，如果是非github的，要加-c参数和前缀，并且需要要用vue-init，而不能用vue init（有个bug导致windows下后面两个参数对调）。比如：
+
+```
+vue-init -c bitbucket:user/repo projectname 
+```
+
+如果不是团队使用，也可以用本地目录代替远端仓库，-c后面跟相对地址就可以了，比如-c ..\template\dir
+
 ## 缺点
 * 对浏览器的要求IE11+，并且对IE11需要特别的[修正](http://quasar-framework.org/guide/browser-support.html)
 * 移动端缺乏一些流行的控件，比如可滑动的Tab页。
@@ -149,5 +164,5 @@ quasar 0.14到0.15有巨大的升级，尤其是工程方面变化巨大，几�
 
 新版本发现的一些问题：
 
-* quasar 0.15在处理cordova下的返回键时，有特殊处理，只有在根route才能退出应用，不知道为什么有这个限制。
-
+* quasar 0.15在处理cordova下的返回键时，有特殊处理，只有在根route才能退出应用，不知道为什么有这个限制，而且debug版本总是挂接不了backbutton了
+* quasar 0.15一些组件的click事件需要改为click.native
