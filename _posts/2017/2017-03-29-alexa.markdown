@@ -37,3 +37,5 @@ netsh wlan set hostednetwork mode=disallow
 
 安装完后后，可以通过 setting里的update wifi恢复到没有代理的wifi。
 
+### 中文
+还未支持，期望早日支持。
