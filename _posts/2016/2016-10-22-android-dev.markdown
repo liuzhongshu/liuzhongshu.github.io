@@ -90,6 +90,19 @@ adb logcat -v time | grep pid
 
 如果设备不再手边，或没有条件使用USB线，可以在设备上安装一个[catlog](https://play.google.com/store/apps/details?id=com.nolanlawson.logcat&hl=en)工具，可以直接显示或保存日志，挺好用，但是这个工具需要root权限。
 
+## 签名冲突
+apk的debug版本和release版本签名是不一致的，导致无法替换安装，会报错
+
+```
+signatures do not match the previously installed version; ignoring!
+```
+
+大部分时候下载之前的版本就可以了，可是有的时候，会发现根本这就找不到之前的版本，甚至通过adb shell pm list packages也找不到，那么可以强制“卸载”一次，再安装就可以了，这样：
+
+```
+adb unintall package-id
+```
+
 ## 开发与亮屏
 
 开发调试时，通常需要不停查看屏幕，默认的安卓设置会导致一会就熄屏了，虽然可以修改设置来禁止熄屏，但是改来改去还是蛮麻烦的，简单的方法当然是安装一个软件，这里软件很多，我用的是Stay Alive，还不错。

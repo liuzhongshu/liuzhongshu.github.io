@@ -165,6 +165,6 @@ quasar 0.14到0.15有巨大的升级，尤其是工程方面变化巨大，几�
 新版本发现的一些问题：
 
 * quasar 0.15在处理cordova下的返回键时，有特殊处理，只有在根route才能退出应用，不知道为什么有这个限制
-* debug版本挂接不了backbutton事件了，实际上所有cordova的onMessageFromNative都没有接收了，但quasar build的release版本是好的。
+* 在android5下，quasar 0.15的debug版本挂接不了backbutton事件了，大部分插件也不工作了，但通过quasar build的release版本是好的，或者更换到更新的android版本也可以。
 * quasar 0.15一些组件的click事件需要改为click.native
 * 0.15下android的back键会先关闭popover，所以如果从popover跳转其他页面，需要先在btn上加上v-close-overlay（关闭popover），否则跳转过去后，要两次back才能返回。
