@@ -25,6 +25,16 @@ quasar dev
 * quasar serve  运行一个静态http服务，其实和quasar无关，但是用起来比较方便，如果之前有build，这个命令自动serve dist这个目录
 * quasar new template name 基于模板生成一个名称为name的组件
 
+## 库大小比较
+和几个类似的库比较一下，均是gzip后结果
+
+|      | js    | css   
+|----- |-------| ------ |
+| vue| 73k  | 0k  |
+| Quasar 0.14| 120k  | 18k  |
+| Vuetify 1.1.8|152k  | 29k|
+| Buefy 0.6.6 | 124k    | 29k  |
+
 ## layout
 quasar layout(QLayout)很有特色，支持了一个自定义的九宫格，可以对整体的布局通过九个字符做自定义，参考下图：
 
@@ -112,6 +122,7 @@ if (__THEME === 'mat') {
 ```
 import 'quasar-extras/material-icons
 ```
+但是由于一些控件使用了Material Icon，直接注释会导致这些控件显示不正常，所以要小心测试。
 
 ## form
 quasar在q-btn组件上使用了div，因此想使用enter提交form的话，需要在相应的input上做文章，简单的说就是增加下面这个属性：
@@ -128,6 +139,7 @@ quasar借助cordova实现了对android和iOS的支持，但是有一个坑，Mat
 
 quasar也有一些兼容性需要考虑，比如quasar 0.15需要node 8以上版本，所以如果不能使用node8，就需要使用quasar 0.14的版本了。
 
+quasar 0.15除了node版本要求更高，对真机调试安卓的手机也有更高要求，需要android 6以上版本，否则在调试模式插件不能工作，这点很奇怪，目前还没有很好的规避方法。
 
 ## 自定义组件
 
@@ -168,3 +180,4 @@ quasar 0.14到0.15有巨大的升级，尤其是工程方面变化巨大，几�
 * 在android5下，quasar 0.15的debug版本挂接不了backbutton事件了，大部分插件也不工作了，但通过quasar build的release版本是好的，或者更换到更新的android版本也可以。
 * quasar 0.15一些组件的click事件需要改为click.native
 * 0.15下android的back键会先关闭popover，所以如果从popover跳转其他页面，需要先在btn上加上v-close-overlay（关闭popover），否则跳转过去后，要两次back才能返回。
+
