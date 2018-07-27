@@ -31,9 +31,12 @@ quasar dev
 |      | js    | css   
 |----- |-------| ------ |
 | vue| 73k  | 0k  |
-| Quasar 0.14| 120k  | 18k  |
+| Quasar 0.14| 95k  | 17k  |
 | Vuetify 1.1.8|152k  | 29k|
 | Buefy 0.6.6 | 124k    | 29k  |
+
+## theme
+quasr内置两个样式mat和ios，quasar dev为了支持调试android应用，自动按照theme去proxy cordova提供的platform_www内容（也就是通过theme识别android还是ios），导致没办法在android dev时使用ios theme，会提示找不到cordova.js，但不影响release版本，变通方法是debug时强制通过命令行参数使用mat theme，构建的theme则通过config文件指定。
 
 ## layout
 quasar layout(QLayout)很有特色，支持了一个自定义的九宫格，可以对整体的布局通过九个字符做自定义，参考下图：
@@ -161,9 +164,19 @@ vue init bitbucket:user/repo projectname
 
 如果不是团队使用，也可以用本地目录代替远端仓库，init后面跟相对地址就可以了，比如..\template\dir
 
+## 自定义整个quasar
+
+* fork quasar
+* 在package.json里把dependency里的quasar-framework修改为类似`i38/quasar#v0.14`这样的github库
+* yarn
+* cd node_modules\quasar-framework && npm install && npm run build
+
+这样就可以了，如果还想直接调试quasar源码，可以在webpack alias里增加一个`quasar_src: path.resolve(__dirname, '../node_modules/quasar-framework/src/index.esm.js')`，然后把main.js里import quasar的地方改为import quasar_src
+
 ## 缺点
 * 对浏览器的要求IE11+，并且对IE11需要特别的[修正](http://quasar-framework.org/guide/browser-support.html)
 * 移动端缺乏一些流行的控件，比如可滑动的Tab页。
+
 
 ## 版本升级
 

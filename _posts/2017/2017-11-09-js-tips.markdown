@@ -4,10 +4,12 @@ title: js tips
 layout: post
 ---
 ## lodash
-几乎所有的JS项目都应该使用lodash，类似Apache common在Java中地位一样。
+虽然lodash很好用，类似Java里的Apache common，但注意lodash会给js增加30k。
 
 ## yarn 和 npm
 所有新项推荐使用yarn代替npm，最大的好处是对小版本的锁定，性能也好一些。
+
+* yarn upgrade package 可以单独升级一个包，即使这个包使用github仓库也可以（否则yarn.lock会记录commit hash，导致不升级)
 
 ## arrow function
 和普通function的一个巨大的差异是this，arrow function保留了this为定义时刻的this，所以在vue的组件method定义中基本上不能使用arrow function
@@ -47,6 +49,7 @@ VSCode如果按照ESLint插件，可以设置以下参数以打开vue文件支�
 ```
 
 ## ES6 import/export
+在ES6之前，JS的模块化有两种方式 AMD和CommonJS，ES6终于有了语言级别的模块化支持：
 
 命名方式：
 ```
@@ -101,8 +104,13 @@ module.exports = Tiger  <=> export default Tiger
 
 ```
 
+现代一些js库，比如vue，会在dist里直接生成一个.esm.js文件，表示纯ES6模块文件
+
+
 ## webpack
-import @ 这是webpack的一个alias，用来代替src目录
+* import @ 这是webpack的一个alias，用来代替src目录
+* webpack可以load json，所以可以这样`import { version } from '../package.json'`来导入项目package.json里的版本号。
+* webpack和rollup的对比，可以看这个小代码 https://gist.github.com/Rich-Harris/79a02519fb00837e8d5a4b24355881c0
 
 ## vue
 
