@@ -26,6 +26,9 @@ cordova run android
 
 run的过程中又可能卡死，因为又去下载东西了，参考android一文中修改gradle-wrapper.proerties，也可以尝试用Android Studio去打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。如果不想直接运行，可以用`cordova build android`来编译出apk。
 
+## cordova 版本
+
+cordova自己有个版本，这个版本其实关系不大，相当于是cordova cli的版本，可以尽量用较高版本即可。而cordova在增加platform的时候，后面是可以加版本号的，比如add android时，可以用 add android@6.3.0，这个6.3.0实际上是cordova-android的版本号，这个就非常重要的，决定了得到android工程的一切细节，所以这个cordova-android版本最好锁定，不要轻易修改。
 
 ## 使用Node模块
 
@@ -33,6 +36,7 @@ run的过程中又可能卡死，因为又去下载东西了，参考android一�
 
 一个简单的方法是通过[wzrd.in](https://wzrd.in/)转换出来，wzrd.in实际上就是通过Browserify来做到的，但无需手工安装Browserify和执行命令行了，并且wzrd.in提供了CDN服务，让你可以直接在html中引用而无需提前下载转换后的文件。
 
+好在现代的前端工程都是使用打包工具从src目录直接打包得到dist，这时通常把src目录放在cordova/www外，得到的dist就是cordova/www，这样也解决了node模块问题，参考下quasar。
 
 ## cordova 插件
 可以为cordova项目安装插件

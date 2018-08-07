@@ -69,7 +69,12 @@ git commit -m 'comment'
 
 ## GUI工具
 
-* 很多人低估了内置的gui，使用git gui可以方便调出，在查看log和diff时，还是比较方便的。
+* 很多人低估了内置的gui，使用git gui可以方便调出，在查看log和diff时，还是比较方便的，如果大部分文件是utf-8编码，可以设置下面这个全局设置，防止diff时乱码
+
+```
+git config --global gui.encoding utf-8
+```
+
 * [smartgit](http://www.syntevo.com/smartgit/) 也还不错
 
 ## diff和merge工具
