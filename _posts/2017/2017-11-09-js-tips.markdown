@@ -4,12 +4,15 @@ title: js tips
 layout: post
 ---
 ## lodash
-虽然lodash很好用，类似Java里的Apache common，但注意lodash会给js增加30k。
+虽然lodash很好用，类似Java里的Apache common，但注意lodash会给js增加30k(gzip之后)。
 
 ## yarn 和 npm
-所有新项推荐使用yarn代替npm，最大的好处是对小版本的锁定，性能也好一些。
+在npm5之前，新项推荐使用yarn代替npm，最大的好处是对小版本的锁定，性能也好一些。
 
 * yarn upgrade package 可以单独升级一个包，即使这个包使用github仓库也可以（否则yarn.lock会记录commit hash，导致不升级)
+* yarn import可以按照现有node_modules目录内容生成一个yarn.lock文件，方便从npm迁移到yarn
+
+npm5版本引入了package-lock.json，使得yarn和npm的区别已经不大了。
 
 ## arrow function
 和普通function的一个巨大的差异是this，arrow function保留了this为定义时刻的this，所以在vue的组件method定义中基本上不能使用arrow function

@@ -30,6 +30,9 @@ run的过程中又可能卡死，因为又去下载东西了，参考android一�
 
 cordova自己有个版本，这个版本其实关系不大，相当于是cordova cli的版本，可以尽量用较高版本即可。而cordova在增加platform的时候，后面是可以加版本号的，比如add android时，可以用 add android@6.3.0，这个6.3.0实际上是cordova-android的版本号，这个就非常重要的，决定了得到android工程的一切细节，所以这个cordova-android版本最好锁定，不要轻易修改。
 
+官方文档有一张[表格](https://cordova.apache.org/docs/en/latest/guide/platforms/android/#requirements-and-support)，描述cordova-android版本和android版本对应关系。
+
+
 ## 使用Node模块
 
 在Cordova工程中使用node模块并不简单，npm install之后，模块被安装到根下面的node\_modules下, 需要手工复制到www下，否则无法引用，另一个问题是大部分nodejs module是服务器端模块，并不能直接用在cordova下使用，和在浏览器里无法使用node模块一个道理。
