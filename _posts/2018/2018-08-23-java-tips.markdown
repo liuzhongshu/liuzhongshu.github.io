@@ -1,0 +1,12 @@
+---
+published: true
+title: Java
+layout: post
+---
+
+### 设置工具使用英文
+
+通过环境变量来更改，Windows下可以这样设置:
+```
+set JAVA_TOOL_OPTIONS="-Duser.language=en"
+```

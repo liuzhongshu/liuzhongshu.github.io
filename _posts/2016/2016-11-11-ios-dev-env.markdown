@@ -28,7 +28,7 @@ VBoxManage setextradata "OSX10.11" "VBoxInternal/Devices/smc/0/Config/DeviceKey"
 
 缺省的 分辨率是1024*768，这个如果要修改，可以参考[这里](http://www.wikigain.com/fix-macos-sierra-screen-resolution-virtualbox/)修改，简单的说，只有几种分辨率可以修改：
 
-VBoxManage setextradata "OSX10.11" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 1
+VBoxManage setextradata "OSX10.11" "VBoxInternal/EfiG"opMode" 4
 
 后面的1就是分辨率，可以设置以下几个值：
 
@@ -39,9 +39,21 @@ VBoxManage setextradata "OSX10.11" "VBoxInternal/Devices/smc/0/Config/GetKeyFrom
 - 4 : 1440x900
 - 5 : 1900x1200
 
+如果没有对应你的显示器的分辨率，可以稍微设置大一些，把dock栏放左边，就可以全屏模式工作了。
+
 ## Xcode
 
-直接通过App Store安装就可以，Xcode8支持简化的Sign方法，参考官方文档。基本上，你可以不再需要注册Developer，使用普通的Apple ID就可以开发了。
+直接通过App Store安装就可以，Xcode8支持简化的Sign方法，参考官方文档。基本上，你可以不再需要注册Developer，使用普通的Apple ID就可以开发了。App Store只能下载最新的xcode版本，如果需要老版本，可以在[苹果开发者](https://developer.apple.com/download/more/)选择下载，下载前先参考这张[表格](https://en.wikipedia.org/wiki/Xcode#8.x_series)，不要下载下来因为系统版本不够，无法安装。
+
+8.0版本下载的格式多半是xip，这个格式需要系统至少是10.11.6，否则无法安装。
+
+另外在双击安装之前，可以通过下面的命令去除冗长的校验
+
+```
+xattr -d com.apple.quarantine Xcode_8.xip
+```
+
+如果不是做原生开发，而是cordova跨平台，也必须安装Xcode，否则也是编译不了的。
 
 ## 真机连接
 

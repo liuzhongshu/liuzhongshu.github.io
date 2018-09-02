@@ -5,6 +5,33 @@ layout: post
 ---
 新安装了OSX，记录以下调整:
 
+### 安装brew
+
+brew就是osx下的最好用的命令行包管理器，重装系统后，我第一件事通常就是安装brew，只需执行[官网](http://brew.sh)上的一行脚本，并且安装brew之后，xcode command line、git等开发工具也就安装好了。然后把cask安装上，用于安装gui程序：
+
+```
+brew tap caskroom/cask
+```
+
+brew每次install任何东西都会先update，挺烦的，可以增加一个环境变量禁止掉 export HOMEBREW_NO_AUTO_UPDATE=1
+
+### node
+
+作为开发人员，这个是少不了的，一般的，可以用brew来安装node，很简单:
+
+```
+brew install node@8
+```
+后面的@8是版本号，可根据情况替换。
+
+### cordova
+
+编译的时候如果遇到问题xcode-select: error: tool 'xcodebuild' requires Xcode...，修复方法
+
+```
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+```
+
 ### 设置
 - 触摸板允许click
 - 屏幕四个顶点定义快捷功能，左上位“所有窗口”，右上为Space，左下为显示桌面，右下为关闭显示器。

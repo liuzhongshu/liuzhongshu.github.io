@@ -86,6 +86,8 @@ adb logcat -v time | grep pid
 
 这样的话，windows下只能用findstr了，另一个常见的问题是，logcat的内容太多了，有时候某些进程不停的写log，导致log很快满了而冲掉有用的log，但是android没有提供一个方法可以禁止某个进程记录log（除了杀死进程），有的时候（定位一些偶发问题）很不方便。
 
+log的级别有多个，有些手机（比如魅族）缺省会不记录debug级别的日志，可以在设置》开发者选项里调整。
+
 总之logcat的设计有点反人性。
 
 如果设备不再手边，或没有条件使用USB线，可以在设备上安装一个[catlog](https://play.google.com/store/apps/details?id=com.nolanlawson.logcat&hl=en)工具，可以直接显示或保存日志，挺好用，但是这个工具需要root权限。
@@ -115,3 +117,19 @@ adb shell pm grant jp.co.c_lis.ccl.morelocale android.permission.CHANGE_CONFIGUR
 修改后，app都不需要重启，权限即刻生效。
 
 应用程序想要支持多语，自然是要在应用里做，比如Vue可以用vue-i18n，但是如果想要应用程序的名称、权限根据语言来定，就需要在cordova上安装这个[插件](https://github.com/kelvinhokk/cordova-plugin-localization-strings),很好用。
+
+## google play
+
+发布版本如果要上google play，过程如下：
+
+* 注册并登录play console
+* 添加app，在左侧标记的内容区依次填写（有些内容有先后，有些没有），基本信息区可以使用多语言（填写多份）
+* 上传apk，填写分级信息，设置价格
+* 如果应用有特殊的权限要求，必须填写隐私声明网址，这个比较麻烦
+* 如果所有信息充分，play console会提示可以发布了，进入版本管理的地方，查看后就可以提交发布了。
+
+提醒几点注意：
+
+* 不要使用google 签名
+* 如果你想app被全世界用户使用，最好缺省语言选英文
+* 价格可以从收费转为免费，但不能反向操作

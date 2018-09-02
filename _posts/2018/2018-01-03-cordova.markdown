@@ -30,7 +30,10 @@ run的过程中又可能卡死，因为又去下载东西了，参考android一�
 
 cordova自己有个版本，这个版本其实关系不大，相当于是cordova cli的版本，可以尽量用较高版本即可。而cordova在增加platform的时候，后面是可以加版本号的，比如add android时，可以用 add android@6.3.0，这个6.3.0实际上是cordova-android的版本号，这个就非常重要的，决定了得到android工程的一切细节，所以这个cordova-android版本最好锁定，不要轻易修改。
 
-官方文档有一张[表格](https://cordova.apache.org/docs/en/latest/guide/platforms/android/#requirements-and-support)，描述cordova-android版本和android版本对应关系。
+官方文档有一张[表格](https://cordova.apache.org/docs/en/latest/guide/platforms/android/#requirements-and-support)，描述cordova-android版本和android版本对应关系。除了和android版本的对应，不同cordova版本见还有一些很大的差异：
+
+* cordova-android 6.3 是最后一个支持crosswalk的版本，后面的版本因为gradle的原因，crosswalk支持都有问题。
+* cordova-android 6.4 是第一个支持android studio 3（主要是gradle的变化不兼容）的版本, 并且项目结构和6.3有很大变化
 
 
 ## 使用Node模块
