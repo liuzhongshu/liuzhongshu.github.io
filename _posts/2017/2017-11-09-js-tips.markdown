@@ -3,6 +3,32 @@ published: true
 title: js tips
 layout: post
 ---
+
+## 原型链
+
+js对象都有一个__proto__属性指向它的原型对象(ES6的标准语法是Object.getPrototypeOf())，原型对象也有__proto__，自然形成一个链。当访问对象属性时，js会从对象自己，然后一直顺着原型链找下去，直到找到一个包含属性的对象。__proto__的生成规则：
+
+* 当直接创建对象时，创建出的对象的__proto__是Object.prototype，直接创建数组时创建出的数组的__proto__是Array.prototype。
+* 当使用new a()创建对象时，创建出的对象的__proto__是a.prototype。
+* 当使用Object.create(a)创建对象时，创建出的对象的__proto__就是a。
+
+js执行方法时也顺着原型链去找，需要注意，即使找到了原型里的方法，this还是"子"对象，举例：
+```
+var o = {
+  a: 2,
+  m: function() {
+    return this.a + 1;
+  }
+};
+console.log(o.m()); // 3
+var p = Object.create(o);
+p.a = 4; 
+console.log(p.m()); // 5
+```
+
+## promise
+
+
 ## lodash
 虽然lodash很好用，类似Java里的Apache common，但注意lodash会给js增加30k(gzip之后)。
 

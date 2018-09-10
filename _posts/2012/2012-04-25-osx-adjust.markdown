@@ -15,22 +15,6 @@ brew tap caskroom/cask
 
 brew每次install任何东西都会先update，挺烦的，可以增加一个环境变量禁止掉 export HOMEBREW_NO_AUTO_UPDATE=1
 
-### node
-
-作为开发人员，这个是少不了的，一般的，可以用brew来安装node，很简单:
-
-```
-brew install node@8
-```
-后面的@8是版本号，可根据情况替换。
-
-### cordova
-
-编译的时候如果遇到问题xcode-select: error: tool 'xcodebuild' requires Xcode...，修复方法
-
-```
-sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-```
 
 ### 设置
 - 触摸板允许click

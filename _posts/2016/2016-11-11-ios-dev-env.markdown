@@ -47,7 +47,7 @@ VBoxManage setextradata "OSX10.11" "VBoxInternal/EfiG"opMode" 4
 
 8.0版本下载的格式多半是xip，这个格式需要系统至少是10.11.6，否则无法安装。
 
-另外在双击安装之前，可以通过下面的命令去除冗长的校验
+另外在双击安装之前，可以通过下面的命令去除冗长的校验(如果已经安装了，把下面的后一个参数改成/Application/Xcode.app)
 
 ```
 xattr -d com.apple.quarantine Xcode_8.xip
@@ -63,6 +63,10 @@ xattr -d com.apple.quarantine Xcode_8.xip
 * 下载VirtualBox的Extension pack
 * 在VirualBox的设置中安装下载的Extension pack
 * 在虚拟机设置中，USB设置从1.0改为2.0
+
+Xcode版本如果不够新，可能没有携带device support file，就不能连接高版本的iOS设备，重装Xcode太慢了，可以使用这个[项目](https://github.com/iGhibli/iOS-DeviceSupport)来手工安装device support file。
+
+App下载到真机之后，会提示一个警告信任开发者的对话框，高版本的iOS没有提供“信任”的按钮，必须到设置》通用》设备管理中手工信任开发者，这样才可以运行。
 
 ## AD-HOC分发
 

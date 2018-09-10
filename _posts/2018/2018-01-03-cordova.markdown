@@ -6,15 +6,16 @@ layout: post
 
 和React Native类似，Cordova是跨平台应用开发的三驾马车之一。
 
-## HelloWorld
+## 准备工作
 
 先安装node，安装之后设置一下npm，在用户目录下创建.npmrc，增加下面的一行，以加快npm的速度。
 
 ```
 registry =http://registry.npm.taobao.org
 ```
-
 再安装和创建cordova/ionic工程就会快些了
+
+## android
 
 ```
 npm install cordova -g
@@ -25,6 +26,56 @@ cordova run android
 ```
 
 run的过程中又可能卡死，因为又去下载东西了，参考android一文中修改gradle-wrapper.proerties，也可以尝试用Android Studio去打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。如果不想直接运行，可以用`cordova build android`来编译出apk。
+
+## iOS
+
+先安装组件：
+
+```
+brew install node@8
+npm install -g cordova
+npm install -g ios-deploy
+npm install -g cordova-icon
+npm install -g cordova-splash
+cordova platform add ios
+```
+后面的@8是版本号，可根据情况替换。cordova-icon和cordova-splash是用来根据一个资源自动生成iOS需要的一堆icon，因为cordova不能自动做这个动作，cordova是按照iOS要求需要写多个icon和多个spalsh，这毕竟太麻烦了，所以可以在config.xml里不要写icon和spalsh，靠cordova-icon和cordova-splash来做自动生成:
+
+```
+cordova-icon --icon=../src/assets/icon.png
+```
+
+在真正编译之前，要解决签名和证书问题，启动xcode8，设置好自动前面的team，退出xcode就可以做编译了
+
+```
+cordova run ios --device
+```
+
+注意：编译的时候如果遇到问题xcode-select: error: tool 'xcodebuild' requires Xcode...，修复方法为：
+
+```
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+```
+
+## iOS调试
+
+iOS调试需要macOS，最简单的方法是打开电脑和手机端safari的调试开关，然后可以可以通过Safari调试，但我用下来感觉不是很好用，切换到chrome的方法如下：
+
+```
+brew update  #防止下面安装chrome时出现checksum错误
+brew cask install --no-quarantine google-chrome #后面的no-quarantine解决brew的一个bug
+brew unlink libimobiledevice ios-webkit-debug-proxy
+brew uninstall --force libimobiledevice ios-webkit-debug-proxy
+brew install --HEAD libimobiledevice
+brew install --HEAD ios-webkit-debug-proxy
+npm install remotedebug-ios-webkit-adapter -g
+remotedebug_ios_webkit_adapter --port=9000 #手机上启动cordova debug应用后，执行这个命令
+```
+
+然后就可以启动chrome://inspect调试了，如果看不到被调试webview，尝试两个方法：
+* chrome的inpect页面中，需要config下network target，把localhost:9000加上
+* 先启动应用，在启动remotedebug_ios_webkit_adapter
+* 如果还不行，重启计算机
 
 ## cordova 版本
 
@@ -40,7 +91,7 @@ cordova自己有个版本，这个版本其实关系不大，相当于是cordova
 
 在Cordova工程中使用node模块并不简单，npm install之后，模块被安装到根下面的node\_modules下, 需要手工复制到www下，否则无法引用，另一个问题是大部分nodejs module是服务器端模块，并不能直接用在cordova下使用，和在浏览器里无法使用node模块一个道理。
 
-一个简单的方法是通过[wzrd.in](https://wzrd.in/)转换出来，wzrd.in实际上就是通过Browserify来做到的，但无需手工安装Browserify和执行命令行了，并且wzrd.in提供了CDN服务，让你可以直接在html中引用而无需提前下载转换后的文件。
+一个方法是通过[wzrd.in](https://wzrd.in/)转换出来，wzrd.in实际上就是通过Browserify来做到的，但无需手工安装Browserify和执行命令行了，并且wzrd.in提供了CDN服务，让你可以直接在html中引用而无需提前下载转换后的文件。
 
 好在现代的前端工程都是使用打包工具从src目录直接打包得到dist，这时通常把src目录放在cordova/www外，得到的dist就是cordova/www，这样也解决了node模块问题，参考下quasar。
 
@@ -69,9 +120,11 @@ cordova prepare
 * cordova plugin rm xxx 删除某个插件
 
 ## 定时
+
 和web端一样，定时主要依靠setInterval和setTimeout两个API，但因为移动端app在熄屏之后会被系统挂起，因此永远不能依赖定时来计时。正确的方式是用Data.now()来计时，只用定时来刷新显示。
 
 ## 手机状态栏
+
 Android上Material设计对状态栏的颜色修改有支持，并且也可以通过APP隐藏上面的状态栏，这些可以通过cordova-plugin-statusbar这个插件做到，比如：
 ```
 if (cordova.platformId === 'android') {
@@ -80,6 +133,7 @@ if (cordova.platformId === 'android') {
 ```
 
 ## CORS
+
 缺省的情况下，cordova下的webview也遵循cors规则，要解除这些限制，需要安装whitelist这个插件，并配置config.xml，文档里有[详细解释](https://github.com/apache/cordova-plugin-whitelist)，这些通常在add platform时自动配好了。
 
 但是这似乎只在cordova从file://加载时生效，如果debug版本让cordova从远端加载应用，cors还是生效了，whitelist插件也无能为力。
@@ -87,7 +141,8 @@ if (cordova.platformId === 'android') {
 
 ## 一些插件
 
-常用的几个插件
+常用的几个插件:
+
 * cordova-plugin-statusbar 控制手机状态栏
 * cordova-plugin-device 获取设备信息
 * cordova-plugin-app-version 获取APP的版本号
@@ -120,6 +175,13 @@ cordova工程使用版本控制时，那些文件入库，哪些不入库，需�
 但是，非常重要的一点是，插件add的时候所做的事情在一起build的时候是不会再做的，所以如果直接修改插件源码或plugin.xml，直接build是不会生效的，必须在android目录下修改插件生成的文件，这就给插件开发者带了一些不便，通常在android目录下调通插件所有功能后，再把相关文件和配置反向复制回插件源码中，这一步只能手工来做了。
 
 插件的调试离不开Native调试器了，Android的话就要用android studio，如果不用IDE的话，只用log也可以，相对比较痛苦。
+
+## 修改插件
+
+* 从插件的github库fork一个出来
+* 在项目中使用自己fork的插件，plugin add的时候后面用github库地址
+* 同时单独clone fork后的插件到本地一个目录
+* 调试时如果修改项目下插件相关文件，需要同步到本地插件目录，push到github
 
 ## 问题
 
