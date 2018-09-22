@@ -95,6 +95,11 @@ cordova自己有个版本，这个版本其实关系不大，相当于是cordova
 
 好在现代的前端工程都是使用打包工具从src目录直接打包得到dist，这时通常把src目录放在cordova/www外，得到的dist就是cordova/www，这样也解决了node模块问题，参考下quasar。
 
+## 兼容性
+考虑到不同手机的webview版本差异较大，需要找版本较低的手机来做验证，很多用到浏览器新特性的模块可能无法是旧设备上运行，比如：
+
+* animate.css 在老手机上很多动画显示不出来，替代方法可以考虑animejs
+
 ## cordova 插件
 可以为cordova项目安装插件
 
