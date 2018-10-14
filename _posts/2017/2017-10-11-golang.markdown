@@ -35,6 +35,20 @@ go get github.com/derekparker/delve/cmd/dlv
 * 语法提示和调试应该都已经好了。
 * 语法和编译错误，需要在保存之后调用go build，根据结果来提示错误，好在速度还比较快，如果很慢，可能以为在save的时候做了一些多余的操作，比如go vet，可以通过配置关闭这些多余的save操作。
 
+## hello,world
+
+打开GOPATH目录，新建一个hello.go
+
+```
+package main
+import "fmt"
+
+func main() {
+	fmt.Println("hello,world")
+}
+```
+
+在vscode的terminal下输入go run hello.go即可运行。想要调试的话，可以直接在代码行之前设置断点，点击工具栏上的debug按钮。
 
 ## 代理
 
