@@ -112,3 +112,15 @@ Vue.prototype.$http.interceptors.response.use(
 
 ### ui
 * [vant](https://youzan.github.io/vant) 有赞开源的ui库，非常轻量，自带icon，不错的组件设计
+
+### 性能
+
+大量的组件很容易导致render性能下降，可以在beforeCreated里加时标输出，再在mounted里加下面的时标输出：
+```
+this.$nextTick(function () {
+  console.log(Date.now())
+})
+```
+
+两个时标相减来评估初始化+render时间，最简单的优化方法是减少不必要的组件，将大部分组件转换为标准html可以有效提高render性能。
+

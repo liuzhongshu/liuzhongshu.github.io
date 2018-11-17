@@ -77,6 +77,14 @@ remotedebug_ios_webkit_adapter --port=9000 #手机上启动cordova debug应用�
 * 先启动应用，在启动remotedebug_ios_webkit_adapter
 * 如果还不行，重启计算机
 
+## 远程调试
+
+config.xml里控制加载的入口文件index.html如果修改为远程地址，就可以远程加载webpack devserver调试了，好处自然是hot reload，但是需要注意的是缺省cordova的加载超时较短，为20秒，通常需要在config.xml里android部分下，增加超时的配置，否则很容易启动时出现The connection to the server was unsuccessful错误。
+
+```
+<preference name="loadUrlTimeoutValue" value="300000" />
+```
+
 ## cordova 版本
 
 cordova自己有个版本，这个版本其实关系不大，相当于是cordova cli的版本，可以尽量用较高版本即可。而cordova在增加platform的时候，后面是可以加版本号的，比如add android时，可以用 add android@6.3.0，这个6.3.0实际上是cordova-android的版本号，这个就非常重要的，决定了得到android工程的一切细节，所以这个cordova-android版本最好锁定，不要轻易修改。
@@ -141,8 +149,19 @@ if (cordova.platformId === 'android') {
 
 缺省的情况下，cordova下的webview也遵循cors规则，要解除这些限制，需要安装whitelist这个插件，并配置config.xml，文档里有[详细解释](https://github.com/apache/cordova-plugin-whitelist)，这些通常在add platform时自动配好了。
 
-但是这似乎只在cordova从file://加载时生效，如果debug版本让cordova从远端加载应用，cors还是生效了，whitelist插件也无能为力。
+但是这似乎只在cordova从file://加载时生效，如果debug版本让cordova从远端加载应用，cors还是生效了，whitelist插件也无能为力。同时也导致了dev版本无法绕过CORS，比较简单的一个做法是，桌面上启动一个禁止CORS的浏览器来做dev版本的开发和调试，启动的方法是通过命令行直接运行chrome，并增加以下参数：
 
+```
+"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir="c:/tools/chrome-dev"
+```
+
+注意，一定要增加user-data-dir参数，否则不生效。
+
+## 权限
+通常对权限的指定是通过插件的配置文件来实现，cordova对plugin.xml的处理方式如下：
+* 插件安装卸载时cordova会处理plugin.xml，写入里面需要的权限到平台配置文件
+* 平时build时，cordova不再处理plugin.xml，所以我们可以手动修改平台配置文件增删权限，并不会在下次build时丢失。
+* 暂时还没有办法在config.xml里增加权限，只能手工修改平台配置文件，或通过一个外部插件cordova-custom-config(可以让我们在config.xml里指定权限)。
 
 ## 一些插件
 
@@ -152,6 +171,7 @@ if (cordova.platformId === 'android') {
 * cordova-plugin-device 获取设备信息
 * cordova-plugin-app-version 获取APP的版本号
 * cordova-plugin-insomnia 防止app锁屏（某些应用交互少，阅读多）
+* cordova-plugin-app-launcher 检查app是否安装，跳转app等
 
 ## crosswalk
 如果不想依赖os上的webview，可以用这个插件打包一份较新的webview，但是安装包会变大。

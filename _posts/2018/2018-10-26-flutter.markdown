@@ -1,0 +1,11 @@
+---
+published: true
+title: Flutter
+layout: post
+---
+
+google fultter是一个新的跨平台开发工具，记录看看
+
+### getting started
+
+感觉不错，一个大的zip下载解压之后，就ok了。

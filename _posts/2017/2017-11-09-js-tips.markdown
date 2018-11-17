@@ -27,10 +27,78 @@ console.log(p.m()); // 5
 ```
 
 ## promise
+* promise的finally部分是一个比较新的特性，很多浏览器不支持（尤其是移动端），小心使用。
 
+## 遍历数组
+
+* 注意forEach有个明显的缺点，不能break和return
+* for in 是用于遍历对象，不要用来遍历数组
+* ES6的for of可以用
 
 ## lodash
-虽然lodash很好用，类似Java里的Apache common，但注意lodash会给js增加30k(gzip之后)。
+虽然lodash很好用，类似Java里的Apache common，但注意lodash会给js增加30k(gzip之后), 所以通常应该根据需要导入特定的函数，其中有几个很容易混淆：
+
+They all handle members at the root in similar ways.
+```
+_.assign      ({}, { a: 'a' }, { a: 'bb' }) // => { a: "bb" }
+_.merge       ({}, { a: 'a' }, { a: 'bb' }) // => { a: "bb" }
+_.defaults    ({}, { a: 'a' }, { a: 'bb' }) // => { a: "a"  }
+_.defaultsDeep({}, { a: 'a' }, { a: 'bb' }) // => { a: "a"  }
+```
+
+_.assign handles undefined but the others will skip it
+```
+_.assign      ({}, { a: 'a'  }, { a: undefined }) // => { a: undefined }
+_.merge       ({}, { a: 'a'  }, { a: undefined }) // => { a: "a" }
+_.defaults    ({}, { a: undefined }, { a: 'bb' }) // => { a: "bb" }
+_.defaultsDeep({}, { a: undefined }, { a: 'bb' }) // => { a: "bb" }
+```
+
+They all handle null the same
+```
+_.assign      ({}, { a: 'a'  }, { a: null }) // => { a: null }
+_.merge       ({}, { a: 'a'  }, { a: null }) // => { a: null }
+_.defaults    ({}, { a: null }, { a: 'bb' }) // => { a: null }
+_.defaultsDeep({}, { a: null }, { a: 'bb' }) // => { a: null }
+```
+
+But only _.merge and _.defaultsDeep will merge child objects
+```
+_.assign      ({}, {a:{a:'a'}}, {a:{b:'bb'}}) // => { "a": { "b": "bb" }}
+_.merge       ({}, {a:{a:'a'}}, {a:{b:'bb'}}) // => { "a": { "a": "a", "b": "bb" }}
+_.defaults    ({}, {a:{a:'a'}}, {a:{b:'bb'}}) // => { "a": { "a": "a" }}
+_.defaultsDeep({}, {a:{a:'a'}}, {a:{b:'bb'}}) // => { "a": { "a": "a", "b": "bb" }}
+```
+
+And none of them will merge arrays it seems
+```
+_.assign      ({}, {a:['a']}, {a:['bb']}) // => { "a": [ "bb" ] }
+_.merge       ({}, {a:['a']}, {a:['bb']}) // => { "a": [ "bb" ] }
+_.defaults    ({}, {a:['a']}, {a:['bb']}) // => { "a": [ "a"  ] }
+_.defaultsDeep({}, {a:['a']}, {a:['bb']}) // => { "a": [ "a"  ] }
+```
+
+All modify the target object
+```
+a={a:'a'}; _.assign      (a, {b:'bb'}); // a => { a: "a", b: "bb" }
+a={a:'a'}; _.merge       (a, {b:'bb'}); // a => { a: "a", b: "bb" }
+a={a:'a'}; _.defaults    (a, {b:'bb'}); // a => { a: "a", b: "bb" }
+a={a:'a'}; _.defaultsDeep(a, {b:'bb'}); // a => { a: "a", b: "bb" }
+```
+
+Lodash treats arrays as objects where the keys are the index into the array.
+
+```
+_.assign      ([], ['a'], ['bb']) // => [ "bb" ]
+_.merge       ([], ['a'], ['bb']) // => [ "bb" ]
+_.defaults    ([], ['a'], ['bb']) // => [ "a"  ]
+_.defaultsDeep([], ['a'], ['bb']) // => [ "a"  ]
+
+_.assign      ([], ['a','b'], ['bb']) // => [ "bb", "b" ]
+_.merge       ([], ['a','b'], ['bb']) // => [ "bb", "b" ]
+_.defaults    ([], ['a','b'], ['bb']) // => [ "a", "b"  ]
+_.defaultsDeep([], ['a','b'], ['bb']) // => [ "a", "b"  ]
+```
 
 ## yarn 和 npm
 在npm5之前，新项推荐使用yarn代替npm，最大的好处是对小版本的锁定，性能也好一些。
@@ -175,3 +243,20 @@ export { default as BBB } from './BBB';
 ```
 这样的好处是在import时可以比较简洁，参考[这里](https://stackoverflow.com/questions/29722270/import-modules-from-files-in-directory)。
 
+## localStorage
+
+使用chrome的developer tools可以查看和修改localstorage，非常方便。查看是在application tab页下，双击value可以修改。
+
+localStorage有大小限制，一般认为2.5M是比较安全的一个限制。
+
+## chart库
+* chart.js 115k 早期版本非常轻量(10k)，如果不需要新的功能，可以考虑用旧版本的chart.js
+* frappe charts 看起来不错，轻量 但是webpack打包的时候会报错Invalid assignment
+* highcharts 商用使用需要授权，75k  生成的chart右下角有个到highcharts的链接，可以通过选项去除。
+* c3.js 本身就比较大，而且还需要依赖d3
+
+## 兼容性
+
+* 字符串的startsWith方法比较新，很多浏览器不支持。
+* promise的finally部分很多浏览器不支持
+* 使用queryNodeAll得到的NodeList不是Array，它的forEach方法也是后来加上的，所以很多浏览器不支持。

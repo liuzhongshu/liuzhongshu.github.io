@@ -33,6 +33,7 @@ Intellij号称快捷键很方便，但我发现一个问题是很多的快捷键
 - Ctrl-Alt-left  回退
 - Shft-F6 Refactor的改名
 - Ctrl-F3 当前选中的搜索，类似Eclipse Ctrl-K
+- Alt-F8 在调试过程中执行一个表达式，用于临时修改变量非常方便，如果map里put或remove。
 
 有个快捷键：redo，我很不适应，不是ctrl-y，而是ctrl-sift-z。
 

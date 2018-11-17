@@ -1,0 +1,19 @@
+---
+published: true
+title: Cloud IDE
+layout: post
+---
+
+很久之前用过，现在再来看过。
+
+### codenvy
+
+codenvy本质上提供了一个虚拟机供开发，非常开放，sudo都可以执行
+
+* 普通的c/c++/java/go不在话下
+* 居然支持android开发，可以通过浏览器端的vnc连进去看启动好的emulator（当然非常慢，几乎不可用）
+* ui没有cloud9好用
+
+### cloud9
+
+cloud9被amazon收购之后，已经没有免费账号可用，cloud9虽然还是免费，但需要连接amazon的vps（这个收费），但非常良心的是，cloud9可以本地化安装，安装到自己的服务器上之后，就和amazon的vps没什么关系了，从版权上看，只要不二次封装售卖，这样本地安装的cloud9没有限制，可以做任何开发。

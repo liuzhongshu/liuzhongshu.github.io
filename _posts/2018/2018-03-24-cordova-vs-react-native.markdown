@@ -20,7 +20,7 @@ Cordova+Webpack对hot reload的支持非常非常好，几乎大部分的修改�
 
 在连接chrome调试时，Cordova项目和调试一个本地Web应用没什么差别，ReactNative也不错，但是不能调试界面元素（inspect），这点不如Cordova。
 
-Webpack在调试设置断点上，和chrome配合有明显的[问题](https://github.com/webpack/webpack/issues/3165)，通常需要切换devtool到一个合适的模式，我的环境中，使用inline-source-map要好些，但性能较差，所以可以根据情况来选择。
+Webpack在调试设置断点上，和chrome配合有明显的[问题](https://github.com/webpack/webpack/issues/3165)，通常需要切换devtool到一个合适的模式，我的环境中，使用inline-source-map要好些，但性能较差，而且会导致chrome远程调试不可用(自动断开)，所以可以根据情况来选择。
 
 另一点值得注意，就是cordova平台大多可以通过桌面浏览器来调试，脱离手机，这在某些时候也是很方便的，RN没有这个支持。
 
