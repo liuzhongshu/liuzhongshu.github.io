@@ -99,7 +99,40 @@ _.merge       ([], ['a','b'], ['bb']) // => [ "bb", "b" ]
 _.defaults    ([], ['a','b'], ['bb']) // => [ "a", "b"  ]
 _.defaultsDeep([], ['a','b'], ['bb']) // => [ "a", "b"  ]
 ```
+## 延时执行
 
+```
+console.log('Start');
+setTimeout(() => console.log('TO1'), 0);
+setImmediate(() => console.log('IM1'));
+process.nextTick(() => console.log('NT1'));
+setImmediate(() => console.log('IM2'));
+process.nextTick(() => console.log('NT2'));
+http.get(options, () => console.log('IO1'));
+fs.readdir(process.cwd(), () => console.log('IO2'));
+setImmediate(() => console.log('IM3'));
+process.nextTick(() => console.log('NT3'));
+setImmediate(() => console.log('IM4'));
+fs.readdir(process.cwd(), () => console.log('IO3'));
+console.log('Done');
+```
+
+将会输出：
+```
+Start
+Done
+NT1
+NT2
+NT3
+TO1
+IO2
+IO3
+IM1
+IM2
+IM3
+IM4
+IO1
+```
 ## yarn 和 npm
 在npm5之前，新项推荐使用yarn代替npm，最大的好处是对小版本的锁定，性能也好一些。
 

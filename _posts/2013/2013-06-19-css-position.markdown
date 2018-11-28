@@ -26,6 +26,22 @@ LRTB四个元素是可以同时用的，同时用的时候，如果元素大小�
 * display: none 不显示，也不分配空间（相当于元素从页面上删除）
 * display: flex Flex布局
 
+# flex
+
+简单的说，Flex容器的几个属性：
+* display: flex; 申明容器使用flex布局，这是唯一一个必选设置
+* flex-direction 控制主轴方向，row为横排（缺省），column为竖排
+* flex-wrap 控制主轴方向溢出如何处理，缺省为滚动，wrap则折行
+* justify-content 控制主轴的布局，可选flex-start（缺省），flex-end，center，space-between，space-around
+* align-items 控制主轴垂直方面行内的布局，可选flex-start，flex-end，center，stretch，baseline （因为在垂直方向只有一个元素，所以没有space控制）
+* align-content 控制主轴垂直方面多行的布局，当然如果没有多行就不起作用了。
+
+容器只对其下层的第一级元素进行布局，Flex元算的属性：
+* flex-grow 容器大于元素时，额外空间占比
+* flex-shink 容器大于元素时，收缩空间占比
+* flex-basis 初始元素大小，可以为auto
+* flex 由上面三个属性组合出来，如果没有flex，缺省为0 1 auto，如果有flex简写，比如flex 2，则等价于flex 2 1 0%，这点比较奇怪，但是最好计算，因为basis为0，则无需考虑shink。
+* align-self 对容器的align-items在子元素上的重载
 # 居中
 
 经常的一个需求是让div里的buttong居中，严谨的说flex布局可以做到，但更简单的做法就是一个text-align:center; 这个很方便。

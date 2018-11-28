@@ -16,4 +16,12 @@ codenvy本质上提供了一个虚拟机供开发，非常开放，sudo都可以
 
 ### cloud9
 
-cloud9被amazon收购之后，已经没有免费账号可用，cloud9虽然还是免费，但需要连接amazon的vps（这个收费），但非常良心的是，cloud9可以本地化安装，安装到自己的服务器上之后，就和amazon的vps没什么关系了，从版权上看，只要不二次封装售卖，这样本地安装的cloud9没有限制，可以做任何开发。
+cloud9被amazon收购之后，已经没有免费账号可用，cloud9虽然还是免费，但需要连接amazon的vps（这个收费），但非常良心的是，cloud9可以本地化安装，安装到自己的服务器上之后，就和amazon的vps没什么关系了，从版权上看，只要不二次封装售卖，这样本地安装的cloud9没有限制，可以做任何开发。使用cloud9一定会配合键盘，快捷键如下：
+
+* 在terminal和editor之间，使用ctrl+~切换
+
+在android/iOS下有些问题：
+
+* iOS/Safari下方向键不起作用，这一点完全否定了使用cloud9作为iOS开发环境的用法，除非你只用VIM。
+* iOS/Safari下Tab键不能输入一个tab，而是从代码框跳到了Terminal，这点也很难受。
+* chrome的zoom功能在小屏时很干扰输入

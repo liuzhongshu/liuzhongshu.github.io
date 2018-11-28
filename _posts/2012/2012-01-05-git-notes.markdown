@@ -32,6 +32,20 @@ git push -u origin master
 
 url通常有两种，一种是https格式，一种是ssh格式，ssh格式需要事先在服务器端配置好ssh key，好处是以后都不需要输入账号密码了。
 
+## 日常操作
+
+可以参考几种工作模式，比如gitflow, github flow, gitlab flow，通常个人开发者使用github flow就可以了，复杂情况下需要使用gitlab flow，但总的来说基础是下面几个命令：
+
+```
+#创建一个分支：
+git checkout -b fix-xx master
+#修改结束后，合并到master分支：
+git checkout master
+git merge --no-ff fix-xx
+git tag -a xx
+# 需要的话删除分支
+git branch -d fixbug-xx
+```
 ## 本地操作
 
 - 添加所有修改，包括删除的文件```git add . -A```
