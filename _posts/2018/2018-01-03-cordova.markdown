@@ -149,6 +149,16 @@ if (cordova.platformId === 'android') {
   window.StatusBar.backgroundColorByHexString('#027be3')
 }
 ```
+注意，前景色是设置不了的，只能通过几个style接口修改为浅色或是深色，但在android下，需要6.0以上才支持style设置。
+
+## splash
+
+默认创建的cordova应用没有splash屏幕（但其实资源文件还是在的），添加cordova-plugin-splashscreen之后就有了，如果安装了插件，还想不显示splash，可以加上设置
+
+```
+<preference name="SplashScreenDelay" value="0"/>
+```
+实际上cordova webview的加载速度很快，所以大部分的时间应该是花在应用自身后续的加载上，所以也可以考虑使用html5的loading指示来代替这个splash。
 
 ## CORS
 
@@ -173,6 +183,7 @@ if (cordova.platformId === 'android') {
 常用的几个插件:
 
 * cordova-plugin-statusbar 控制手机状态栏
+* cordova-plugin-spalshscreen 控制App的splash
 * cordova-plugin-device 获取设备信息
 * cordova-plugin-app-version 获取APP的版本号
 * cordova-plugin-insomnia 防止app锁屏（某些应用交互少，阅读多）

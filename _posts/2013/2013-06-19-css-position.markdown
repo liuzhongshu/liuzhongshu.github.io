@@ -45,3 +45,9 @@ LRTB四个元素是可以同时用的，同时用的时候，如果元素大小�
 # 居中
 
 经常的一个需求是让div里的buttong居中，严谨的说flex布局可以做到，但更简单的做法就是一个text-align:center; 这个很方便。
+
+如果是fixed元素想居中，方法如下：
+
+```
+position: fixed;top: 50%;left: 50%;transform: translate(-50%,-50%);
+```

@@ -46,6 +46,11 @@ git tag -a xx
 # 需要的话删除分支
 git branch -d fixbug-xx
 ```
+
+上面的-no-ff的作用，可以用下面一张图说明：
+
+![](https://i.stack.imgur.com/GGkZc.png)
+
 ## 本地操作
 
 - 添加所有修改，包括删除的文件```git add . -A```
