@@ -16,23 +16,34 @@ codenvy本质上提供了一个虚拟机供开发，非常开放，sudo都可以
 
 ### cloud9
 
-cloud9被amazon收购之后，已经没有免费账号可用，cloud9虽然还是免费，但需要连接amazon的vps（这个收费），但非常良心的是，cloud9可以本地化安装，安装到自己的服务器上之后，就和amazon的vps没什么关系了，从版权上看，只要不二次封装售卖，这样本地安装的cloud9没有限制，可以做任何开发。我在Linux和Windows的git bash下尝试，居然都一次安装成功。
+cloud9被amazon收购之后，已经没有免费账号可用，cloud9虽然还是免费，但需要连接amazon的vps（这个收费），但非常良心的是，cloud9可以本地化安装，安装到自己的服务器上之后，就和amazon的vps没什么关系了，从版权上看，只要不二次封装售卖，这样本地安装的cloud9没有限制，可以做任何开发。我在Linux和Windows的git bash下尝试，居然都一次安装成功，启动命令如下：
 
+```
+node server.js -p 8070 -l 0.0.0.0 -a user:pass -w /root/projects/
+```
 
 使用cloud9一定会配合键盘，快捷键如下：
 
-* 某些安卓平板可以使用start+/, 显示当前可用的一些快捷键，这个如果应用支持，甚至可以显示当前应用的快捷键盘，比如在chrome下按，就可以看到chrome和系统的所有快捷键。
 * 在terminal和editor之间，使用ctrl+~切换
 * F6可以调出或关闭terminal
 * ctrl-E打开文件
 
-在iOS下有些问题，导致基本不可用。
+cloud9跑在Linux下很不错，没什么大问题，第一次启动稍慢，后启动成功以后，基本功能都具备，terminal工作也正常。客户端使用浏览器即可，不过android和iOS各有一些问题：
 
+* 某些安卓平板可以使用start+/, 显示当前可用的一些快捷键，这个如果应用支持，甚至可以显示当前应用的快捷键盘，比如在chrome下按，就可以看到chrome和系统的所有快捷键。
 * iOS/Safari下方向键不起作用，这一点完全否定了使用cloud9作为iOS开发环境的用法，除非你只用VIM。
 * iOS/Safari下Tab键不能输入一个tab，而是从代码框跳到了Terminal，这点也很难受。
 
-Android下，可以做以下调整：
+客户端如果在Android下，可以做以下调整：
 
 * 在cloud9/plugins/c9.vfs.standalone/views/standalone.html.ejs的head下增加`<meta name="mobile-web-app-capable" content="yes">`可以让android版chrome为网站建立快捷方式全屏打开。再加上`<meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />`以防止chrome对其缩放。
 * chrome的chrome://flags页面下禁止Mark non-secure origins as non-secure，可以防止全屏时上面弹一个不安全提示。
 * 由于安卓版chrome没有内嵌的devTools，所以如果想要devTools，可以使用这个 [嵌入式的devTools](https://github.com/liriliri/eruda)
+
+我甚至可以就cloud9服务端直接运行在android下（通过Termux），这时需要调整一些代码，并且有些功能不能正常工作：
+
+* cloud9内置的Terminal不能工作，可以另开一个Termux代替。
+
+### vscode
+通过这个项目[code server](https://github.com/codercom/code-server)，可以让vscode运行在Linux下，试了一下，很容易，完成度也很高，但第一次浏览器端运行的速度更慢了，不知道能否在Termux下直接运行以加快运行速度，但目前预编译二进制文件没有arm版本，所以要从源码开始。
+

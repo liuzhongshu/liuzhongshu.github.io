@@ -24,7 +24,10 @@ LRTB四个元素是可以同时用的，同时用的时候，如果元素大小�
 # display
 
 * display: none 不显示，也不分配空间（相当于元素从页面上删除）
-* display: flex Flex布局
+* display: inline 一般的，span缺省使用这个display，这种元素不能设置height，width，padding、margin也不会影响他的占位（但会影响背景色）
+* display: inline-block，可以设置box的hwpm了
+* display: block，相对inline-block，尾部会自动换到下一行，div的缺省是block
+* display: flex Flex布局，参考下面
 
 # flex
 
@@ -38,13 +41,14 @@ LRTB四个元素是可以同时用的，同时用的时候，如果元素大小�
 
 容器只对其下层的第一级元素进行布局，Flex元算的属性：
 * flex-grow 容器大于元素时，额外空间占比
-* flex-shink 容器大于元素时，收缩空间占比
+* flex-shink 容器小于元素时，收缩空间占比
 * flex-basis 初始元素大小，可以为auto
 * flex 由上面三个属性组合出来，如果没有flex，缺省为0 1 auto，如果有flex简写，比如flex 2，则等价于flex 2 1 0%，这点比较奇怪，但是最好计算，因为basis为0，则无需考虑shink。
 * align-self 对容器的align-items在子元素上的重载
+
 # 居中
 
-经常的一个需求是让div里的buttong居中，严谨的说flex布局可以做到，但更简单的做法就是一个text-align:center; 这个很方便。
+经常的一个需求是让div里的button居中，严谨的说flex布局可以做到，但更简单的做法就是一个text-align:center; 这个很方便。
 
 如果是fixed元素想居中，方法如下：
 

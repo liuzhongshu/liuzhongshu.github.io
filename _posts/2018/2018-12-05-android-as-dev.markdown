@@ -28,4 +28,5 @@ Termux有一些很酷的用法，举例
 
 问题:
 * android 8以上，npm会有一个报错，按照log文件的位置，修改maxConcurrentWorkers为1即可修复
-* git clone 使用ssh url会报错，使用https url没有问题
+* git clone 使用ssh url如果包unable to fork的错误，是因为没有安装ssh
+* 没有蓝牙键盘的话，有些特殊字符不好输入，比如ctrl-c，可以按照一个hackerkeyboard，或者使用android原生输入法，android原生输入法中音量下键即为ctrl，上建alt。

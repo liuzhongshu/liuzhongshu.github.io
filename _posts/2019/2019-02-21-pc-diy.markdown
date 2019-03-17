@@ -1,0 +1,33 @@
+---
+published: true
+title: 组装PC
+layout: post
+---
+
+## cpu
+
+比较值得推荐的几款（后面的三个分为多核、单核、GPU）：
+
+* intel 5400G 5207/2183/776 
+* intel i3-8100 8060/2101/1192 
+* AMD R3 2200G 7323/1832/1759 
+* AMD R5 2400G 9282/1936/2268
+
+看起来R3 2200G 单线程得分稍弱，但配合B350，有超频潜力，超频后CPU性能大致等于i3-8100，自带GPU Vega8也不错，但还不如mx150(2161分)。
+
+## 主板
+
+* AMD的A320芯片组无法超频,B350可以超频
+* Intel 只有带K的cpu支持超频。H310，B360
+
+## ssd
+
+## 移动端
+
+移动端CPU，主要是u或者h，前者一般15w，多用于轻薄本，后者30w，多用于游戏本。
+
+* intel 8250u
+* 
+
+## 参考
+* https://www.cpubenchmark.net/CPU_mega_page.html

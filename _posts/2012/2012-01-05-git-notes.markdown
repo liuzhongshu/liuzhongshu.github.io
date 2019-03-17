@@ -84,7 +84,13 @@ git reset --soft HEAD~3
 git commit -m 'comment'
 ```
 
-## Rebase
+## 历史
+
+git log可以很容易看其他分支的历史，只需要加上分支名称，比如`git log feature1`，如果只想看这个分支上的修改，不包括更早的历史，可以后面用..的方式，比如feature1是从master拉出来的，可以用
+
+```
+git log master..feature1
+```
 
 ## GUI工具
 
@@ -113,7 +119,7 @@ git可以配置调用外部diff工具，通常我习惯用beyond compare，可�
     keepBackup = false
 [mergetool "bc3"]
     cmd = \"c:/program files (x86)/beyond compare 3/bcomp.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-    trustExitCode = true
+    trustExitCode = truecss
 ```
 ## 密码
 
@@ -123,6 +129,15 @@ git可以配置调用外部diff工具，通常我习惯用beyond compare，可�
 
 ```
 git remote set-url origin git@xxx.git
+```
+
+或者clone的时候就使用ssh地址（非https地址）
+
+## 换行处理
+git缺省会自动做换行处理，我发现在某些情况下会导致问题，比如使用vue init一个github库时，bat文件没有正确转换回dos格式，所以我一般：
+
+```
+git config --global core.autocrlf false
 ```
 
 ## hook

@@ -79,7 +79,7 @@ remotedebug_ios_webkit_adapter --port=9000 #手机上启动cordova debug应用�
 
 ## 远程调试
 
-config.xml里控制加载的入口文件index.html如果修改为远程地址，就可以远程加载webpack devserver调试了，好处自然是hot reload，但是需要注意的是缺省cordova的加载超时较短，为20秒，通常需要在config.xml里android部分下，增加超时的配置，否则很容易启动时出现The connection to the server was unsuccessful错误。
+config.xml里控制加载的入口文件index.html如果修改为远程地址，就可以远程加载webpack dev server调试了，好处自然是hot reload，但是需要注意的是缺省cordova的加载超时较短，为20秒，通常需要在config.xml里android部分下，增加超时的配置，否则很容易启动时出现The connection to the server was unsuccessful错误。
 
 ```
 <preference name="loadUrlTimeoutValue" value="300000" />
@@ -107,11 +107,14 @@ cordova自己有个版本，这个版本其实关系不大，相当于是cordova
 考虑到不同手机的webview版本差异较大，需要找版本较低的手机来做验证，很多用到浏览器新特性的模块可能无法是旧设备上运行，比如：
 
 * animate.css 在老手机上很多动画显示不出来，替代方法可以考虑animejs
+* 有些语言特性，比如let of在老版本webview上没有提供，要小心。
+* TextDecoder在低版本浏览器(Android 5.1)不正常，需要使用[npm模块](https://github.com/inexorabletash/text-encoding)
 
 ## web限制
-和原生app相比，使用webview作app有一些明显的限制（webview必须加的限制）要知道：
-* CORS 尽管在cordova app运行时，以file协议加载，不会有cors限制，但是在做远程调试（http加载远端代码）还是受CORS限制，我通常的方法是在桌面浏览器中(使用禁止CORS的chrome)调试这部分代码。
-* HTTP头的某些参数在webview下禁止修改，比如Referer，这可以通过插件解决。
+和原生app相比，使用webview作app有一些明显的限制（webview必须加的限制），比如：
+
+* CORS 尽管在cordova app运行时，以file协议加载，不会有cors限制，但是在做远程调试（http加载远端代码）还是受CORS限制，我通常的方法是在桌面浏览器中(使用禁止CORS的chrome)调试这部分代码，或者使用webpack提供的proxy也可以。
+* HTTP头的某些参数在webview下禁止修改，比如Referer，如果一定有这个需求，只能通过插件来调用移动端原生的http api，绕过webview来解决。
 
 ## cordova 插件
 可以为cordova项目安装插件
@@ -120,13 +123,7 @@ cordova自己有个版本，这个版本其实关系不大，相当于是cordova
 cordova plugin add https://github.com/don/cordova-plugin-hello.git
 ```
 
-这样的话，plugins目录下就会多出通过git下载的插件了，后面build的话，插件会自动生效，如果增加比较多的插件，而这些插件又不上版本库的话，需要在config.xml里把插件记录下来，所以上面的命令可以加--save自动记录，或者可以使用
-
-```
-cordova plugin save
-```
-
-一次性统一记录到config.xml，下次从版本库checkout出来之后，需要用
+这样的话，plugins目录下就会多出通过git下载的插件了，并且插件信息会被加入到config.xml，下次从版本库checkout出来之后，需要用
 
 ```
 cordova prepare
@@ -164,16 +161,19 @@ if (cordova.platformId === 'android') {
 
 缺省的情况下，cordova下的webview也遵循cors规则，要解除这些限制，需要安装whitelist这个插件，并配置config.xml，文档里有[详细解释](https://github.com/apache/cordova-plugin-whitelist)，这些通常在add platform时自动配好了。
 
-但是这似乎只在cordova从file://加载时生效，如果debug版本让cordova从远端加载应用，cors还是生效了，whitelist插件也无能为力。同时也导致了dev版本无法绕过CORS，比较简单的一个做法是，桌面上启动一个禁止CORS的浏览器来做dev版本的开发和调试，启动的方法是通过命令行直接运行chrome，并增加以下参数：
+但是这只在cordova从file://加载时生效，如果debug版本让cordova从远端加载应用，cors还是生效了，whitelist插件也无能为力。同时也导致了dev版本无法绕过CORS，比较简单的一个做法是，桌面上启动一个禁止CORS的浏览器来做dev版本的开发和调试，启动的方法是通过命令行直接运行chrome，并增加以下参数：
 
 ```
 "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir="c:/tools/chrome-dev"
 ```
 
-注意，一定要增加user-data-dir参数，否则不生效。
+注意，一定要增加user-data-dir参数，否则不生效。另外两个绕过CORS的方法：
+* 不使用webview提供的http服务，而是调用原生http接口，缺点是无法在桌面浏览器下调试了。
+* 使用webpack的proxy功能
 
 ## 权限
 通常对权限的指定是通过插件的配置文件来实现，cordova对plugin.xml的处理方式如下：
+
 * 插件安装卸载时cordova会处理plugin.xml，写入里面需要的权限到平台配置文件
 * 平时build时，cordova不再处理plugin.xml，所以我们可以手动修改平台配置文件增删权限，并不会在下次build时丢失。
 * 暂时还没有办法在config.xml里增加权限，只能手工修改平台配置文件，或通过一个外部插件cordova-custom-config(可以让我们在config.xml里指定权限)。
@@ -202,9 +202,9 @@ cordova plugin add cordova-android-support-gradle-release
 ## 工程
 cordova工程使用版本控制时，那些文件入库，哪些不入库，需要系统考虑，我的经验是：
 
-* platforms、node_modules、plugins目录都不入库，同时也保证了不手工修改这几个目录。
+* platforms、node_modules、plugins目录都不入库，同时也不要手工修改这几个目录。
 
-入库的问题在于，当clean项目的时候，重新安装platform，plugin可能和预留的文件冲突，导致编译不过。
+入库的问题在于，当clean项目的时候，重新安装platform，plugin可能和预留的文件冲突，导致编译不过。如果某些插件需要修改之后才能工作，应该在github上单独为插件fork或新建一个项目，用这个新项目地址配置到cordova工程里，下面详述。
 
 ## 创建自己的插件
 
@@ -213,7 +213,7 @@ cordova工程使用版本控制时，那些文件入库，哪些不入库，需�
 
 这样就创建了一个最基本的插件，并可以通过cordova plugin add 去添加了（后面使用本地文件的相对路径，比如..\plugin-demo），插件在add的时候，根据plugin.xml里的指示，cordova会做一些事情，将一些代码和配置文件丢到android目录下，然后就可以编译了。
 
-但是，非常重要的一点是，插件add的时候所做的事情在一起build的时候是不会再做的，所以如果直接修改插件源码或plugin.xml，直接build是不会生效的，必须在android目录下修改插件生成的文件，这就给插件开发者带了一些不便，通常在android目录下调通插件所有功能后，再把相关文件和配置反向复制回插件源码中，这一步只能手工来做了。
+但是，非常重要的一点是，插件add的时候所做的事情在以后build的时候是不会再做的，所以如果直接修改插件源码或plugin.xml，直接build是不会生效的，必须在android目录下修改插件生成的文件，这就给插件开发者带了一些不便，通常在android目录下调通插件所有功能后，再把相关文件和配置反向复制回插件源码中，这一步只能手工来做了。
 
 插件的调试离不开Native调试器了，Android的话就要用android studio，如果不用IDE的话，只用log也可以，相对比较痛苦。
 

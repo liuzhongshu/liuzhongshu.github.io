@@ -105,6 +105,11 @@ signatures do not match the previously installed version; ignoring!
 adb unintall package-id
 ```
 
+## 反编译
+
+最好的工具组合是dex-tools和jadx，前者用于将dex转换为jar，后者阅读jar，虽然很多人推荐jd-gui来打开jar，但我发现jd-gui有些jar里的class文件打不开，而jadx可以。
+
+
 ## 开发与亮屏
 
 开发调试时，通常需要不停查看屏幕，默认的安卓设置会导致一会就熄屏了，虽然可以修改设置来禁止熄屏，但是改来改去还是蛮麻烦的，简单的方法当然是安装一个软件，这里软件很多，我用的是Stay Alive，还不错。
