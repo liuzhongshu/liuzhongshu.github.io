@@ -50,23 +50,22 @@ C:\Users\用户名\.gradle\wrapper\dists\gradle-xxx-all\sdfdfa4w5fzrksdfaweeut
 
 真机调试需要在手机上开USB调试选项，然后用USB接到开发机上，安装驱动，就可以调试了，不过不是每个手机都容易安装驱动，有些手机非常不容易安装驱动，如果实在搞不定，参考[这个帖子](http://www.makeuseof.com/tag/android-wont-connect-windows-adb-fix-it-three-steps/) 一步一步安装应该可以成功。
 
-** 批评：小米手机就是非常不友好的典型，不推荐使用 **
-
 有的时候，换个手机还是不能识别，可以从设备管理器里手动安装驱动，选择上面安装好的驱动程序，就可以了，参考下图：
 
 ![](../../public/images/2017-12-02-15-49-37.png)
 
-也可以使用无线调试，需要手机和开发机在同一局域网内，推荐在Android Studio下安装一个插件ADB Wifi, 
 
-然后在USB连上手机的情况下，选择 Tools/Android/ADB Wifi/ADB USB to Wifi，就建立了无线的ADB链接了，以后断开之后，需要在Android Studio的命令行下输入
+几个调试时遇到的问题：
 
-```
-adb connect 192.168.xx.xx
-```
+* 运行的时候如果出This version of android studio is incompatible with the gradle version used.Try disabling the instant run，可以在 Settings/Preferences > Build, Execution, Deployment option > Instant Run 下面禁用Instance run所有选项即可。
+* Android studio启动调试时出现unable to open debugger port, 重启Android studio也不管用，最后的解决方法是`adb kill-server`再`adb start-server`
+* 有些手机每次调试安装应用的时候会弹出一个安装确认（比如华为的emui），这个可以在开发者选项中关闭。
 
-可以重新建立无线连接（再也不需要USB线了），如果找不到adb，先进入sdk下的platfrom-tools这个目录再执行。
+## 无线连接adb
 
-运行的时候如果出This version of android studio is incompatible with the gradle version used.Try disabling the instant run，可以在 Settings/Preferences > Build, Execution, Deployment option > Instant Run 下面禁用Instance run所有选项即可。
+很多时候，usb连adb不是很方便，可以改用wifi，先在usb连接的情况下执行adb tcpip，这个命令把手机切换到无线adb模式，然后`adb connect 192.168.xx.xx`就可以了，只要不重启手机，每次都可以用这个adb connect连到手机。
+
+如果手机已经root，上面使用usb的步骤可以忽略，通过app切换到wifi模式。
 
 ## logcat
 
@@ -138,3 +137,70 @@ adb shell pm grant jp.co.c_lis.ccl.morelocale android.permission.CHANGE_CONFIGUR
 * 不要使用google 签名
 * 如果你想app被全世界用户使用，最好缺省语言选英文
 * 价格可以从收费转为免费，但不能反向操作
+
+## apk优化
+
+* 如果不需要appcompact这个库，可以在build.gradle中移除它，可以减小大约1M的体积
+
+## mipmap和drawable
+
+res下这两个目录都可以放图标。
+
+## actionBar
+
+早期安卓有一个ActionBar组件，后来安卓5.0增加了Toolbar，更灵活一些。
+
+## service开发
+
+service用于完成后台操作，它可以通过start或者bind启动，一个简单的service如下：
+
+```
+public class MyService extends Service {
+
+  @Override
+  public int onStartCommand(Intent intent, int flags, int startId) {
+      return Service.START_NOT_STICKY;
+  }
+
+  @Override
+  public IBinder onBind(Intent intent) {
+    //TODO for communication return IBinder implementation
+    return null;
+  }
+}
+```
+
+start一个service时，可以通过extra带参数，像这样：
+
+```
+Intent i= new Intent(context, MyService.class);
+i.putExtra("KEY1", "Value to be used by the service");
+context.startService(i);
+```
+
+这样会触发service里的onStartCommand方法，并且如果service还没有创建的话，service会被先创建起来，并调用onCreate方法，如果service已经创建了，就直接调用onStartCommand，这些调用都是通过UI thread进行，不会并发。
+
+onStartCommand的返回值表示service是否需要restart，取值可以为：
+
+* Service.START_STICKY  会restart，并且restart时传的Intent为null
+* Service.START_REDELIVER_INTENT  会restart，并且restart时传上次的Intent
+* Service.START_NOT_STICKY  不会restart
+
+restart特性在不同的厂商间差别很大，很多厂商禁止了restart，比如小米、华为等，也就是说只要用户在多任务页面杀掉app，service也会被杀（即使标记了START_STICKY），解决方法似乎是加入白名单，参考[这里](https://stackoverflow.com/questions/41277671/clear-recent-apps-wipe-the-apps-memory-and-my-receiver-stopped-working/41360159#41360159)
+
+执行stopService来停止service, 无论startService调用多少次，stopService一次就可以，或者也可以在service里，调用stopSelf停止自己。
+
+Activity和service有几种通讯手段
+
+* 通过startService带参数
+* 通过bind
+* 通过broadcasts和receivers，这中方法可以和非本进程的service通讯
+
+
+### AccessibilityService
+
+AccessibilityService比较特殊，体现在:
+
+* AccessibilityService需要用户在系统设置里授权，授权后会由系统来启动，不过，手动startService再授权也可以，但如果没有授权，AccessibilityService的回调和操作不能生效。
+* 如果是通过系统设置里授权启动，实际上只启动了Service，应用的Activity不会启动，也就是在多任务列表中看不到应用，但清理内存时还是会被清理掉。
+* 清理内存或App强杀之后，授权也丢失，需要重新授权。

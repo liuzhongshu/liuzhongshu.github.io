@@ -76,6 +76,8 @@ git diff HEAD~2
 git difftool c1ac~ c1ac
 ```
 
+可以加-d表示目录比较，更方便。
+
 ## 撤销
 和svn不一样，git里本地的commit，如果没有push，是可以撤销的，方法很简单，比如撤销最后三次修改
 
@@ -111,14 +113,14 @@ git可以配置调用外部diff工具，通常我习惯用beyond compare，可�
 [difftool]
     prompt = false
 [difftool "bc3"]
-    cmd = \"c:/program files (x86)/beyond compare 3/bcomp.exe\" \"$LOCAL\" \"$REMOTE\"
+    cmd = \"c:/program files (x86)/beyond compare 3/BCompare.exe\" \"$LOCAL\" \"$REMOTE\"
 [merge]
     tool = bc3
 [mergetool]
     prompt = false
     keepBackup = false
 [mergetool "bc3"]
-    cmd = \"c:/program files (x86)/beyond compare 3/bcomp.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+    cmd = \"c:/program files (x86)/beyond compare 3/BCompare.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
     trustExitCode = truecss
 ```
 ## 密码
