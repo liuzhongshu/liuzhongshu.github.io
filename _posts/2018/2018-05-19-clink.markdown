@@ -4,7 +4,7 @@ title: Clink
 layout: post
 ---
 
-长久以来windows缺乏一个真正好用的命令行环境，clink尝试补足这一环。
+长久以来windows缺乏一个真正好用的命令行环境，clink尝试补足这一环。安装很简单，官网上有一个exe包，一路next就好了，以后每次启动cmd或是conemu，都会注入clink了。
 
 ## 可持久化的命令历史
 clink支持了可持久化的命令历史

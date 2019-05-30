@@ -26,6 +26,10 @@ p.a = 4;
 console.log(p.m()); // 5
 ```
 
+## Number.MAX_SAFE_INTEGER
+
+这个是js里能保持精度的最大整数，实际上是power(2,53) - 1，正负都不能超过这个数，过了就会计算出错，且没有异常。需要注意的是这个数比java的long要小很多，所以要十分小心，比如java 后台返回json数据里如果有大的整数超过这个范围，在java侧是好的，到js侧就出错了。
+
 ## promise
 * promise的finally部分是一个比较新的特性，很多浏览器不支持（尤其是移动端），小心使用。
 

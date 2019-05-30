@@ -103,6 +103,14 @@ signatures do not match the previously installed version; ignoring!
 ```
 adb unintall package-id
 ```
+## app文件浏览
+app可以使用内部存储或外部存储，内部存储仅对app开放，可以使用adb来方便浏览和检查，这样做：
+
+```
+adb shell
+run-as your.package.id
+ls -all
+```
 
 ## 反编译
 
@@ -141,6 +149,40 @@ adb shell pm grant jp.co.c_lis.ccl.morelocale android.permission.CHANGE_CONFIGUR
 ## apk优化
 
 * 如果不需要appcompact这个库，可以在build.gradle中移除它，可以减小大约1M的体积
+
+## Intent
+Intent是安卓的一个核心概念，intent用于组件之间的调用和通讯，通常用于startActivity。intent有两种：
+
+### Implicit intent
+用于发起一个调用，但是不知道哪个应用会处理，也可能有多个应用可以处理，如果有多个，会让用户选择要给，典型的例子是分享，intent是这样的：
+
+```
+Intent i=new Intent();
+i.setAction(Intent.ACTION_SEND);
+```
+
+### Explicit intent
+
+这种intent指定了component，可以直接调用指定的app里的activity或service，比如：
+
+```
+Intent I = new Intent(getApplicationContext(),NextActivity.class);
+I.putExtra(“value1” , “This value for Next Activity”);
+```
+
+
+## activity的filter属性
+
+主Activity通常有这个属性：
+
+```
+<intent-filter>
+     <action android:name="android.intent.action.MAIN" /> 
+     <category android:name="android.intent.category.LAUNCHER" />
+</intent-filter>
+```
+
+MAIN的意思表示是一个入口，通常和LAUNCHER一起出现，让桌面程序或第三方启动类程序可以发现这个activity。但是MAIN也可以和其他类别category组合比如和CATEGORY_CAR_DOCK组合则表示在dock时会执行的activity。
 
 ## mipmap和drawable
 
@@ -203,4 +245,29 @@ AccessibilityService比较特殊，体现在:
 
 * AccessibilityService需要用户在系统设置里授权，授权后会由系统来启动，不过，手动startService再授权也可以，但如果没有授权，AccessibilityService的回调和操作不能生效。
 * 如果是通过系统设置里授权启动，实际上只启动了Service，应用的Activity不会启动，也就是在多任务列表中看不到应用，但清理内存时还是会被清理掉。
-* 清理内存或App强杀之后，授权也丢失，需要重新授权。
+* 清理内存或App强杀之后，无障碍授权也丢失，需要重新授权。
+
+## JobScheduler
+
+在API21及以上可以用jobscheduler，包括一次性或周期性两种job，可惜在API24以上，周期性job的周期最少为15分钟，所以有些场景不能用，只能用一次性job+重新调度规避。不管是哪种job都会被doze优化，doze后不再调度，即使加省电优化白名单也不行。
+
+一次性job，如果加省电白名单，可以一解锁就立刻触发，如果不加省电白名单，锁屏时间一长，解锁后就需要过段时间才能重新触发，这个时间很诡异，有长有短。但切换一下网络就很容易再次触发。一次性job有两个重要参数：
+
+* latency是等待时间，可以用这个加上重新调度来模拟周期job
+* deadline是指即使条件不满足时，隔多久也会强制触发，deadline甚至可以小于latency，或者0表示不会强制触发。但如果此时处于锁屏，仍然不行。
+
+总之，JobScheduler不能在锁屏下触发，并且如果不加省电白名单，解屏后有一段诡异的不触发时间。 Job除了时间限制外，可以加一些限制条件，比如：
+* Network type 
+* Charging
+* Idle       这个不是dumpsys的那个idle，这个idle是指屏幕关闭后的一段时间，荣耀8x下实测下来很难触发 
+
+如果有多个条件，是与关系。
+
+
+## 设备状态
+
+可以用下面的命令查询当前设备状态：
+
+* adb shell dumpsys deviceidle | grep mState
+
+也可以用adb shell dumpsys deviceidle step，手工向后步进状态，直到IDLE和IDLE_MAINTENANCE。

@@ -43,7 +43,7 @@ git checkout -b fix-xx master
 git checkout master
 git merge --no-ff fix-xx
 git tag -a xx
-# 需要的话删除分支
+# 需要的话删除分支，如果分支没有合并，可以用-D强制删除
 git branch -d fixbug-xx
 ```
 
@@ -51,6 +51,11 @@ git branch -d fixbug-xx
 
 ![](https://i.stack.imgur.com/GGkZc.png)
 
+## 更多分支操作
+
+```
+#查看远端分支
+git branch -r
 ## 本地操作
 
 - 添加所有修改，包括删除的文件```git add . -A```
@@ -74,9 +79,11 @@ git diff HEAD~2
 更高级一点的用法，调用外部工具比较一个特定版本(用hash)的修改：
 ```
 git difftool c1ac~ c1ac
+#比较两个分支
+git difftool branch1..branch2
 ```
 
-可以加-d表示目录比较，更方便。
+可以加-d表示目录比较，更方便(而且可以把beyond compare设置为difftool)。
 
 ## 撤销
 和svn不一样，git里本地的commit，如果没有push，是可以撤销的，方法很简单，比如撤销最后三次修改
