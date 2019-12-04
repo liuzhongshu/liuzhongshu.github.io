@@ -25,3 +25,4 @@ adb shell screenrecord --verbose ./sdcard/screencast-video.mp4
 scrcpy -m 700 -b 1m
 ```
 
+

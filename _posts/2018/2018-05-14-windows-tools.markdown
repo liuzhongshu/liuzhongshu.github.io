@@ -24,6 +24,7 @@ layout: post
 1. [nssm](https://nssm.cc/) 把任何程序转为Windows服务
 
 ## 媒体
+1. [SumatraPDF](https://www.sumatrapdfreader.org/free-pdf-reader.html): 轻量PDF阅读工具，多标签页。
 1. [Vlc](http://www.videolan.org/vlc/) : 播放器
 1. [IrfanView](http://www.irfanview.com/) : 图片查看
 1. [GreenShot](http://getgreenshot.org/) : 截屏工具
@@ -35,7 +36,7 @@ layout: post
 1. [Visual Studio Code](https://code.visualstudio.com/) : 大部分项目的IDE
 1. [Notepad++](https://notepad-plus-plus.org/) : 文件编辑器
 1. [git](https://git-scm.com/) : 版本控制和linux工具集
-1. [eclipse](https://www.eclipse.org/) : Java IDE，最爱3.7版本
+1. [eclipse](https://www.eclipse.org/) : Java IDE
 
 ## 设计
 1. [Just Color Picker](http://annystudio.com/software/colorpicker/) : 取色工具

@@ -85,9 +85,16 @@ adb logcat -v time | grep pid
 
 这样的话，windows下只能用findstr了，另一个常见的问题是，logcat的内容太多了，有时候某些进程不停的写log，导致log很快满了而冲掉有用的log，但是android没有提供一个方法可以禁止某个进程记录log（除了杀死进程），有的时候（定位一些偶发问题）很不方便。
 
-log的级别有多个，有些手机（比如魅族）缺省会不记录debug级别的日志，可以在设置》开发者选项里调整。
+还有一种场景，应用crash了，因此只想看crash相关的日志(crash日志是一个单独的buffer），可以用
 
-总之logcat的设计有点反人性。
+```
+adb logcat --buffer=crash
+```
+
+我一般习惯在开发人员选项中把log的内存放到最大，log的级别有多个，有些手机（比如魅族）缺省会不记录debug级别的日志，可以在设置》开发者选项里调整。
+
+总之logcat的设计有点反人性，并且
+* logcat并不persist，所以手机重启之后就没有了。
 
 如果设备不再手边，或没有条件使用USB线，可以在设备上安装一个[catlog](https://play.google.com/store/apps/details?id=com.nolanlawson.logcat&hl=en)工具，可以直接显示或保存日志，挺好用，但是这个工具需要root权限。
 
