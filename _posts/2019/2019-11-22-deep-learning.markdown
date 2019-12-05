@@ -40,7 +40,7 @@ Anaconda还内置了jupyter notebook，可以方便的集成代码和文档。�
 
 * [PyTorch](https://pytorch.org/get-started/locally/) facebook开源的深度学习框架，可以通过命令行在Anaconda下一条命令安装。
 
-
+PyTorch目前的GPU加速只支持CUDA，所以，最好购买计算机时选择Nvidia显卡，即使最低端的MX150，也可以很好的支持GPU加速，只是因为显存不足，在训练大数据量时会有不足，但对于开发用是不错的选择。
 
 ## 线性回归
 
@@ -131,3 +131,7 @@ CNN的典型应用：
 * 著名的alpha go，之所以用CNN，大概是因为围棋也具有上述图像的前两个特征，但除去了Max pooling。
 
 ## RNN
+
+## 参考
+* https://pytorch.org/tutorials/
+* https://github.com/Atcold/PyTorch-Deep-Learning-Minicourse
