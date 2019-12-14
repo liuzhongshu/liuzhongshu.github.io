@@ -56,6 +56,8 @@ git branch -d fixbug-xx
 ```
 #查看远端分支
 git branch -r
+```
+
 ## 本地操作
 
 - 添加所有修改，包括删除的文件```git add . -A```
