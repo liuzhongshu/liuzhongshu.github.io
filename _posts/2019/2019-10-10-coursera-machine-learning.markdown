@@ -94,3 +94,66 @@ S函数在x大于0时，输出0.5以上的值，在x小于0时，输出0.5以下
 
 ## 神经网络
 对于复杂的非线性分类问题，上述的算法都不再适用，因为非线性问题导致的输入参数过多，n个特征值的二次函数，总参数为O(n^2)，计算量过大，如果用三次函数则为O(n^3)，更多了。比如图像识别等，因此神经网络更为适合。
+
+神经网络中的基本元素是神经元，神经元做的事情很简单，一个线性变换加一个激活变换（非线性）。
+
+![](../../public/images/2019-12-02-16-18-13.png)
+
+之所以加激活函数，这个是神经网络的灵魂，没这个函数，再多层的神经网络叠加后本质上还是只是一个线性变换，当然为了梯度下降算法能够应用，我们需要激活函数可以连续微分。激活函数到目前为止，常用的有：
+
+![](../../public/images/2019-12-02-16-21-27.png)
+
+之所以最早使用sigmoid函数，因为它的输出是0~1，符合很多分类预测问题概率输出的需要。但实际情况中，sigmoid并非最佳。
+
+* sigmoid 现在常用在二元分类网络的输出层，输出0~1间的概率分布。
+* relu函数的梯度更大，更适合梯段下降算法，常用于hidden layer，tanh也还不错。
+
+softmax layer 常用在多分类网络的输出层，它很简单，把上一层的每个分类的可能性输出转换为0~1的概率。
+
+训练神经网络的方法通常为梯度下降法, Loss函数可以用最大似然估计来求解，可以得到三个函数（求解过程略）：
+
+* Binary Cross entropy 
+* Cross entropy 
+* Squared loss function
+
+## 线性回归的python实现
+
+可以用线性回归来作机器学习的入门，因为它最简单，但揭示了很多机器学习的概念。简单的线性回归问题是可以有解析解的，但问了演示，我们还是通过数值方式来解。
+
+它的代价函数通常为RMSE - 均方根误差，也可以用MSE-均方误差, 下面是一个最小二乘法(Least Squares)实现的回归例子（最小二乘可以直接用方程推导）。
+
+```
+import pylab
+import numpy
+pylab.ion()
+
+x = numpy.linspace(-1,1,100)
+signal = 2 + x + 2 * x * x
+noise = numpy.random.normal(0, 0.1, 100)
+y = signal + noise
+x_train = x[0:80]
+y_train = y[0:80]
+
+degree = 9
+X_train = numpy.column_stack([numpy.power(x_train,i) for i in xrange(0,degree)])
+model = numpy.dot(numpy.dot(numpy.linalg.inv(numpy.dot(X_train.transpose(),X_train)),X_train.transpose()),y_train)
+pylab.plot(x,y,'g')
+pylab.xlabel("x")
+pylab.ylabel("y")
+predicted = numpy.dot(model, [numpy.power(x,i) for i in xrange(0,degree)])
+pylab.plot(x, predicted,'r')
+pylab.legend(["Actual", "Predicted"], loc = 2)
+train_rmse1 = numpy.sqrt(numpy.sum(numpy.dot(y[0:80] - predicted[0:80], y_train - predicted[0:80])))
+test_rmse1 = numpy.sqrt(numpy.sum(numpy.dot(y[80:] - predicted[80:], y[80:] - predicted[80:])))
+```
+
+解释一下numpy的几个api：
+
+* numpy.column_stack
+* numpy.dot  点积/点乘/内积
+
+这是一个典型的欠拟合，将degree改为3和9，分别可以得到2阶和8阶多项式拟合的结果，结果分别对应比较好的拟合和过拟合，因为实验数据解来自于二阶多项式加噪声，可以理解为什么二阶拟合最佳，但实际情况中很难知道实验数据是几阶的，所以调节模型的阶数并不容易。另外，如果学习数据量很小，也不能用过高的阶数的拟合，比如50个学习数据，如果用50阶来拟合，就100%过拟合，没有任何意义。
+
+为了解决过拟合问题，一种方法当然是提高训练集数量，另一个方法是引入正则化概念，在模型上引入一个正则项，用于惩罚过多的阶数，正则后的模型可以更好的防止过拟合。
+
+

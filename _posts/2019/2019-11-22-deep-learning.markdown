@@ -7,7 +7,7 @@ layout: post
 ## 人工智能
 智能本身的定义是很模糊，图灵测试给出了一个实际判定人工智能的方法，但这个方法本身也存疑，有点哲学化了。
 
-机器学习致力于开发一个算法，可以像人类一样学习。这个算法的特征就是：基于经验随时间不断改善性能，这和常规算法是非常不一样的。现实场景中很多问题不能实现普通算法，只能用机器学习来解决。
+机器学习本质上也是一个算法，但和传统算法完全不一样，传统的计算机算法，是有了输入，通过设计好的算法，产生输出，问题在于很多现实问题很复杂，没办法写出算法，但是可以有一些例子（经验数据），机器学习就是在经验数据上推导出算法的算法，再用推导出的算法就求解新的输入数据。机器学习算法的严谨定义就是：基于经验随时间不断改善性能。
 
 ## 深度学习
 
@@ -15,18 +15,19 @@ layout: post
 
 ![](../../public/images/2019-12-04-16-18-46.png)
 
-“深度”通常是指多层的神经网络，具体几层算深度，并没有明确定义，看一下典型的应用：
+“深度”通常是指多层的神经网络，具体几层算深度，并没有明确定义，看一下深度学习的发展历史和典型的应用：
+* 1950 MLP多层感知机诞生，其实就是现代深度神经网络的原型，在80年代曾经很流行。
+* 1998 LENET 第一个CNN模型，提出很多影响后世的思想，只是因为当时算力不够，此后深度学习陷入低潮。
+* 2012 AlexNet 8层 ImageNet错误率16.4% - 重新开启深度学习大潮
+* 2014 VGG 19层 ImageNet错误率7.3%
+* 2015 ResidualNet 152层 ImageNet错误率3.57% - 超过人类的识别率
 
-* 2012 AlexNet 8层 错误率 16.4%
-* 2014 VGG 19层 错误率 7.3%
-* 2015 ResidualNet 152层 错误率 3.57% - 超过人类的识别率
-* [这里](http://playground.tensorflow.org/) 有一个在线演示深度学习的例子，可以图形化的看到完整的训练过程中Loss的变化过程，甚至图形化的方式看到每个神经元起的作用。
+[这里](http://playground.tensorflow.org/) 有一个在线演示深度学习的例子，可以图形化的看到完整的训练过程中Loss的变化过程，甚至图形化的方式看到每个神经元起的作用。
 
-为什么要深度，而不是仅仅增加单层神经元数量？理论上，一个二层的神经网络可以拟合任意函数，但是如果深度不够，拟合任意函数需要的神经元太多了（数学上可以证明），所以深度是兼具拟合度和训练效率的考虑。
-
+为什么要深度，而不是仅仅增加单层神经元数量？数学上可以证明，一个二层的神经网络可以拟合任意函数，但是如果深度不够，拟合任意函数需要的神经元太多了，所以深度是兼具拟合度和训练效率的考虑。
 
 ## 前提
-先安装Anaconda 3.7，之所以选择3.7，是因为将来很多库已经不支持2.x的版本。先安装Anaconda包括了很多基础库：
+先安装Anaconda 3.7，之所以选择3.7，是因为将来很多库已经不支持2.x的版本。Anaconda包括了很多基础库：
 
 * NumPy 提供了大量数组和矩阵运算
 * SciPy 提供了很多数值算法
@@ -36,72 +37,119 @@ layout: post
 
     pylab的show()缺省是阻塞式的，调测的时候，可以先执行pylab.ion()打开交互模式，再plot/show的时候就不阻塞了，ioff()可以关闭交互模式。
 
-Anaconda还内置了jupyter notebook，可以方便的集成代码和文档。除此以外，对于机器学习，需要安装下面的库：
+Anaconda还内置了jupyter notebook，可以方便的集成代码和文档。除此以外，对于深度学习，需要安装pyTorch。
 
-* [PyTorch](https://pytorch.org/get-started/locally/) facebook开源的深度学习框架，可以通过命令行在Anaconda下一条命令安装。
-
-PyTorch目前的GPU加速只支持CUDA，所以，最好购买计算机时选择Nvidia显卡，即使最低端的MX150，也可以很好的支持GPU加速，只是因为显存不足，在训练大数据量时会有不足，但对于开发用是不错的选择。
-
-## 线性回归
-
-线性回归可以看作机器学习的基础，它的代价函数通常为RMSE - 均方根误差，也可以用MSE-均方误差, 下面是一个最小二乘法(Least Squares)实现的回归例子（最小二乘可以直接用方程推导）。
-
+## pyTorch
+[PyTorch](https://pytorch.org/get-started/locally/) 是facebook开源的深度学习框架，在学术界基本一统江湖。可以通过命令行在Anaconda下一条命令安装。
 ```
-import pylab
-import numpy
-pylab.ion()
-
-x = numpy.linspace(-1,1,100)
-signal = 2 + x + 2 * x * x
-noise = numpy.random.normal(0, 0.1, 100)
-y = signal + noise
-x_train = x[0:80]
-y_train = y[0:80]
-
-degree = 9
-X_train = numpy.column_stack([numpy.power(x_train,i) for i in xrange(0,degree)])
-model = numpy.dot(numpy.dot(numpy.linalg.inv(numpy.dot(X_train.transpose(),X_train)),X_train.transpose()),y_train)
-pylab.plot(x,y,'g')
-pylab.xlabel("x")
-pylab.ylabel("y")
-predicted = numpy.dot(model, [numpy.power(x,i) for i in xrange(0,degree)])
-pylab.plot(x, predicted,'r')
-pylab.legend(["Actual", "Predicted"], loc = 2)
-train_rmse1 = numpy.sqrt(numpy.sum(numpy.dot(y[0:80] - predicted[0:80], y_train - predicted[0:80])))
-test_rmse1 = numpy.sqrt(numpy.sum(numpy.dot(y[80:] - predicted[80:], y[80:] - predicted[80:])))
+PyTorch目前的GPU加速只支持CUDA，所以，最好购买计算机时选择Nvidia显卡，即使最低端的显卡，相对CPU也有数倍的速度提升，如果要训练大数据量需要足够的显存。
 ```
 
-解释一下numpy的几个api：
+pyTorch的核心数据结构是Tensor，称为矢量或张量，torch.Tensor有一个重要的属性requires_grad，如果设为True，pyTorch会自动跟踪这个Tensor上的计算，在计算完成后调用.backward(), 就会在.grad属性上计算出梯度(gradients)，这就是所谓的自动微分autograd，这个特性大大简化训练代码编写。
 
-* numpy.column_stack
-* numpy.dot  点积/点乘/内积
+torch.nn.Module是定义模型的基类, 在这个基类上，实现一个forward方法就可以完整的定义的深度模型，同时nn下也封装了很多预定义好的神经元。通常在写forward方法时，还需要用到大量的torch.nn.functional里的数学方法，比如max_pool2d、relu等。
 
-这是一个典型的欠拟合，将degree改为3和9，分别可以得到2阶和8阶多项式拟合的结果，结果分别对应比较好的拟合和过拟合，因为实验数据解来自于二阶多项式加噪声，可以理解为什么二阶拟合最佳，但实际情况中很难知道实验数据是几阶的，所以调节模型的阶数并不容易。另外，如果学习数据量很小，也不能用过高的阶数的拟合，比如50个学习数据，如果用50阶来拟合，就100%过拟合，没有任何意义。
 
-为了解决过拟合问题，一种方法当然是提高训练集数量，另一个方法是引入正则化概念，在模型上引入一个正则项，用于惩罚过多的阶数，正则后的模型可以更好的防止过拟合。
 
-## 神经网络
+```
+很多人说到的调参实际上指的是网络结构上的参数，这些是不能通过训练得到的参数，而不是那些神经元上的可训练出的参数。
+```
 
-神经网络中的基本元素是神经元，神经元做的事情很简单，一个线性变换加一个激活变换（非线性）。
+## 图像识别数据集
 
-![](../../public/images/2019-12-02-16-18-13.png)
+在DL历史上，MNIST是非常著名的一套手写数字识别图像集，但是它过于简单了，除此以外，还有[fashion-mnist](https://github.com/zalandoresearch/fashion-mnist), CIFAR10等数据集，[这里](https://rodrigob.github.io/are_we_there_yet/build/classification_datasets_results.html)有一个各个数据集及相应识别率的汇总页面。
 
-之所以加激活函数，这个是神经网络的灵魂，没这个函数，再多层的神经网络叠加后本质上还是只是一个线性变换，当然为了梯度下降算法能够应用，我们需要激活函数可以连续微分。激活函数到目前为止，常用的有：
+fashion-mnist，60000张10类，28*28黑白图像，相对更难一些，使用pyTorch可以方便的加载fashion-mnist，如果加载太慢，可以先从github下载下来，放到对应的目录下，一共4个文件。
 
-![](../../public/images/2019-12-02-16-21-27.png)
+```
+import torchvision
+train_data = torchvision.datasets.FashionMNIST(root='~/ai/mnist', train=True, download=True, transform=torchvision.transforms.ToTensor())
+test_data = torchvision.datasets.FashionMNIST(root='~/ai/mnist', train=False, download=True, transform=torchvision.transforms.ToTensor())
+```
 
-之所以最早使用sigmoid函数，因为它的输出是0~1，符合很多分类预测问题概率输出的需要。但实际情况中，sigmoid并非最佳。
+或者也可以尝试CIFAR10，60000张10类，32*32彩色图像, 目前最高识别率大概在96%，想更难的话，可以试试100分类的CIFAR100，识别率大概到了75%。
 
-* sigmoid 现在常用在二元分类网络的输出层，输出0~1间的概率分布。
-* relu函数的梯度更大，更适合梯段下降算法，常用于hidden layer，tanh也还不错。
+```
+import torchvision
+train_data = torchvision.datasets.CIFAR10(root='~/ai/cifar10', train=True, download=True, transform=torchvision.transforms.ToTensor())
+test_data = torchvision.datasets.CIFAR10(root='~/ai/cifar10', train=False, download=True, transform=torchvision.transforms.ToTensor())
+```
 
-softmax layer 常用在多分类网络的输出层，它很简单，把上一层的每个分类的可能性输出转换为0~1的概率。
+有了dataset，还需要一个dataloader，dataloader可以从dataset中加载批量数据，批量(batch_size)可以让loader一次加载多个数据，这样不仅通过GPU训练更高效，loader遍历一遍数据也变快。loader也可以通过num_workers支持并行加载，但在windows下只能设置为0。
 
-训练神经网络的方法通常为梯度下降法, Loss函数可以用最大似然估计来求解，可以得到三个函数（求解过程略）：
+```
+train_loader = torch.utils.data.DataLoader(train_data, batch_size=4, shuffle=True, num_workers=0)
+test_loader = torch.utils.data.DataLoader(test_data, batch_size=4, shuffle=True, num_workers=0)
+```
 
-* Binary Cross entropy 
-* Cross entropy 
-* Squared loss function
+## 多元分类
+针对图像识别这种多元分类问题，最简单的深度网络就是SoftMax，SoftMax是在线性回归基础上发展出的分类算法，原理很简单
+
+* 因为有多元，原有的线性回归输出层要变成N元，每个表示一个分类的置信度。
+* 绝对置信度不好理解，也不容易和训练标签对应，所以在输出层后面增加softmax层，将每个置信度换算成0~1的相对概率。
+
+相应的，对应softmax输出，传统线性回归的损失函数也不太合适，因为平方误差函数过于严格，而softmax输出值虽然有N个，但只有最大值有意义，通常我们使用交叉熵损失函数。
+
+![](../../public/images/2019-12-13-10-16-33.png)
+
+很明显，q个输出里y值只有一个为1，所以前面用y来乘，后面取log，是让对应的输出为1时, 损失函数最小，下面是一个简单的多元分类训练程序。
+
+```
+import time
+import torch
+import torchvision
+
+train_data = torchvision.datasets.FashionMNIST(root='~/ai/mnist', train=True, download=True, transform=torchvision.transforms.ToTensor())
+test_data = torchvision.datasets.FashionMNIST(root='~/ai/mnist', train=False, download=True, transform=torchvision.transforms.ToTensor())
+# num_workers must be 0 under windows, batch_size is key for loader performance
+train_loader = torch.utils.data.DataLoader(train_data, batch_size=20, shuffle=True, num_workers=0)
+test_loader = torch.utils.data.DataLoader(test_data, batch_size=20, shuffle=True, num_workers=0)
+
+class Net(torch.nn.Module):
+  def __init__(self):
+      super(Net, self).__init__()
+      self.fc = torch.nn.Linear(28 * 28, 10)
+  def forward(self, x):
+      x = x.view(x.shape[0], -1)
+      x = self.fc(x)
+      return x
+
+net = Net()
+criterion = torch.nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
+num_epochs = 5
+print("%d: start training..." % (time.time()))
+
+for epoch in range(num_epochs):
+  train_loss, train_acc, n = 0.0, 0.0, 0
+  for X, y in train_loader:
+    optimizer.zero_grad()
+
+    y_hat = net(X)
+    loss = criterion(y_hat, y)
+    loss.backward()
+    optimizer.step()
+
+    y = y.type(torch.float32)
+    train_loss += loss.item()
+    train_acc += torch.sum((torch.argmax(y_hat, dim=1).type(torch.FloatTensor) == y).detach()).float()
+    n += list(y.size())[0]
+  print('%d: epoch %d, loss %.4f, train acc %.3f' % (time.time(), epoch + 1, train_loss / n, train_acc / n))
+
+```
+
+上述代码使用CPU训练了5轮，lr可以控制收敛的速度，输出如下：
+
+```
+1576303662: start training...
+1576303675: epoch 1, loss 0.0370, train acc 0.766
+1576303689: epoch 2, loss 0.0274, train acc 0.821
+1576303703: epoch 3, loss 0.0253, train acc 0.831
+1576303717: epoch 4, loss 0.0243, train acc 0.837
+1576303731: epoch 5, loss 0.0235, train acc 0.842
+```
+
+如果一直训练下去，大概到86%就最高了。
 
 ## FNN
 
@@ -114,7 +162,7 @@ FNN是前馈神经网络
 反向传播算法
 
 ## CNN
-针对图像类应用，FNN网络训练效率不高，考虑下面几个特性，CNN网络做了特别设计：
+CNN就是含卷积层的神经网络，针对图像类应用，FNN网络训练效率不高，考虑下面几个特性，CNN网络做了特别设计：
 
 * 图像的pattern通常比整个图像小。
 * 图像的pattern可能出现在很多地方。
@@ -130,8 +178,21 @@ CNN的典型应用：
 * deep style 让一张照片具备另一张照片的style
 * 著名的alpha go，之所以用CNN，大概是因为围棋也具有上述图像的前两个特征，但除去了Max pooling。
 
-## RNN
+## RNN 与 NLP
+语言模型（language model）是自然语言处理的重要技术。自然语言处理中最常见的数据是文本数据。我们可以把一段自然语言文本看作一段离散的时间序列。假设一段长度为T的文本中的词依次为w1, w2... wt，语言模型将计算该序列的概率：
+
+P(w1, w2, ... wt)
+
+语言模型可用于提升语音识别和机器翻译的性能。例如，在语音识别中，给定一段“厨房里食油用完了”的语音，有可能会输出“厨房里食油用完了”和“厨房里石油用完了”这两个读音完全一样的文本序列。如果语言模型判断出前者的概率大于后者的概率，我们就可以根据相同读音的语音输出“厨房里食油用完了”的文本序列。在机器翻译中，如果对英文“you go first”逐词翻译成中文的话，可能得到“你走先”“你先走”等排列方式的文本序列。如果语言模型判断出“你先走”的概率大于其他排列方式的文本序列的概率，我们就可以把“you go first”翻译成“你先走”。
+
+P(w1, w2, ... wt)的概率随着t的增长，复杂度会指数级增长，所以通过马尔科夫假设来简化模型，即每个词只和前面的n个词相关，n作为一个模型准确率和复杂度的权衡。
 
 ## 参考
-* https://pytorch.org/tutorials/
-* https://github.com/Atcold/PyTorch-Deep-Learning-Minicourse
+按顺序给出深度学习的一些好的参考资料和书籍。
+
+* https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html 
+* https://github.com/ShusenTang/Dive-into-DL-PyTorch 这本书中英版本有明显不同，英文版本内容更丰富一些。
+* [Pytorch的图片转换实现](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
+* https://github.com/huggingface/transformers
+
+* https://github.com/yunjey/pytorch-tutorial

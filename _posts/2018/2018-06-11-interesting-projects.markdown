@@ -30,3 +30,4 @@ google的下一代跨平台开发框架
 * 图像相似度算法 https://github.com/Nakilon/dhash-vips
 * 古诗词数据库 https://github.com/chinese-poetry/chinese-poetry
 * unicode大全 https://unicode-table.com
+* [网易修改的duilib](https://github.com/netease-im/NIM_Duilib_Framework)
