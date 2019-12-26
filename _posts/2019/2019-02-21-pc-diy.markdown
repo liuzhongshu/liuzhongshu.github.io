@@ -20,6 +20,16 @@ layout: post
 * AMD的A320芯片组无法超频,B350可以超频
 * Intel 只有带K的cpu支持超频。H310，B360
 
+## GPU
+我们列举常用显卡的浮点计算能力（FLOPS）和功耗。
+
+* Nvidia MX250  1.1T / 25w
+* Nvidia MX1050  1.8T / 75w
+* Nvidia MX1650  2.8T / 75w
+* Nvidia MX1650 Super 4T / 100w
+* Nvidia MX2060  4.6T / 80w
+
+
 ## ssd
 
 ## 移动端

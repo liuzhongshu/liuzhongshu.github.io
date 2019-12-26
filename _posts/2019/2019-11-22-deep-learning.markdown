@@ -41,8 +41,9 @@ Anaconda还内置了jupyter notebook，可以方便的集成代码和文档。�
 
 ## pyTorch
 [PyTorch](https://pytorch.org/get-started/locally/) 是facebook开源的深度学习框架，在学术界基本一统江湖。可以通过命令行在Anaconda下一条命令安装。
+
 ```
-PyTorch目前的GPU加速只支持CUDA，所以，最好购买计算机时选择Nvidia显卡，即使最低端的显卡，相对CPU也有数倍的速度提升，如果要训练大数据量需要足够的显存。
+PyTorch目前的GPU加速只支持CUDA，所以，最好购买计算机时选择Nvidia显卡，即使最低端的显卡，相对CPU也有数倍的速度提升，如果要训练大数据量需要足够的显存。使用keras mnist_cnn.py作为对比：3s(1080ti), 18s (MX-150), 48s(i7-6700), 76s(i7-8550u)
 ```
 
 pyTorch的核心数据结构是Tensor，称为矢量或张量，torch.Tensor有一个重要的属性requires_grad，如果设为True，pyTorch会自动跟踪这个Tensor上的计算，在计算完成后调用.backward(), 就会在.grad属性上计算出梯度(gradients)，这就是所谓的自动微分autograd，这个特性大大简化训练代码编写。
@@ -138,7 +139,7 @@ for epoch in range(num_epochs):
 
 ```
 
-上述代码使用CPU训练了5轮，lr可以控制收敛的速度，输出如下：
+需要注意：pytorch中softmax整合到了损失函数CrossEntropyLoss中，网络中就无需使用softmax函数了，上述代码使用CPU训练了5轮，lr可以控制收敛的速度，输出如下：
 
 ```
 1576303662: start training...
@@ -225,7 +226,13 @@ with torch.no_grad():
     print('Accuracy of the network on the {} test images: {} %'.format(total, 100 * correct / total))
 ```    
 
-这里我们使用了Adam训练算法，大大提高收敛速度（即使lr很小），结果和上面的单层多元分类网络差不多：
+这个代码和上一节有不一样的地方：
+
+* 这里我们使用了Adam训练算法，大大提高收敛速度（即使lr很小）。
+* 上述代码已经支持GPU，但我的计算机没有GPU，所以速度上比较慢。
+* reshape放到了训练中，而没有放在Network里
+
+结果和上面的单层多元分类网络差不多：
 
 ```
 1576308516: Epoch [1/2], Step [100/600], Loss: 0.6881
@@ -242,8 +249,6 @@ with torch.no_grad():
 1576308549: Epoch [2/2], Step [600/600], Loss: 0.3476
 Accuracy of the network on the 10000 test images: 86.64 %
 ```
-
-提醒下，上述代码已经支持GPU，但我的计算机没有GPU，所以速度上比较慢。
 
 ## CNN
 CNN就是含卷积层的神经网络，针对图像类应用，FNN网络训练效率不高，考虑下面几个特性，CNN网络做了特别设计：
@@ -262,6 +267,106 @@ CNN的典型应用：
 * deep style 让一张照片具备另一张照片的style
 * 著名的alpha go，之所以用CNN，大概是因为围棋也具有上述图像的前两个特征，但除去了Max pooling。
 
+我们使用pyTorch来实现一个CNN网络。
+```
+import time
+import torch
+import torch.nn as nn
+import torchvision
+import torchvision.transforms as transforms
+
+# Hyper-parameters 
+num_classes = 10
+hidden_size = 50
+num_epochs = 2
+batch_size = 100
+learning_rate = 0.001
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+train_data = torchvision.datasets.FashionMNIST(root='~/ai/mnist', train=True, download=True, transform=torchvision.transforms.ToTensor())
+test_data = torchvision.datasets.FashionMNIST(root='~/ai/mnist', train=False, download=True, transform=torchvision.transforms.ToTensor())
+train_loader = torch.utils.data.DataLoader(train_data, batch_size=batch_size, shuffle=True, num_workers=0)
+test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size, shuffle=True, num_workers=0)
+
+# Convolutional neural network (two convolutional layers)
+class ConvNet(nn.Module):
+    def __init__(self, num_classes=10):
+        super(ConvNet, self).__init__()
+        self.layer1 = nn.Sequential(
+            nn.Conv2d(1, 16, kernel_size=5, stride=1, padding=2),
+            nn.BatchNorm2d(16),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2))
+        self.layer2 = nn.Sequential(
+            nn.Conv2d(16, 32, kernel_size=5, stride=1, padding=2),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2))
+        self.fc = nn.Linear(7*7*32, num_classes)
+        
+    def forward(self, x):
+        out = self.layer1(x)
+        out = self.layer2(out)
+        out = out.reshape(out.size(0), -1)
+        out = self.fc(out)
+        return out
+
+model = ConvNet(num_classes).to(device)
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)  
+
+# Train the model
+total_step = len(train_loader)
+for epoch in range(num_epochs):
+    for i, (images, labels) in enumerate(train_loader):  
+        images = images.to(device)
+        labels = labels.to(device)        
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        
+        if (i+1) % 100 == 0:
+            print ('{:0.0f}: Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' 
+                   .format(time.time(), epoch+1, num_epochs, i+1, total_step, loss.item()))
+
+# Test the model, In test phase, we don't need to compute gradients (for memory efficiency)
+with torch.no_grad():
+    correct = 0
+    total = 0
+    for images, labels in test_loader:
+        images = images.to(device)
+        labels = labels.to(device)
+        outputs = model(images)
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+
+    print('Accuracy of the network on the {} test images: {} %'.format(total, 100 * correct / total))
+```
+
+CNN网络的训练速度明显降低，但是识别率也相应的提升了：
+
+```
+1576309356: Epoch [1/2], Step [100/600], Loss: 0.4477
+1576309376: Epoch [1/2], Step [200/600], Loss: 0.4096
+1576309396: Epoch [1/2], Step [300/600], Loss: 0.3369
+1576309416: Epoch [1/2], Step [400/600], Loss: 0.3595
+1576309436: Epoch [1/2], Step [500/600], Loss: 0.4490
+1576309456: Epoch [1/2], Step [600/600], Loss: 0.3161
+1576309476: Epoch [2/2], Step [100/600], Loss: 0.2289
+1576309496: Epoch [2/2], Step [200/600], Loss: 0.2243
+1576309515: Epoch [2/2], Step [300/600], Loss: 0.2833
+1576309535: Epoch [2/2], Step [400/600], Loss: 0.2114
+1576309554: Epoch [2/2], Step [500/600], Loss: 0.2889
+1576309574: Epoch [2/2], Step [600/600], Loss: 0.2559
+Accuracy of the network on the 10000 test images: 87.89 %
+```
+
+## ResNet
+
+
 ## RNN 与 NLP
 语言模型（language model）是自然语言处理的重要技术。自然语言处理中最常见的数据是文本数据。我们可以把一段自然语言文本看作一段离散的时间序列。假设一段长度为T的文本中的词依次为w1, w2... wt，语言模型将计算该序列的概率：
 
@@ -270,6 +375,154 @@ P(w1, w2, ... wt)
 语言模型可用于提升语音识别和机器翻译的性能。例如，在语音识别中，给定一段“厨房里食油用完了”的语音，有可能会输出“厨房里食油用完了”和“厨房里石油用完了”这两个读音完全一样的文本序列。如果语言模型判断出前者的概率大于后者的概率，我们就可以根据相同读音的语音输出“厨房里食油用完了”的文本序列。在机器翻译中，如果对英文“you go first”逐词翻译成中文的话，可能得到“你走先”“你先走”等排列方式的文本序列。如果语言模型判断出“你先走”的概率大于其他排列方式的文本序列的概率，我们就可以把“you go first”翻译成“你先走”。
 
 P(w1, w2, ... wt)的概率随着t的增长，复杂度会指数级增长，所以通过马尔科夫假设来简化模型，即每个词只和前面的n个词相关，n作为一个模型准确率和复杂度的权衡。
+
+## GAN
+GAN是近年机器学习领域最激动人心的突破，通过两个网络的"对抗"训练，来得到一个足够好的生成网络(G)和一个也足够好的识别网络(D)，原始训练方法是这样的：
+
+![](../../public/images/2019-12-25-12-05-54.png)
+
+对抗这个词Adversarial取自最早的GAN论文，但实际上也可以把两个网络看出合作关系，互相进步。下面是使用GAN生成MNIST的例子：
+
+```
+import argparse
+import os
+import numpy as np
+import math
+
+import torchvision.transforms as transforms
+from torchvision.utils import save_image
+
+from torch.utils.data import DataLoader
+from torchvision import datasets
+from torch.autograd import Variable
+
+import torch.nn as nn
+import torch.nn.functional as F
+import torch
+
+os.makedirs("images", exist_ok=True)
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--n_epochs", type=int, default=200, help="number of epochs of training")
+parser.add_argument("--batch_size", type=int, default=64, help="size of the batches")
+parser.add_argument("--lr", type=float, default=0.0002, help="adam: learning rate")
+parser.add_argument("--b1", type=float, default=0.5, help="adam: decay of first order momentum of gradient")
+parser.add_argument("--b2", type=float, default=0.999, help="adam: decay of first order momentum of gradient")
+parser.add_argument("--n_cpu", type=int, default=8, help="number of cpu threads to use during batch generation")
+parser.add_argument("--latent_dim", type=int, default=100, help="dimensionality of the latent space")
+parser.add_argument("--img_size", type=int, default=28, help="size of each image dimension")
+parser.add_argument("--channels", type=int, default=1, help="number of image channels")
+parser.add_argument("--sample_interval", type=int, default=400, help="interval betwen image samples")
+opt = parser.parse_args()
+print(opt)
+
+img_shape = (opt.channels, opt.img_size, opt.img_size)
+
+cuda = True if torch.cuda.is_available() else False
+
+
+class Generator(nn.Module):
+    def __init__(self):
+        super(Generator, self).__init__()
+
+        def block(in_feat, out_feat, normalize=True):
+            layers = [nn.Linear(in_feat, out_feat)]
+            if normalize:
+                layers.append(nn.BatchNorm1d(out_feat, 0.8))
+            layers.append(nn.LeakyReLU(0.2, inplace=True))
+            return layers
+
+        self.model = nn.Sequential(
+            *block(opt.latent_dim, 128, normalize=False),
+            *block(128, 256),
+            *block(256, 512),
+            *block(512, 1024),
+            nn.Linear(1024, int(np.prod(img_shape))),
+            nn.Tanh()
+        )
+
+    def forward(self, z):
+        img = self.model(z)
+        img = img.view(img.size(0), *img_shape)
+        return img
+
+
+class Discriminator(nn.Module):
+    def __init__(self):
+        super(Discriminator, self).__init__()
+
+        self.model = nn.Sequential(
+            nn.Linear(int(np.prod(img_shape)), 512),
+            nn.LeakyReLU(0.2, inplace=True),
+            nn.Linear(512, 256),
+            nn.LeakyReLU(0.2, inplace=True),
+            nn.Linear(256, 1),
+            nn.Sigmoid(),
+        )
+
+    def forward(self, img):
+        img_flat = img.view(img.size(0), -1)
+        validity = self.model(img_flat)
+
+        return validity
+
+
+
+adversarial_loss = torch.nn.BCELoss()
+generator = Generator()
+discriminator = Discriminator()
+
+if cuda:
+    generator.cuda()
+    discriminator.cuda()
+    adversarial_loss.cuda()
+
+os.makedirs("~/ai/mnist", exist_ok=True)
+dataloader = torch.utils.data.DataLoader(
+    datasets.MNIST("~/ai/mnist",train=True,download=True,transform=transforms.Compose([transforms.Resize(opt.img_size), transforms.ToTensor(), transforms.Normalize([0.5], [0.5])])),
+    batch_size=opt.batch_size,
+    shuffle=True,
+)
+
+# Optimizers
+optimizer_G = torch.optim.Adam(generator.parameters(), lr=opt.lr, betas=(opt.b1, opt.b2))
+optimizer_D = torch.optim.Adam(discriminator.parameters(), lr=opt.lr, betas=(opt.b1, opt.b2))
+Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
+
+for epoch in range(opt.n_epochs):
+    for i, (imgs, _) in enumerate(dataloader):
+        valid = Variable(Tensor(imgs.size(0), 1).fill_(1.0), requires_grad=False)
+        fake = Variable(Tensor(imgs.size(0), 1).fill_(0.0), requires_grad=False)
+        real_imgs = Variable(imgs.type(Tensor))
+        
+        optimizer_G.zero_grad()
+        z = Variable(Tensor(np.random.normal(0, 1, (imgs.shape[0], opt.latent_dim))))
+        gen_imgs = generator(z)
+        g_loss = adversarial_loss(discriminator(gen_imgs), valid)
+        g_loss.backward()
+        optimizer_G.step()
+        
+        optimizer_D.zero_grad()
+        real_loss = adversarial_loss(discriminator(real_imgs), valid)
+        fake_loss = adversarial_loss(discriminator(gen_imgs.detach()), fake)
+        d_loss = (real_loss + fake_loss) / 2
+        d_loss.backward()
+        optimizer_D.step()
+
+        print("[Epoch %d/%d] [Batch %d/%d] [D loss: %f] [G loss: %f]" % (epoch, opt.n_epochs, i, len(dataloader), d_loss.item(), g_loss.item()))
+
+        batches_done = epoch * len(dataloader) + i
+        if batches_done % opt.sample_interval == 0:
+            save_image(gen_imgs.data[:25], "images/%d.png" % batches_done, nrow=5, normalize=True)
+```
+
+在我的机器上大概要训练8个小时，三小时之后的结果如下：
+
+![](../../public/images/2019-12-25-13-30-25.png)
+
+## pix2pix
+
+pix2pix是GAN在图像转换领域一个非常成功的应用，最大的好处是使用GAN可以达到无监督学习的效果，这里的无监督不是没有素材，而是素材无需配对，比如照片到油画的转换，在训练的时候就不需要提供配对的油画和照片，只需要一堆照片和一堆油画即可。实际上不仅是图像领域，在其他领域，比如声音、文字，都可以使用GAN达到。
 
 ## 参考
 

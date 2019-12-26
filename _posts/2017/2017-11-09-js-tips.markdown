@@ -40,9 +40,14 @@ console.log(p.m()); // 5
 * ES6的for of可以用
 
 ## lodash
-虽然lodash很好用，类似Java里的Apache common，但注意lodash会给js增加30k(gzip之后), 所以通常应该根据需要导入特定的函数，其中有几个很容易混淆：
+虽然lodash很好用，类似Java里的Apache common，但注意lodash会给js增加30k(gzip之后), 所以通常应该根据需要导入特定的函数，其中合并对象的几个函数很容易混淆：
 
-They all handle members at the root in similar ways.
+* assign和merge用于向第一个object复制额外的属性
+* defaults和defaultsDeep只在第一个object不存在这个属性才复制，所以类似取缺省值的含义。
+* assign和defaults执行浅拷贝，merge和defaultsDeep执行深拷贝，或许merge改名为assignDeep更容易理解。
+
+更多细节如下：
+
 ```
 _.assign      ({}, { a: 'a' }, { a: 'bb' }) // => { a: "bb" }
 _.merge       ({}, { a: 'a' }, { a: 'bb' }) // => { a: "bb" }
