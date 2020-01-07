@@ -37,6 +37,7 @@ layout: post
 1. [Notepad++](https://notepad-plus-plus.org/) : 文件编辑器
 1. [git](https://git-scm.com/) : 版本控制和linux工具集
 1. [eclipse](https://www.eclipse.org/) : Java IDE
+1. [Anaconda](https://www.eclipse.org/) : Python环境和第三方库
 
 ## 设计
 1. [Just Color Picker](http://annystudio.com/software/colorpicker/) : 取色工具
