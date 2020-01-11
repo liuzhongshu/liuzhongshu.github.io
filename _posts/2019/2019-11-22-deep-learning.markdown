@@ -542,11 +542,12 @@ DCGAN在GAN的基础上将全连接网络改成卷积层，因此在图像类应
 * 生成网络的所有层使用ReLU，除了输出层使用tanh。
 * 判别网络的所有层使用Leaky-ReLU，除了输出层使用sigmoid。
 
-代码可以使用pytorch官方sample实现，写的很好：
+代码可以使用pytorch官方sample实现，写的很好，稍加改动，缺省改为cpu，并增加时间戳的记录：
 
 ```
 import argparse
 import os
+import time
 import random
 import torch
 import torch.nn as nn
@@ -754,6 +755,7 @@ fake_label = 0
 optimizerD = optim.Adam(netD.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
 optimizerG = optim.Adam(netG.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
 
+starttime = time.time()
 for epoch in range(opt.niter):
     for i, data in enumerate(dataloader, 0):
         ############################
@@ -805,14 +807,33 @@ for epoch in range(opt.niter):
                     normalize=True)
 
     # do checkpointing
-    torch.save(netG.state_dict(), '%s/netG_epoch_%d.pth' % (opt.outf, epoch))
-    torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch))
+    elapse = int(time.time() - starttime)
+    torch.save(netG.state_dict(), '%s/netG_epoch_%d_%d.pth' % (opt.outf, epoch, elapse))
+    torch.save(netD.state_dict(), '%s/netD_epoch_%d_%d.pth' % (opt.outf, epoch, elapse))
 ```
 
-如果用这个来实现上面的mnist生成，在cpu上会很慢，只能把ngf和ndf改为2，这样的话，速度可以到156s/epoch，8个epoch之后生成图像如下：
+如果用这个来实现上面的mnist生成，在cpu上会很慢，只能把ngf和ndf改为2，这样的话，速度可以到156s/epoch，使用1650 super GPU大概比i3-9100f快20倍，8个epoch之后生成图像如下：
 
 ![](../../public/images/2020-01-07-13-11-59.png)
 
+但是，dcgan很难训练，有时不收敛，有时又会在收敛之后忽然崩掉，判断一个dcgan网络是否稳定，需要看输出的几个重要参数：
+
+* 训练稳定后，d_loss 最终应该稳定在 0.5~0.8左右， g_loss则大概在0.5~2左右。
+* 稳定后鉴别器的正确率在80%左右。
+* 稳定期之后持续训练，可能导致模型进入一个较差一些的阶段，loss震荡幅度变大，但仍然能输出不错的图像。
+
+训练失败的最常见情况是mode collapse和convergence failure
+
+* mode collapse 是指生成器输出的图像动态范围不足，以mnist为例，最典型的现象就是在一个batch组里输出了完全类似的图像。上面的代码中如果把nz改为1，则容易产生mode collapse问题。
+* convergence failure更为常见，直观的表现就是d_loss为0，生成器只能生成一些噪声图像，鉴别器轻松的鉴别了真假图像。代码中模型capacity不够是常见导致convergence failure的原因。
+
+文献中可以看到一些解决这些问题的几种实践方法：
+
+* 调整lr是解决mode collapse的可行方法，lr过大容易出问题。
+* Label Smoothing技术，将real image的确信度改为较低的值，比如0.9会有不错的效果。
+* Multi-Scale Gradient，当训练较大的图像时，考虑使用这个技术，比nvidia的proGAN更方便。
+* TTUR技术，为鉴别器和生成器使用不同的lr，比如鉴别器0.0004，生成器0.0001。
+* Spectral Normalization，使用特殊形式的Normalize可以极大提高GAN的稳定性。参考这边[论文](https://arxiv.org/abs/1802.05957)。
 
 ## pix2pix
 
