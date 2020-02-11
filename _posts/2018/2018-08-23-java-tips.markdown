@@ -4,6 +4,16 @@ title: Java
 layout: post
 ---
 
+### portable java
+我喜欢portable的工具，所以jre也是，可以从[openjdk](https://adoptopenjdk.net/releases.html)下载zip包，展开jre，添加path即可。如果要注册jar的双击运行，用管理员权限运行下面的脚本即可：
+
+```
+assoc .jar=jarfile
+ftype jarfile="%~dp0bin\javaw.exe" -jar "%%1" %%*
+```
+
+注意这个脚本是放在jre根目录下的，因为是脚本所以%需要转义。
+
 ### 设置工具使用英文
 
 通过环境变量来更改，Windows下可以这样设置:
