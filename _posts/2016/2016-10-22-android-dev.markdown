@@ -5,11 +5,9 @@ layout: post
 ---
 ## Android Studio
 
-从[这里](http://www.androiddevtools.cn/)下载Android Studio，下载最大最新的那个，含sdk和各种tools，省得后续下载的痛苦。
+从[这里](http://www.androiddevtools.cn/)下载Android Studio，下载最大最新的那个，含sdk和各种tools，省得后续下载的痛苦。如果找不到完整包，只安装了studio，可以在上面网站的sdk-tools下安装android-sdk_rxxx-windows.zip，这个包下面会包含SDK Manager.exe，然后用这个exe去安装其余的sdk组件（不要用android studio的向导去安装sdk组件，没有这个单独的SDK Manager好用），无论用哪种方式安装了sdk，记得设置环境变量ANDROID_HOME到sdk的目录。因为后续很多步骤是依赖这个变量来找sdk。
 
-安装的时候，可以选择安装路径，如果不按缺省路径，安装完成后记得设置环境变量ANDROID_HOME到sdk的目录。因为后续很多步骤是依赖这个变量来找sdk。
-
-sdk的目录下有个SDK Manager.exe，这个可以用来继续安装更多的sdk，默认的话，一般只带一个比较新的sdk，可以多安装几个sdk，也可以等到需要再装。
+使用SDK Manager安装sdk时，如果不用安卓虚拟机，可以不安装每个sdk下的各种system image，又大又不好用。
 
 ## 国情设置
 
