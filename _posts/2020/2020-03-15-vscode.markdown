@@ -1,0 +1,13 @@
+---
+published: true
+title: vscode
+layout: post
+---
+
+鉴于vscode使用越来越多，还是给他单独一个post的地位，我目前用的版本是1.36.1，新版本用了一阵子感觉不好用，降回去了。
+
+## 禁止升级
+
+```
+"update.channel": "none"  
+```

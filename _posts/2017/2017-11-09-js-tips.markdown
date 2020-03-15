@@ -160,7 +160,7 @@ npm5版本引入了package-lock.json，使得yarn和npm的区别已经不大了�
 ```
 
 ## VSCode
-VSCode如果按照ESLint插件，可以设置以下参数以打开vue文件支持和autoFix
+VSCode如果按照ESLint插件，可以设置以下参数以打开vue文件支持和autoFix，这个设置时针对vscode 1.36.1，高版本不适用。
 
 ```
 "eslint.validate": [
