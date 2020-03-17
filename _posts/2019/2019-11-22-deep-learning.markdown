@@ -842,7 +842,9 @@ for epoch in range(opt.niter):
 
 因为DCGAN难以训练，有人改进了DCGAN的LOSS函数，得到BEGAN，实测下来，BEGAN非常稳定，在我训练期间，未出现坍塌和不收敛的情况。
 
-## Self-Attention GAN
+## 其他的GAN
+
+在DC基础上，有很多改进，比如WGAN，WGAN-GP，BEGAN等，Google有一篇有名的[文章](https://arxiv.org/pdf/1711.10337.pdf)比较了各种GAN，最后结论是都差不多，但是Google这篇文章本身就充满争议，很多人从这篇文章的内容，看到了不同的结果。
 
 ## pix2pix
 
