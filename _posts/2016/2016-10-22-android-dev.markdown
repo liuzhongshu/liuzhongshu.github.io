@@ -63,7 +63,7 @@ C:\Users\用户名\.gradle\wrapper\dists\gradle-xxx-all\sdfdfa4w5fzrksdfaweeut
 
 ## 无线连接adb
 
-很多时候，usb连adb不是很方便，可以改用wifi，先在usb连接的情况下执行adb tcpip，这个命令把手机切换到无线adb模式，然后`adb connect 192.168.xx.xx`就可以了，只要不重启手机，每次都可以用这个adb connect连到手机。
+很多时候，usb连adb不是很方便，可以改用wifi，先在usb连接的情况下执行adb tcpip，这个命令把手机切换到无线adb模式，然后`adb connect 192.168.xx.xx`就可以了，只要不重启手机，每次都可以用这个adb connect连到手机。偶尔有时在wifi下会连接不成功，但使用手机做热点就没有问题。
 
 如果手机已经root，上面使用usb的步骤可以忽略，通过app切换到wifi模式。
 
