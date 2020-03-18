@@ -9,5 +9,8 @@ layout: post
 ## 禁止升级
 
 ```
-"update.channel": "none"  
+"update.mode": "none"  
 ```
+
+## git 历史
+最新版本vscode有自带git history功能，不过我用的1.36版上没有，需要安装插件git history
