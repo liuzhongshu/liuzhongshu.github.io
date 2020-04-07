@@ -25,6 +25,7 @@ layout: post
 1. [Unison](http://unison-binaries.inria.fr/) : 文件目录同步
 1. [rufus](https://rufus.akeo.ie/) 格式化usb启动盘
 1. [nssm](https://nssm.cc/) 把任何程序转为Windows服务
+1. [clipber](https://clipber.com/) 在pc和手机间同步剪贴板
 
 ## 媒体
 1. [SumatraPDF](https://www.sumatrapdfreader.org/free-pdf-reader.html): 轻量PDF阅读工具，多标签页。

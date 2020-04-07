@@ -5,6 +5,7 @@ layout: post
 ---
 
 ## 录制屏幕
+
 很多手机自带录制屏幕，比如EMUI就有，就很简单了，如果录制的时候不想看到点击，可以在开发人员选项里先取消“show touches”。
 
 如果没有自带工具，有android开发环境的话，录制手机视频也很简单，连上usb线，执行下面这条
@@ -21,5 +22,9 @@ adb shell screenrecord --verbose ./sdcard/screencast-video.mp4
 ```
 scrcpy -m 700 -b 1m
 ```
+
+## 剪贴板访问
+
+安卓10下，后台应用无法再直接读取剪贴板内容了，虽说是个隐私保护，但却导致所有剪贴板同步工具不能使用了，非常遗憾，如果能做成权限多好。好在可以通过[adb方式](https://www.webplover.com/android-10-clipboard-solution/)赋权。
 
 

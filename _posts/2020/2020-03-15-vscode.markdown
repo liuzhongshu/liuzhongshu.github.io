@@ -28,3 +28,7 @@ Ctrl+，>> workspace 然后设置
 ## git 历史
 
 最新版本vscode有自带git history功能，不过我用的1.36版上没有，需要安装插件git history, 新版本上vscode自带了timeline，但是只能显示单个文件的history，并不如插件好用。
+
+```
+git history有一个问题，每次启动vscode后，不能立刻用，要等一会，否则会出现插件错误。
+```
