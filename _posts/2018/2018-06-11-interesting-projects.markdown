@@ -26,6 +26,10 @@ google的下一代跨平台开发框架
   annyang.start();
  ``` 
 
+## [mmkv](https://github.com/tencent/mmkv)
+
+腾讯开源的替代SharedPreferences的东东，居然支持iOS和win32.
+
 ## 其他
 * 图像相似度算法 https://github.com/Nakilon/dhash-vips
 * 古诗词数据库 https://github.com/chinese-poetry/chinese-poetry

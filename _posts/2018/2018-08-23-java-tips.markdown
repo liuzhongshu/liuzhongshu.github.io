@@ -14,6 +14,40 @@ ftype jarfile="%~dp0bin\javaw.exe" -jar "%%1" %%*
 
 注意这个脚本是放在jre根目录下的，因为是脚本所以%需要转义。
 
+### Base64
+
+base64算法在标准jdk8以后版本才有，之前jdk可以用commons-codec，安卓则很早版本就有了。按RFC标准，base64的encoder是可以每隔多少个字符输出一个回车，所以一定注意这个选项，可能导致不同平台的base64不兼容，比如安卓版本缺省就有这个回车选项，所以要加参数。
+```
+Base64.encodeToString(str, Base64.NO_WRAP)
+```
+
+### RSA加密
+使用这个算法，在跨平台使用时，在Cipher.getInstance初始化时一定要指定所有选项，而不能仅仅是"RSA"，因为android和desktop可能细节的选项是不一样的，导致一端加密，另一端解不了。
+
+```
+public static String rsaEncrypt(String key, String src) throws Exception {
+  byte[] keyBytes = Base64.decodeBase64(key.getBytes());
+  PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
+  PrivateKey privateKey = KeyFactory.getInstance("RSA").generatePrivate(keySpec);
+  
+  Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");  
+  cipher.init(Cipher.ENCRYPT_MODE, privateKey);  
+
+  return new String(Base64.encodeBase64(cipher.doFinal(src.getBytes("utf-8"))));
+}
+
+public static String rsaDecrypt(String key, String src) throws Exception {
+  byte[] keyBytes = Base64.decodeBase64(key.getBytes());
+  X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
+  PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(spec);
+  
+  Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");  
+  cipher.init(Cipher.DECRYPT_MODE, publicKey);
+
+  return new String(cipher.doFinal(Base64.decodeBase64(src)),"utf-8");  		
+  }
+```
+
 ### 设置工具使用英文
 
 通过环境变量来更改，Windows下可以这样设置:
