@@ -7,7 +7,24 @@ layout: post
 鉴于vscode使用越来越多，还是给他单独一个post的地位，我目前用的版本是1.36.1，新版本用了一阵子感觉不好用，降回去了。
 
 ## 禁止升级
+Ctrl+，>> user 然后设置
 
 ```
-"update.channel": "none"  
+"update.mode": "none"  
 ```
+
+## 为项目选择不同配色
+
+Ctrl+，>> workspace 然后设置
+
+```
+"workbench.colorTheme": "Quiet Light"
+```
+
+## 定义快捷键
+
+在 file >> preference >> keyboard shortcuts 下可以为所有command定义快捷键
+
+## git 历史
+
+最新版本vscode有自带git history功能，不过我用的1.36版上没有，需要安装插件git history, 新版本上vscode自带了timeline，但是只能显示单个文件的history，并不如插件好用。
