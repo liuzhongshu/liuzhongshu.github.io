@@ -1,0 +1,11 @@
+---
+published: true
+title: music
+layout: post
+---
+
+记录一些音乐资源
+
+## 情绪上升
+
+* two steps from hell 有很多这类的音乐

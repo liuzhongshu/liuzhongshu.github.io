@@ -273,3 +273,28 @@ AccessibilityService比较特殊，体现在:
 * adb shell dumpsys deviceidle | grep mState
 
 也可以用adb shell dumpsys deviceidle step，手工向后步进状态，直到IDLE和IDLE_MAINTENANCE。
+
+## 设备id
+* Android ID，不需要权限，但刷机和设备重置后会变。
+* IMEI，Android6之后需要READ_PHONE_STATE 权限，10.0之后有权限也读不了了。
+* Build.SERIAL，直接访问在8.0之后总是返回“unknown”，需要READ_PHONE_STATE权限，然后调用Build.getSerial()，但10.0之后也不行了。
+* wifi的mac地址，目前10.0还可用,如果重启手机后，Wifi没有打开过，是无法获取其Mac地址的?
+```
+public static String getWifiMac() {
+    try {
+        Enumeration<NetworkInterface> enumeration = NetworkInterface.getNetworkInterfaces();
+        if (enumeration == null) {
+            return "";
+        }
+        while (enumeration.hasMoreElements()) {
+            NetworkInterface netInterface = enumeration.nextElement();
+            if (netInterface.getName().equals("wlan0")) {
+                return formatMac(netInterface.getHardwareAddress());
+            }
+        }
+    } catch (Exception e) {
+        Log.e("tag", e.getMessage(), e);
+    }
+    return "";
+}
+```
