@@ -835,14 +835,9 @@ for epoch in range(opt.niter):
 * TTUR技术，为鉴别器和生成器使用不同的lr，比如鉴别器0.0004，生成器0.0001。
 * Spectral Normalization，使用特殊形式的Normalize可以极大提高GAN的稳定性。参考这边[论文](https://arxiv.org/abs/1802.05957)。
 
-## infoGAN
-很显然，DCGAN的z变量没有显著的语意，比如对MNIST，想控制生产图像的‘数字’，‘倾斜度’，‘粗细’，通过DCGAN是做不到的，infoGAN对此加以改进，在输入端除了z，增加一个c变量，表示语意，并且在鉴别器输出也送出一个c，通过loss函数，让生成的c最大程度等同于输入的c，这样相当于给DCGAN加了语意上的限制，训练好的网络，可以通过语意参数来控制输出。infoGAN并没有改进DCGAN生成图像的质量。
+## 其他的GAN
 
-## BEGAN
-
-因为DCGAN难以训练，有人改进了DCGAN的LOSS函数，得到BEGAN，实测下来，BEGAN非常稳定，在我训练期间，未出现坍塌和不收敛的情况。
-
-## Self-Attention GAN
+在DC基础上，有很多改进，比如WGAN，WGAN-GP，BEGAN等，Google有一篇有名的[文章](https://arxiv.org/pdf/1711.10337.pdf)比较了各种GAN，最后结论是都差不多，但是Google这篇文章本身就充满争议，很多人从这篇文章的内容，看到了不同的结果。
 
 ## pix2pix
 

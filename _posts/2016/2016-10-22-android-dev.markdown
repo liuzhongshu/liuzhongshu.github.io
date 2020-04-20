@@ -61,7 +61,7 @@ C:\Users\用户名\.gradle\wrapper\dists\gradle-xxx-all\sdfdfa4w5fzrksdfaweeut
 
 ## 无线连接adb
 
-很多时候，usb连adb不是很方便，可以改用wifi，先在usb连接的情况下执行adb tcpip，这个命令把手机切换到无线adb模式，然后`adb connect 192.168.xx.xx`就可以了，只要不重启手机，每次都可以用这个adb connect连到手机。
+很多时候，usb连adb不是很方便，可以改用wifi，先在usb连接的情况下执行adb tcpip，这个命令把手机切换到无线adb模式，然后`adb connect 192.168.xx.xx`就可以了，只要不重启手机，每次都可以用这个adb connect连到手机。偶尔有时在wifi下会连接不成功，但使用手机做热点就没有问题。
 
 如果手机已经root，上面使用usb的步骤可以忽略，通过app切换到wifi模式。
 
@@ -273,3 +273,28 @@ AccessibilityService比较特殊，体现在:
 * adb shell dumpsys deviceidle | grep mState
 
 也可以用adb shell dumpsys deviceidle step，手工向后步进状态，直到IDLE和IDLE_MAINTENANCE。
+
+## 设备id
+* Android ID，不需要权限，但刷机和设备重置后会变。
+* IMEI，Android6之后需要READ_PHONE_STATE 权限，10.0之后有权限也读不了了。
+* Build.SERIAL，直接访问在8.0之后总是返回“unknown”，需要READ_PHONE_STATE权限，然后调用Build.getSerial()，但10.0之后也不行了。
+* wifi的mac地址，目前10.0还可用,如果重启手机后，Wifi没有打开过，是无法获取其Mac地址的?
+```
+public static String getWifiMac() {
+    try {
+        Enumeration<NetworkInterface> enumeration = NetworkInterface.getNetworkInterfaces();
+        if (enumeration == null) {
+            return "";
+        }
+        while (enumeration.hasMoreElements()) {
+            NetworkInterface netInterface = enumeration.nextElement();
+            if (netInterface.getName().equals("wlan0")) {
+                return formatMac(netInterface.getHardwareAddress());
+            }
+        }
+    } catch (Exception e) {
+        Log.e("tag", e.getMessage(), e);
+    }
+    return "";
+}
+```
