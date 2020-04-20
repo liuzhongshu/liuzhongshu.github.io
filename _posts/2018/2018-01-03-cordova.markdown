@@ -18,14 +18,16 @@ registry =http://registry.npm.taobao.org
 ## android
 
 ```
-npm install cordova -g
+npm install -g cordova@8.1.2
 cordova create hello
 cd hello
 cordova platform add android
 cordova run android
 ```
 
-run的过程中又可能卡死，因为又去下载东西了，参考android一文中修改gradle-wrapper.proerties，也可以尝试用Android Studio去打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。如果不想直接运行，可以用`cordova build android`来编译出apk。
+之所以用8.1.2版本的cordova，是因为9.0有一个[bugr](https://stackoverflow.com/questions/55304065/cordova-error-using-requirecordovamodule-to-load-non-cordova-module-q-is-no), 某些版本的cordova，需要windows自己单独安装gradle，可以直接在path里设置一个指向已安装的gradle即可。
+
+下面cordova run的过程中又可能卡死，因为又去下载东西了，参考android一文中修改gradle-wrapper.proerties，也可以尝试用Android Studio去打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。如果不想直接运行，可以用`cordova build android`来编译出apk。
 
 ## iOS
 

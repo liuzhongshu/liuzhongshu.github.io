@@ -5,11 +5,9 @@ layout: post
 ---
 ## Android Studio
 
-从[这里](http://www.androiddevtools.cn/)下载Android Studio，下载最大最新的那个，含sdk和各种tools，省得后续下载的痛苦。
+从[这里](http://www.androiddevtools.cn/)下载Android Studio，下载最大最新的那个，含sdk和各种tools，省得后续下载的痛苦。如果找不到完整包，只安装了studio，可以在上面网站的sdk-tools下安装android-sdk_rxxx-windows.zip，这个包下面会包含SDK Manager.exe，然后用这个exe去安装其余的sdk组件（不要用android studio的向导去安装sdk组件，没有这个单独的SDK Manager好用），无论用哪种方式安装了sdk，记得设置环境变量ANDROID_HOME到sdk的目录。因为后续很多步骤是依赖这个变量来找sdk。
 
-安装的时候，可以选择安装路径，如果不按缺省路径，安装完成后记得设置环境变量ANDROID_HOME到sdk的目录。因为后续很多步骤是依赖这个变量来找sdk。
-
-sdk的目录下有个SDK Manager.exe，这个可以用来继续安装更多的sdk，默认的话，一般只带一个比较新的sdk，可以多安装几个sdk，也可以等到需要再装。
+使用SDK Manager安装sdk时，如果不用安卓虚拟机，可以不安装每个sdk下的各种system image，又大又不好用。
 
 ## 国情设置
 
@@ -91,10 +89,7 @@ adb logcat -v time | grep pid
 adb logcat --buffer=crash
 ```
 
-我一般习惯在开发人员选项中把log的内存放到最大，log的级别有多个，有些手机（比如魅族）缺省会不记录debug级别的日志，可以在设置》开发者选项里调整。
-
-总之logcat的设计有点反人性，并且
-* logcat并不persist，所以手机重启之后就没有了。
+log的级别有多个，有些手机（比如魅族）缺省会不记录debug级别的日志，可以在设置》开发者选项里调整。总之logcat的设计有点反人性，并且logcat并不persist，所以手机重启之后就没有了。
 
 如果设备不再手边，或没有条件使用USB线，可以在设备上安装一个[catlog](https://play.google.com/store/apps/details?id=com.nolanlawson.logcat&hl=en)工具，可以直接显示或保存日志，挺好用，但是这个工具需要root权限。
 
@@ -278,3 +273,28 @@ AccessibilityService比较特殊，体现在:
 * adb shell dumpsys deviceidle | grep mState
 
 也可以用adb shell dumpsys deviceidle step，手工向后步进状态，直到IDLE和IDLE_MAINTENANCE。
+
+## 设备id
+* Android ID，不需要权限，但刷机和设备重置后会变。
+* IMEI，Android6之后需要READ_PHONE_STATE 权限，10.0之后有权限也读不了了。
+* Build.SERIAL，直接访问在8.0之后总是返回“unknown”，需要READ_PHONE_STATE权限，然后调用Build.getSerial()，但10.0之后也不行了。
+* wifi的mac地址，目前10.0还可用,如果重启手机后，Wifi没有打开过，是无法获取其Mac地址的?
+```
+public static String getWifiMac() {
+    try {
+        Enumeration<NetworkInterface> enumeration = NetworkInterface.getNetworkInterfaces();
+        if (enumeration == null) {
+            return "";
+        }
+        while (enumeration.hasMoreElements()) {
+            NetworkInterface netInterface = enumeration.nextElement();
+            if (netInterface.getName().equals("wlan0")) {
+                return formatMac(netInterface.getHardwareAddress());
+            }
+        }
+    } catch (Exception e) {
+        Log.e("tag", e.getMessage(), e);
+    }
+    return "";
+}
+```

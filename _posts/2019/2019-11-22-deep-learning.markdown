@@ -848,6 +848,14 @@ pix2pix是GAN在图像转换领域一个非常成功的应用，最大的好处�
 
 ![](../../public/images/2019-12-27-09-44-11.png)
 
+## StyleGAN
+
+StyleGAN是近年来GAN在人脸生成领域的最佳实现，StyleGAN重新设计了生成器，解决了特性重叠的问题。
+
+## BigGAN
+
+DeepMind团队的一个令人印象深刻的GAN实现，在ImageNet图像生成上取得了碾压式的优势，但是需要巨大的网络和运算量（128块TPU训练两天），不过有报告在降低参数后，BigGAN依然有不错的效果。
+
 ## 参考
 
 按顺序给出深度学习的一些好的参考资料和书籍。
@@ -855,7 +863,7 @@ pix2pix是GAN在图像转换领域一个非常成功的应用，最大的好处�
 * [Pytorch的官方教程](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
 * [Dive into DL的pytorch版本](https://github.com/ShusenTang/Dive-into-DL-PyTorch), 这本书中英版本有明显不同，英文版本内容更丰富一些。
 * [基于纯代码的Pytorch教程](https://github.com/yunjey/pytorch-tutorial), 代码很整洁，值得学习。
-
+* [Kaggle](https://www.kaggle.com) 一个数据科学领域的竞赛网站，有很多非常实际的项目和很棒的实现。
 * [Pytorch的图片转换实现](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
 * https://github.com/huggingface/transformers
 * [GAN近年的进展](https://machinelearningmastery.com/impressive-applications-of-generative-adversarial-networks/)

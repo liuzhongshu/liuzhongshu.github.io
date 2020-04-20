@@ -4,9 +4,35 @@ title: Java
 layout: post
 ---
 
+### portable java
+我喜欢portable的工具，所以jre也是，可以从[openjdk](https://adoptopenjdk.net/releases.html)下载zip包，展开jre，添加path即可。如果要注册jar的双击运行，用管理员权限运行下面的脚本即可：
+
+```
+assoc .jar=jarfile
+ftype jarfile="%~dp0bin\javaw.exe" -jar "%%1" %%*
+```
+
+注意这个脚本是放在jre根目录下的，因为是脚本所以%需要转义。
+
 ### 设置工具使用英文
 
 通过环境变量来更改，Windows下可以这样设置:
 ```
 set JAVA_TOOL_OPTIONS="-Duser.language=en"
 ```
+
+### maven 镜像
+国内使用阿里云的maven镜像要快很多，设置方法时修改conf/settings.xml，添加
+
+```
+  <mirrors>
+   <mirror>
+    <id>aliyunmaven</id>
+    <mirrorOf>*</mirrorOf>
+    <name>阿里云公共仓库</name>
+    <url>https://maven.aliyun.com/repository/public</url>
+   </mirror>
+  </mirrors>
+  ```
+
+  对于有些使用maven wrapper的工具，可能有多个maven版本，可以把这个settings.xml拷贝到<user>\.m2下面就可以了。
