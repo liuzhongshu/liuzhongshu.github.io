@@ -162,6 +162,13 @@ Intent是安卓的一个核心概念，intent用于组件之间的调用和通�
 Intent i=new Intent();
 i.setAction(Intent.ACTION_SEND);
 ```
+如果想知道系统中有没有可以处理这个intent的app，可以这样判断
+```
+Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+if (intent.resolveActivity(getPackageManager()) != null) {
+    startActivity(intent);
+}
+```
 
 ### Explicit intent
 
@@ -171,7 +178,6 @@ i.setAction(Intent.ACTION_SEND);
 Intent I = new Intent(getApplicationContext(),NextActivity.class);
 I.putExtra(“value1” , “This value for Next Activity”);
 ```
-
 
 ## activity的filter属性
 
@@ -184,7 +190,18 @@ I.putExtra(“value1” , “This value for Next Activity”);
 </intent-filter>
 ```
 
-MAIN的意思表示是一个入口，通常和LAUNCHER一起出现，让桌面程序或第三方启动类程序可以发现这个activity。但是MAIN也可以和其他类别category组合比如和CATEGORY_CAR_DOCK组合则表示在dock时会执行的activity。
+MAIN的意思表示是一个入口，通常和LAUNCHER一起出现，让桌面程序或第三方启动类程序可以发现这个activity。但是MAIN也可以和其他类别category组合比如和CATEGORY_CAR_DOCK组合则表示在dock时会执行的activity。也可以通过对data uri的过滤让activity只处理部分intent，比如这样注册：
+
+```
+<activity android:name=".YourBrowserActivity">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />       
+        <data android:scheme="http" android:host="www.example.com" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+    </intent-filter>
+</activity>    
+```
 
 ## mipmap和drawable
 
@@ -275,10 +292,10 @@ AccessibilityService比较特殊，体现在:
 也可以用adb shell dumpsys deviceidle step，手工向后步进状态，直到IDLE和IDLE_MAINTENANCE。
 
 ## 设备id
-* Android ID，不需要权限，但刷机和设备重置后会变。
+* Android ID，不需要权限，但刷机和设备重置后会变，安卓8.0之前到8.0之后也会变，因为8.0之后是加上app签名一起算的。
 * IMEI，Android6之后需要READ_PHONE_STATE 权限，10.0之后有权限也读不了了。
 * Build.SERIAL，直接访问在8.0之后总是返回“unknown”，需要READ_PHONE_STATE权限，然后调用Build.getSerial()，但10.0之后也不行了。
-* wifi的mac地址，目前10.0还可用,如果重启手机后，Wifi没有打开过，是无法获取其Mac地址的?
+* wifi的mac地址，目前10.0还可用, 需要INTENET权限，但部分机型每次重启都会变（三星S10）
 ```
 public static String getWifiMac() {
     try {

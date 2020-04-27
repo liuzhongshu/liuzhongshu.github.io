@@ -20,6 +20,23 @@ base64算法在标准jdk8以后版本才有，之前jdk可以用commons-codec，
 ```
 Base64.encodeToString(str, Base64.NO_WRAP)
 ```
+### MD5
+```
+public static String md5(String s, boolean lowercase, String def) {
+    try {
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        String hash = new BigInteger(1, m.digest(lowercase ? s.toLowerCase().getBytes("UTF-8") : s.getBytes("UTF-8"))).toString(16);
+        //前面要补0
+        while(hash.length() < 32 ){
+            hash = "0" + hash;
+        }
+        return hash;
+    } catch (Exception e) {
+        return def;
+    }
+}
+```
+需要注意如果命令行使用linux工具来和上面算法校验，要用-ne参数，表示去除回车`echo -ne test | md5sum`
 
 ### RSA加密
 使用这个算法，在跨平台使用时，在Cipher.getInstance初始化时一定要指定所有选项，而不能仅仅是"RSA"，因为android和desktop可能细节的选项是不一样的，导致一端加密，另一端解不了。
@@ -47,6 +64,20 @@ public static String rsaDecrypt(String key, String src) throws Exception {
   return new String(cipher.doFinal(Base64.decodeBase64(src)),"utf-8");  		
   }
 ```
+
+因为RSA的特性，输入的长度要小于等于key的长度，输出的长度等于key的长度，所以如果需要强度，需要选择key比较长，如果需要较短的输出，选择短的key，但最短只能是512bit，生成公钥和私钥对可以用下面的算法。
+
+```
+  KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+  //rsa的key至少512长度，为了加密输出最短，就用最小的512，但是能加密的最长字符也就只有53了
+  keyGen.initialize(512);
+  KeyPair pair = keyGen.genKeyPair();
+  byte[] publicKey = pair.getPublic().getEncoded();
+  byte[] privateKey = pair.getPrivate().getEncoded();
+  
+  System.out.println(Base64.encodeBase64String(publicKey));
+  System.out.println(Base64.encodeBase64String(privateKey));
+```        
 
 ### 设置工具使用英文
 
