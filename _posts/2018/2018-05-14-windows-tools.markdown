@@ -10,7 +10,7 @@ layout: post
 ## 工具
 1. [ConEmu](https://conemu.github.io/) : 多标签页的命令行，用来替换CMD
 1. [Clink](https://mridgers.github.io/clink/) : 支持CMD记录历史，可以和ConEmu集成
-1. [Classic Shell](http://www.classicshell.net/) : Windows8下用来找回开始菜单
+1. [Classic Shell](http://www.classicshell.net/) : Windows8下用来找回开始菜单，win10可以不用了。
 1. [7Zip](http://www.7-zip.org/) : 压缩工具
 1. [Everything](https://www.voidtools.com/) 快速文件搜索
 1. [UltraSearch](https://www.jam-software.com/ultrasearch/) 文件内容搜索
@@ -25,23 +25,24 @@ layout: post
 1. [Unison](http://unison-binaries.inria.fr/) : 文件目录同步
 1. [rufus](https://rufus.akeo.ie/) 格式化usb启动盘
 1. [nssm](https://nssm.cc/) 把任何程序转为Windows服务
+1. [Scrcpy](https://github.com/Genymobile/scrcpy) 用pc控制手机
 1. [clipber](https://clipber.com/) 在pc和手机间同步剪贴板
+1. [ImageMagick](https://imagemagick.org/index.php) 如果要在命令行处理图片，比如缩放、格式转换，就这个了。
 
 ## 媒体
 1. [SumatraPDF](https://www.sumatrapdfreader.org/free-pdf-reader.html): 轻量PDF阅读工具，多标签页。
 1. [MPC-HC](https://mpc-hc.org/) : 非常轻量的播放器，CPU占用极低，适合笔记本使用。
 1. [Vlc](http://www.videolan.org/vlc/) : 兼容性很好的播放器
-1. [IrfanView](http://www.irfanview.com/) : 图片查看
-1. [GreenShot](http://getgreenshot.org/) : 截屏工具，picpick也不错。
+1. [IrfanView](http://www.irfanview.com/) : 超轻量且支持格式极多的图片查看器。
+1. [GreenShot](http://getgreenshot.org/) : 截屏工具，picpick也很不错。
 1. [LICEcap](https://www.cockos.com/licecap/) : 制作动态GIF
 1. [FFmpeg](https://ffmpeg.org/) : 转换音视频
-1. [OBS](https://obsproject.com/) : 直播和录制视频，比ShareX性能要好
+1. [OBS](https://obsproject.com/) : 直播和录制视频，比ShareX性能要好。
 
 ## 编程
 1. [Anaconda](https://www.eclipse.org/) : Python环境和第三方库，如果不需要庞大的库，miniconda更合适。
 1. [Java](https://adoptopenjdk.net/releases.html) : 一般情况下openjdk就可以了。
 1. [Visual Studio Code](https://code.visualstudio.com/) : 大部分项目的IDE
-1. [Notepad++](https://notepad-plus-plus.org/) : 文件编辑器
 1. [git](https://git-scm.com/) : 版本控制和linux工具集
 1. [eclipse](https://www.eclipse.org/) : Java IDE
 
@@ -53,7 +54,7 @@ layout: post
 1. [ipScan](http://angryip.org/) : IP搜索
 1. [Putty](http://www.putty.org/) : SSH客户端
 1. [MobaXTerm](http://mobaxterm.mobatek.net/) SSH客户端，支持Mosh，以及一套cygwin工具集（rsync等）
-1. [mongoose](https://www.cesanta.com/products/binary) Http服务器
+1. [mongoose](https://www.cesanta.com/products/binary) 超轻量的Http服务器
 1. [eMule](https://www.emule-project.net) : 下载 
 
 ## 数据库

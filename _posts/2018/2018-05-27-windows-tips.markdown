@@ -6,6 +6,13 @@ layout: post
 
 日常的开发都是在windows下，记录一些小问题的解决方法，目前用到系统是windows8.1，不过大部分对windows10应该也有效。
 
+## update和defender
+这两个是windows占用cpu最主要的可能原因，好在可以通过gpedit.msc禁止他们，所以不要安卓家庭版哦 ;)
+ 
+* Computer Configuration > Administrative Templates > Windows Components > Windows update > Configure Automatic Updates
+* Computer Configuration > Administrative Templates > Windows Components > Windows Defender Antivirus > Turn off Windows Defender Antivirus
+
+
 ## 多剪贴板
 
 最新的windows 10居然支持了多剪贴板功能，在控制面版里使能以后，按Windows+V就可以触发了。
