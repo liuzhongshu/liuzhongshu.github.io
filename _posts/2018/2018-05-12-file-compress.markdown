@@ -28,5 +28,6 @@ ffmpeg -i input.mp3 -ss 1:10.2 -to 1:30 -b:a 16k output.mp3
 ## mp4
 用ffmpeg也可以压缩视频文件到h265，参数比较复杂，用封装的一个h265ize就简单一些，主要是两个参数：-q控制质量，-m控制模式，这两个参数组合可以得到很多用法，但是似乎不是线性的变化，我实际用h264视频来压缩成h265，用-m fast和-m ultrafast，文件大小基本都没有改善，且速度其慢，fast模式甚至比播放速度还要慢。(i7-3632qm)
 
-## jpg
-jpg的算法里，mozilla有个很多的算法
+## jpg/png
+jpg的算法里，mozilla有个很多的算法。但是简单的话，用[这个](https://tinypng.com/)就可以了。
+
