@@ -32,3 +32,10 @@ Ctrl+，>> workspace 然后设置
 ```
 git history有一个问题，每次启动vscode后，不能立刻用，要等一会，否则会出现插件错误。
 ```
+
+## 粘贴图片
+使用paste image插件，并再配置文件中增加
+
+```
+"pasteImage.path": "${projectRoot}/public/images"
+```

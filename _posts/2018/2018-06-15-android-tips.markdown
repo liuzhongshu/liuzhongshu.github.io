@@ -15,13 +15,9 @@ adb shell screenrecord --verbose ./sdcard/screencast-video.mp4
 ```
 后面的文件路径是手机端的，所以要放在sdcard目录下，如果录制的时候想看到点击，可以在设置里先打开“show touches”。
 
-## 实时投射
+## 实时投射和远程控制
 
-可以安装scrcpy，这个是命令行工具，adb建立连接后，就可以用scrcpy实时投射，用起来和Vysor一样，可以通过命令行数控制分辨率(-m)和带宽(-b)，比如
-
-```
-scrcpy -m 700 -b 1m
-```
+可以安装scrcpy，这个是命令行工具，而且同时很好的解决了手机输入困难的问题。
 
 ## 剪贴板访问
 
