@@ -42,9 +42,10 @@ layout: post
 ## 编程
 1. [Anaconda](https://www.eclipse.org/) : Python环境和第三方库，如果不需要庞大的库，miniconda更合适。
 1. [Java](https://adoptopenjdk.net/releases.html) : 一般情况下openjdk就可以了。
+1. [eclipse](https://www.eclipse.org/) : Java IDE
+1. [CodeBlocks](http://www.codeblocks.org/) : windows下可以用的c++ IDE，比visual studio小多了，做些小东西可以用。
 1. [Visual Studio Code](https://code.visualstudio.com/) : 大部分项目的IDE
 1. [git](https://git-scm.com/) : 版本控制和linux工具集
-1. [eclipse](https://www.eclipse.org/) : Java IDE
 
 ## 设计
 1. [Just Color Picker](http://annystudio.com/software/colorpicker/) : 取色工具
