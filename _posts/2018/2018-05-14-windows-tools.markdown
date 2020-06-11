@@ -26,7 +26,6 @@ layout: post
 1. [rufus](https://rufus.akeo.ie/) 格式化usb启动盘
 1. [nssm](https://nssm.cc/) 把任何程序转为Windows服务
 1. [Scrcpy](https://github.com/Genymobile/scrcpy) 用pc控制手机，神器。
-1. [clipber](https://clipber.com/) 在pc和手机间同步剪贴板
 1. [ImageMagick](https://imagemagick.org/index.php) 如果要在命令行处理图片，比如缩放、格式转换，就这个了。
 
 ## 媒体
@@ -43,7 +42,7 @@ layout: post
 1. [Anaconda](https://www.eclipse.org/) : Python环境和第三方库，如果不需要庞大的库，miniconda更合适。
 1. [Java](https://adoptopenjdk.net/releases.html) : 一般情况下openjdk就可以了。
 1. [eclipse](https://www.eclipse.org/) : Java IDE
-1. [CodeBlocks](http://www.codeblocks.org/) : windows下可以用的c++ IDE，比visual studio小多了，做些小东西可以用。
+1. [CodeBlocks](http://www.codeblocks.org/) : 跨平台的c++ IDE，比visual studio小多了，做些小东西可以用。
 1. [Visual Studio Code](https://code.visualstudio.com/) : 大部分项目的IDE
 1. [git](https://git-scm.com/) : 版本控制和linux工具集
 

@@ -39,3 +39,6 @@ git history有一个问题，每次启动vscode后，不能立刻用，要等一
 ```
 "pasteImage.path": "${projectRoot}/public/images"
 ```
+
+## i18n
+对i18n提供支持的一个插件 i18n ally，可以自动调用google翻译，不过默认是google.com，没找到配置，只能改源码改成google.cn。另外不知道如何禁用inline显示。但总是还是好用的。

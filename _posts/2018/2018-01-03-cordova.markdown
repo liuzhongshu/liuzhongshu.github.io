@@ -29,6 +29,8 @@ cordova run android
 
 下面cordova run的过程中又可能卡死，因为又去下载东西了，参考android一文中修改gradle-wrapper.proerties，也可以尝试用Android Studio去打开这个工程了，打开的时候选择项目下的platform\android这个目录即可。如果不想直接运行，可以用`cordova build android`来编译出apk。
 
+一旦编译成功，相关的组件版本版本锁定, 在新的机器上(或者clean之后)一定要用`cordova prepare`来恢复相同版本的组件，而不能再用cordova platform add，否则组件版本会被升级。
+
 ## iOS
 
 先安装组件：
@@ -125,13 +127,13 @@ cordova自己有个版本，这个版本其实关系不大，相当于是cordova
 cordova plugin add https://github.com/don/cordova-plugin-hello.git
 ```
 
-这样的话，plugins目录下就会多出通过git下载的插件了，并且插件信息会被加入到config.xml，下次从版本库checkout出来之后，需要用
+这样的话，plugins目录下就会多出通过git下载的插件了，并且插件信息会被加入到config.xml，注意github项目名称**必须**等于插件名称，这样下次从版本库checkout出来之后，需要用
 
 ```
 cordova prepare
 ```
 
-来重新下载这些插件, 还有几个常用的命令：
+来重新下载这些插件, 如果名称不相等，这里会出错。还有几个常用的命令：
 
 * cordova plugin list 列举当前项目的插件
 * cordova plugin rm xxx 删除某个插件
@@ -206,7 +208,7 @@ cordova工程使用版本控制时，那些文件入库，哪些不入库，需�
 
 * platforms、node_modules、plugins目录都不入库，同时也不要手工修改这几个目录。
 
-入库的问题在于，当clean项目的时候，重新安装platform，plugin可能和预留的文件冲突，导致编译不过。如果某些插件需要修改之后才能工作，应该在github上单独为插件fork或新建一个项目，用这个新项目地址配置到cordova工程里，下面详述。
+入库的问题在于，当clean项目的时候，重新prepare的时候可能和预留的文件冲突，导致编译不过，另外clean之后一定要用cordova prepare来保持原来的插件版本，如果某些插件需要修改之后才能工作，应该在github上单独为插件fork或新建一个项目，用这个新项目地址配置到cordova工程里，下面详述。
 
 ## 创建自己的插件
 
