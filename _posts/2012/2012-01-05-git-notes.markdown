@@ -13,6 +13,9 @@ layout: post
 git clone git@github.com:liuzhongshu/liuzhongshu.github.com.git
 ```
 
+如果网速慢，可以加代理 `-c http.proxy="http://127.0.0.1:1080"`
+
+
 ## 初始化远程仓库
 这是很常见的操作，比如在github上已经创建了一个仓库，要将本地的目录上传上去，如果本地目录还不是库，先做以下操作
 
@@ -185,3 +188,31 @@ git config --global core.hooksPath /path/to/my/centralized/hooks
 ```
 
 勉强算是部分解决了这个问题（但很不灵活），挺遗憾，为什么hook不入库呢~
+
+## git库为什么这么大
+可以用下面的命令找到历史上的大文件
+
+```
+git rev-list --all --objects | \
+    sed -n $(git rev-list --objects --all | \
+    cut -f1 -d' ' | \
+    git cat-file --batch-check | \
+    grep blob | \
+    sort -n -k 3 | \
+    tail -n40 | \
+    while read hash type size; do 
+         echo -n "-e s/$hash/$size/p ";
+    done) | \
+    sort -n -k1
+```
+
+## 删除历史文件
+要从库中删除历史上的大文件，可以用[bfg.jar](https://rtyley.github.io/bfg-repo-cleaner)，很容易
+
+```
+git clone --mirror git://example.com/some-big-repo.git
+java -jar bfg.jar --strip-blobs-bigger-than 100M some-big-repo.git
+cd some-big-repo.git
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
+git push
+```

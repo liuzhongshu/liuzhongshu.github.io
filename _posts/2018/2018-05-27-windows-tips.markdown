@@ -137,6 +137,15 @@ SetUnicodeStr(ByRef out, str_)
 ## autohotkey
 使用autohotkey的时候，发现在某些应用下快捷键可用，某些应用下不行，解决方法是设置autohotkey以管理员模式运行就可以了，但是引发下面这个问题。
 
+## 图片批处理
+基本上用imagemagik就可以搞定大部分图片批处理：
+
+```
+convert src.png -resize 512x taget.png
+convert -size 1024x500  radial-gradient:#8c8ca4-#232050 bg.png
+convert src.png -crop 1080x1980#0#0 target.png
+```
+
 ## 管理员模式和自启动
 Windows 8不允许自启动列表（startup）中有管理员模式运行的程序，因此上面这个autohotkey问题，如果想开机自启，就做不到了，替代方法是用schedule task代替，创建一个登陆后自启动的任务以替代startup快捷菜单。
 
