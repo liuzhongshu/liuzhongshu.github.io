@@ -101,3 +101,14 @@ set JAVA_TOOL_OPTIONS="-Duser.language=en"
   ```
 
   对于有些使用maven wrapper的工具，可能有多个maven版本，可以把这个settings.xml拷贝到<user>\.m2下面就可以了。
+
+  ### http库
+  java自带的http api过于底层，一般可以使用apache HttpClient，但这个轻量的[http-request](https://github.com/kevinsawicki/http-request)非常不错值得一用。比如从anki上下载，需要先通过post取到302的下载地址，再下载文件，可以这样
+  ```
+  String addr = HttpRequest.post("https://ankiweb.net/shared/downloadDeck/627603312")
+    			.form("k", "xxxkey")
+    			.followRedirects(false)
+    			.location();
+
+  HttpRequest.get(addr).header("User-Agent","curl/7.55.1").receive(new File("output"));
+```          
