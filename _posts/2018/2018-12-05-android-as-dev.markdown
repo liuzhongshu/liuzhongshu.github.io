@@ -30,3 +30,17 @@ Termux有一些很酷的用法，举例
 * android 8以上，npm会有一个报错，按照log文件的位置，修改maxConcurrentWorkers为1即可修复
 * git clone 使用ssh url如果包unable to fork的错误，是因为没有安装ssh
 * 没有蓝牙键盘的话，有些特殊字符不好输入，比如ctrl-c，可以按照一个hackerkeyboard，或者使用android原生输入法，android原生输入法中音量下键即为ctrl，上建alt。
+
+## app_process
+app_process 是Android 上的一个原生程序，可以从main()方法开始执行一个Java程序。scrspy就是利用这个来运行scrcpy-server进而得到shell权限。
+
+```
+app_process [java-options] cmd-dir start-class-name [options]
+```
+
+和windows下一样，通常我们需要先指定一个classpath，android可以将classpath指定为apk文件，比如
+```
+CLASSPATH=/data/local/tmp/scrcpy-server.apk app_process / com.genymobile.scrcpy.Server para1 para2
+```
+
+主要如果使用了proGuard，可能导致main函数被移除，所以应该再main上加上一个注解 @keep

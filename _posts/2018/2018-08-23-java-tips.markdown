@@ -112,3 +112,35 @@ set JAVA_TOOL_OPTIONS="-Duser.language=en"
 
   HttpRequest.get(addr).header("User-Agent","curl/7.55.1").receive(new File("output"));
 ```          
+
+### json
+org.json.JSONObject在导出json时，会把"/"字符转义，原因时考虑json有可能嵌入在html里，所以输出的json可能会出现"\/aaa\/bbb"这样的字符串。
+
+## 反编译
+
+java反编译有很多工具，jadx值得推荐，它可以直接打开apk进行反编译，gui也做的很好，除此之外的工具有：
+
+* 很多人推荐jd-gui，这个工具不能直接打开dex，只支持jar，反编译的效果和jadx互有胜负，。
+* dex-tools，用于将dex转换为jar，对于不支持直接反编译dex的工具，需要用这个先转换一下。
+* [apk-tool](https://ibotpeaches.github.io/Apktool/) 如果要看apk中的string资源，需要这个命令行工具。`java -jar apktool.jar d xxx.apk`就可以了
+* [bytecodeviewer](https://github.com/Konloch/bytecode-viewer)，这是个GUI工具，内置了三四种java反编译器，可以多个反编译器的效果对比，但是GUI做的很不好用。
+
+bytecodeviewer支持的几种反编译器里proycon和fenflower都不错，比jadx/jd-gui效果要好。
+
+## break语言
+java的break语句并不常用，但是在反编译的结果中却比较常见，break的意思是跳出当前scope，因此和goto是不一样的。
+```
+first:
+for( int i = 0; i < 10; i++) {
+  second:
+  for(int j = 0; j < 5; j ++ )
+  {
+    break xxx; //xxx可以是first，也可以是second，但不能是third
+  }
+}
+
+third:
+for( int a = 0; a < 10; a++) {
+
+}
+```

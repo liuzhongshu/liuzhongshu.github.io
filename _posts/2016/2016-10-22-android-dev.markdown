@@ -114,10 +114,6 @@ run-as your.package.id
 ls -all
 ```
 
-## 反编译
-
-最好的工具组合是dex-tools和jadx，前者用于将dex转换为jar，后者阅读jar，虽然很多人推荐jd-gui来打开jar，但我发现jd-gui有些jar里的class文件打不开，而jadx可以。
-
 
 ## 开发与亮屏
 
@@ -315,3 +311,21 @@ public static String getWifiMac() {
     return "";
 }
 ```
+
+## 多用户
+
+安卓的多用户和Linux原生多用户完全不是一个概念，从adb shell ps可以看出
+
+```
+root         20448     2       0      0 0                   0 S [cabc_pwm_task]
+radio        20455   605 5420336  27228 0                   0 S com.huawei.android.AutoRegSms
+u0_a29       20477   605 6127268 101764 0                   0 S com.huawei.intelligent
+radio        20503   605 5437960  28268 0                   0 S com.huawei.android.UEInfoCheck
+root         20525     2       0      0 0                   0 I [kworker/u17:0]
+u0_a146      20531   605 5510632  42292 0                   0 S com.huawei.pengine
+u0_a29       20555   605 6305892  77468 0                   0 S com.huawei.intelligent:intelligentService
+root         20560     1   33264    720 0                   0 S vendor.huawei.hardware.hwfs@1.0-service
+u128_a18     20591   605 5990428  71692 0                   0 S com.google.android.gms
+```
+
+安卓支持多"用户"，比如可以做分身，但即使没有多用户，从ps上看，每个app都对应一个唯一的Linux uid，比如上面的u0_a29，u0_a146，其中u0就是安卓的用户0，如果开了分身，上面就多出一个u128，但也依然对应到多个Linux user。

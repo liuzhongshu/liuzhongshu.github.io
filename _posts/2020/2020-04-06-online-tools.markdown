@@ -14,6 +14,7 @@ layout: post
 1. [itellyou](https://msdn.itellyou.cn/) 微软资源下载检索
 1. [google translate](https://translate.google.cn/) 谷歌翻译
 1. [slides](https://slides.com/) 不错的slide制作网站，但制作好的ppt不能下载
+1. [deepl](https://www.deepl.com/translator) 目前最好的翻译算法，比谷歌微软要好。
 
 ## 对比和评测
 1. [speedtest](https://www.speedtest.cn/) 测试网速
