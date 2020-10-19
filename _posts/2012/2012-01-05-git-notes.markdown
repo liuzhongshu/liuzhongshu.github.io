@@ -110,7 +110,7 @@ git log master..feature1
 通过git log自动形成release notes是个不错的主意
 
 ```
-git log -5 --pretty=format:"%h %s"
+git log -5 --pretty=format:"%s"
 ```
 
 ## GUI工具

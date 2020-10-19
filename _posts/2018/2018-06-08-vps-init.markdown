@@ -4,10 +4,24 @@ title: vps 初始化
 layout: post
 ---
 
-我一般喜欢用ubuntu 14.04或16.04，通常的初始化动作如下
+我一般喜欢用ubuntu 14.04或16.04，通常的初始化动作如下：
 
 ## 修改hostname
 修改/etc/hosts 和 /etc/hostname 两个文件，起一个好记的名字，再reboot
+
+## 修改时区
+timedatectl set-timezone Asis/Shanghai
+
+## 确认防火墙状态
+
+sudo ufw status
+
+## 工具
+
+```
+apt-get install mosh
+apt-get install screen
+```
 
 ## jre
 
@@ -36,19 +50,57 @@ gzip_min_length 256;
 gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss application/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon;
 ```
 
-然后service nginx restart
+然后service nginx restart，配置好每个virtual server后
+ln -s /etc/nginx/sites-available/xxx /etc/nginx/sites-enabled/
+
+重新加载配置，可以不用restart，只需要reload，也可以用systemctl命令
+systemctl reload nginx
+
+## cerbot
+用于自动续期Letsencrypt的证书, 
+
+先安装，其中python3-pyasn1是为了规避执行中的一个告警，安装完之后就会自动添加到/etc/cron.d。
+
+```
+add-apt-repository ppa:certbot/certbot
+apt update
+apt install python-certbot-nginx
+apt install python3-pyasn1
+```
+
+确认nginx已经配置好server block，就可以执行了, cerbot可以同时处理多个域名。
+
+```
+certbot --nginx -d sub1.xxx.com -d sub2.xxx.com
+```
+
+回答完向导就可以了，并且似乎nginx不需要reload即可生效。
 
 ## mariadb
 
 ```
 apt-get install mariadb-server
+mysql_secure_installation
 ```
 
-在16.04上，如果是升级安装mysql，可能需要配置root账号的访问权限。
+install之后mariadb应该自动运行起来，mysql_secure_installation是一个向导可以帮助解决缺省情况不安全的mysql配置，建议执行一下。
 
-## 几个工具
+注意1: 高版本的mysql和mariadb的root的密码验证方式修改了，导致jdbc不兼容，需要使用mysql命令行改一下:
 
 ```
-apt-get install mosh
-apt-get install screen
+update mysql.user set plugin = 'mysql_native_password' where User='root';
+FLUSH PRIVILEGES;
 ```
+
+注意2：如果mariadb安装出错，比如script return -1之类的，可以先删除所有mysql组件：
+
+```
+apt remove --purge mysql*
+apt remove --purge mariadb*
+apt autoremove
+apt autoclean
+```
+再重新安装，如果还不行，试试reboot
+
+## 参考
+digitalocean网站上有很多文档，写的很好，值得一看。

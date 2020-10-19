@@ -329,3 +329,29 @@ u128_a18     20591   605 5990428  71692 0                   0 S com.google.andro
 ```
 
 安卓支持多"用户"，比如可以做分身，但即使没有多用户，从ps上看，每个app都对应一个唯一的Linux uid，比如上面的u0_a29，u0_a146，其中u0就是安卓的用户0，如果开了分身，上面就多出一个u128，但也依然对应到多个Linux user。
+
+## 监测home键
+
+这种方法的优点是可以支持虚拟键和系统手势，但如果使用全面屏手势，上划触发的home会被监测为recentapps
+
+```
+mReceiver = new InnerReceiver();
+registerReceiver(mReceiver, new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+class InnerReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+        if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+            String reason = intent.getStringExtra("reason");
+            if (reason != null) {
+                Log.d(Const.TAG, "action:" + action + ",reason:" + reason);
+                if (reason.equals("homekey")) {
+                    //
+                } else if (reason.equals("recentapps")) {
+                    //
+                }
+            }
+        }
+    }
+}
+```
