@@ -84,7 +84,7 @@ export BROWSER=w3m
 * ctrl-a 0…9：同样是切换各个 session
 * ctrl-a k：退出当前session，切换到下一个
 * ctrl-a d：退出 Screen(所有的session都还在)
-
+* ctrl-a [：进入copy模式，可以用pgup/ctrl-b,pgdn/ctrl-f来翻屏，ESC推出)
 
 如果想在screen里也支持鼠标，需要启动screen时指定终端类型：
 

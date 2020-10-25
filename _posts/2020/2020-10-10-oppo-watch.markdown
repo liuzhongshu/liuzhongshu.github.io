@@ -35,7 +35,7 @@ Oppo的表盘非常不错，并且大部分表盘上的小部件支持自定义�
 * 一些跳转url，比如startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mUrl)) 会进入一个Unspport feature页面。
 * SeekBarPreference支持的不好
 * 多点触摸，放大缩小都可以操作。但可能是因为屏幕小，一些点击拖动操作较难触发。
-* app可以保留后台（文档上说60秒后被杀），甚至似乎支持悬浮窗，android大部分功能得以保留。
+* android大部分功能得以保留，甚至似乎支持悬浮窗，。
 
 解决方法：
 * 增加swipeBack，但是swipeback不能在普通手机上增加，否则会导致后面setContentView时异常，所以需要有个区别，目前发现可行的方法是：
@@ -61,6 +61,10 @@ cordova应用：
 
 功能太少，只有心率，计步，通知和NFC公交几个功能，这个模式相较其他大号手环厂商就差多了，最起码闹钟都没有，对我就不够用了。
 
+## 联网
+
+很棒的一点是，即使没有打开Wifi，只要蓝牙连接到手机，网络就是通的，虽然网速慢一点。
+
 ## 声音和震动
 
 * 音量还可以，音质一般，可以后台播放。
@@ -73,3 +77,23 @@ cordova应用：
 ## 截屏
 
 没有音量键截屏，用scrcpy可以截屏。
+
+## 开发
+要使用Oppo watch定制的theme，需要：
+
+* 在app\build.gradle下增加
+
+```
+implementation "androidx.appcompat:appcompat:1.1.0"
+implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+```
+
+* 将watch带的heytap-widget-support-release-v1.1.9.aar放到app\libs目录下
+* 修正app\build.gradle中的compileSdkVersion和targetSdkVersion到29，否则release时proguard会有很多错误
+
+如果不使用Oppo watch的theme，上面这些可以不用做，用一个定制的theme即可:
+```
+<style name="AppTheme" parent="@android:style/Theme.Material.NoActionBar">
+    <item name="android:windowBackground">@android:color/black</item>
+</style>
+```

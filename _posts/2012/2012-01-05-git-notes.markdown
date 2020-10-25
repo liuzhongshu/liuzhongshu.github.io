@@ -94,9 +94,15 @@ git difftool branch1..branch2
 和svn不一样，git里本地的commit，如果没有push，是可以撤销的，方法很简单，比如撤销最后三次修改
 
 ```
-git reset --soft HEAD~3
+git reset --soft HEAD~3 ## 或者head^^^
 git commit -m 'comment'
 ```
+
+reset有三种模式 --soft，--mixed, --hard 其中--mixed是缺省模式，三者差异在于 
+* --soft 不丢失本地丢该，撤销的东西都合并再暂存区域，用来合并几次commit到一个commit最合适。
+* --hard 比较危险，本地没有提交的修改和撤销的修改全部丢弃。
+* --mixed 所有撤销的内容和本地修改合并到workcopy。
+
 
 ## 历史
 
@@ -169,7 +175,7 @@ LESSCHARSET=utf-8
 ```
 
 ## hook
-我最常用的一个hook，是自动push，在.git\hooks下放一个post-commit文件，内容为：
+我最常用的一个hook，是自动push(会丢失git reset这个后悔药)，在.git\hooks下放一个post-commit文件，内容为：
 ```
 #!/bin/sh
 git push origin master
