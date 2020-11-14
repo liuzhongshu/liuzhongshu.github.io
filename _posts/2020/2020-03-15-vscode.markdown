@@ -21,6 +21,8 @@ Ctrl+，>> workspace 然后设置
 "workbench.colorTheme": "Quiet Light"
 ```
 
+如果经常需要切换，比如在室外常常需要切换到light theme，可以安装Theme Switcher这个插件，Ctrl+Alt+T快速切换。
+
 ## 定义快捷键
 
 在 file >> preference >> keyboard shortcuts 下可以为所有command定义快捷键

@@ -74,7 +74,16 @@ apt install python3-pyasn1
 certbot --nginx -d sub1.xxx.com -d sub2.xxx.com
 ```
 
-回答完向导就可以了，并且似乎nginx不需要reload即可生效。
+回答完向导就可以了，并且似乎nginx不需要reload即可生效，需要添加域名的化，可以用--expand
+```
+certbot --nginx --expand -d sub1.xxx.com -d sub2.xxx.com -d sub3.xxx.com
+```
+
+续期可以直接 certbot renew，当然正常情况下应该不需要手动执行，因为安装时应该已经设置好了cron或timer，比如
+
+```
+systemctl list-timers
+```
 
 ## mariadb
 

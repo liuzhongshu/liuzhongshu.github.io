@@ -167,3 +167,8 @@ Windows 8不允许自启动列表（startup）中有管理员模式运行的程�
 
 ## 电池性能
 不需要第三方软件，windows在命令行下输入`powercfg.exe /batteryreport`就可以得到关于电池容量、循环次数、寿命等详细的html报告。
+
+## 显示windows的右下角通知
+```
+powershell [Reflection.Assembly]::LoadWithPartialName("""System.Windows.Forms""");$obj=New-Object Windows.Forms.NotifyIcon;$obj.Icon = [drawing.icon]::ExtractAssociatedIcon($PSHOME + """\powershell.exe""");$obj.Visible = $True;$obj.ShowBalloonTip(100000, """TITLE""","""NOTIFICATION""",2)>nul
+```
