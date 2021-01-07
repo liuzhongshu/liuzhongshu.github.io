@@ -39,6 +39,12 @@ C:\Users\用户名\.gradle\wrapper\dists\gradle-xxx-all\sdfdfa4w5fzrksdfaweeut
 
 后面这串乱码是Android Studio在打开工程时自动建出来的，所以要让他先卡一下，把这个目录建出来（有点奇葩的设计），然后就可以放进去了。
 
+## gradle
+gradle缺省设置会导致内存消耗过大，因为它驻留后台，有必要调整一下，修改用户目录下的.gradle/gradle.properties文件，加上
+
+```
+org.gradle.jvmargs=-Xmx256m -XX:MaxPermSize=64m
+```
 
 ## 模拟器
 
@@ -64,6 +70,11 @@ C:\Users\用户名\.gradle\wrapper\dists\gradle-xxx-all\sdfdfa4w5fzrksdfaweeut
 很多时候，usb连adb不是很方便，可以改用wifi，先在usb连接的情况下执行adb tcpip，这个命令把手机切换到无线adb模式，然后`adb connect 192.168.xx.xx`就可以了，只要不重启手机，每次都可以用这个adb connect连到手机。偶尔有时在wifi下会连接不成功，但使用手机做热点就没有问题。
 
 如果手机已经root，上面使用usb的步骤可以忽略，通过app切换到wifi模式。
+
+adb有很多有用的[命令](https://zsmith.co/adb.php)
+
+## adb bugreport
+使用这个命令可以直接获取错误日志，相对手机上的操作要方便一些。
 
 ## logcat
 
@@ -92,6 +103,8 @@ adb logcat --buffer=crash
 log的级别有多个，有些手机（比如魅族）缺省会不记录debug级别的日志，可以在设置》开发者选项里调整。总之logcat的设计有点反人性，并且logcat并不persist，所以手机重启之后就没有了。
 
 如果设备不再手边，或没有条件使用USB线，可以在设备上安装一个[catlog](https://play.google.com/store/apps/details?id=com.nolanlawson.logcat&hl=en)工具，可以直接显示或保存日志，挺好用，但是这个工具需要root权限。
+
+## theme
 
 ## 签名冲突
 apk的debug版本和release版本签名是不一致的，导致无法替换安装，会报错
@@ -146,7 +159,7 @@ adb shell pm grant jp.co.c_lis.ccl.morelocale android.permission.CHANGE_CONFIGUR
 
 ## apk优化
 
-* 如果不需要appcompact这个库，可以在build.gradle中移除它，可以减小大约1M的体积
+* AppCompact是把高版本的功能，比如Material Theme，包成一个库，可以兼容低版本安卓，如果不需要(比如minSdk已经到21)，可以在build.gradle中移除它，可以减小大约1M的体积。
 
 ## Intent
 Intent是安卓的一个核心概念，intent用于组件之间的调用和通讯，通常用于startActivity。intent有两种：
