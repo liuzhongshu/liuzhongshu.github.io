@@ -16,7 +16,7 @@ layout: post
 1. [UltraSearch](https://www.jam-software.com/ultrasearch/) 文件内容搜索
 1. [AutoHotKey](https://autohotkey.com/) 键盘快捷键自定义 
 1. [HxD](https://mh-nexus.de/en/hxd/) : 十六进制编辑器
-1. [Notepad++](https://notepad-plus-plus.org/) : 通用编辑器，如果使用port版本，通常我要在shell:sendto下面增加它的快捷方式。
+1. [Emeditor](https://www.emeditor.com/download/) : 通用编辑器，免费版够用了，如果下载port版本，通常我要在shell:sendto下面增加它的快捷方式。
 1. [Insomnia](http://dlaa.me/blog/post/10104830) : 防止休眠
 1. [Ditto](http://ditto-cp.sourceforge.net/) : 多剪贴板
 1. [CCleaner](https://www.piriform.com/ccleaner) : 垃圾文件清理
