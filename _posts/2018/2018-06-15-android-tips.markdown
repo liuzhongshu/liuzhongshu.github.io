@@ -24,3 +24,8 @@ adb shell screenrecord --verbose ./sdcard/screencast-video.mp4
 安卓10下，后台应用无法再直接读取剪贴板内容了，虽说是个隐私保护，但却导致所有剪贴板同步工具不能使用了，非常遗憾，如果能做成权限多好。好在可以通过[adb方式](https://www.webplover.com/android-10-clipboard-solution/)赋权。
 
 
+## 查询当前运行的package和activity
+
+```
+adb shell dumpsys activity activities | grep mResumed
+```

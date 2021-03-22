@@ -74,7 +74,7 @@ apt install python3-pyasn1
 certbot --nginx -d sub1.xxx.com -d sub2.xxx.com
 ```
 
-回答完向导就可以了，并且似乎nginx不需要reload即可生效，需要添加域名的化，可以用--expand
+回答完向导就可以了，并且似乎nginx不需要reload即可生效，需要添加域名的化，可以用--expand，需要带上以前的老域名
 ```
 certbot --nginx --expand -d sub1.xxx.com -d sub2.xxx.com -d sub3.xxx.com
 ```

@@ -91,15 +91,15 @@ git difftool branch1..branch2
 可以加-d表示目录比较，更方便(而且可以把beyond compare设置为difftool)。
 
 ## 撤销
-和svn不一样，git里本地的commit，如果没有push，是可以撤销的，方法很简单，比如撤销最后三次修改
+和svn不一样，git里本地的commit，如果没有push，是可以撤销的，方法很简单，比如撤销最后一次修改
 
 ```
-git reset --soft HEAD~3 ## 或者head^^^
+git reset --soft HEAD~
 git commit -m 'comment'
 ```
 
 reset有三种模式 --soft，--mixed, --hard 其中--mixed是缺省模式，三者差异在于 
-* --soft 不丢失本地丢该，撤销的东西都合并再暂存区域，用来合并几次commit到一个commit最合适。
+* --soft 不丢失本地修改，撤销的东西都合并在暂存区域，用来合并几次commit到一个commit最合适。
 * --hard 比较危险，本地没有提交的修改和撤销的修改全部丢弃。
 * --mixed 所有撤销的内容和本地修改合并到workcopy。
 

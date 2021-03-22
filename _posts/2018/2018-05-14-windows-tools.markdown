@@ -27,6 +27,7 @@ layout: post
 1. [nssm](https://nssm.cc/) 把任何程序转为Windows服务
 1. [Scrcpy](https://github.com/Genymobile/scrcpy) 用pc控制手机，神器。
 1. [ImageMagick](https://imagemagick.org/index.php) 如果要在命令行处理图片，比如缩放、格式转换，就这个了。
+1. [Hourglass](https://chris.dziemborowicz.com/apps/hourglass/#downloads) 小巧的计时器
 
 ## 媒体
 1. [SumatraPDF](https://www.sumatrapdfreader.org/free-pdf-reader.html): 轻量PDF阅读工具，多标签页。

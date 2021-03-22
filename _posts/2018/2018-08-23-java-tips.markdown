@@ -127,6 +127,18 @@ java反编译有很多工具，jadx值得推荐，它可以直接打开apk进行
 
 bytecodeviewer支持的几种反编译器里proycon和fenflower都不错，比jadx/jd-gui效果要好。
 
+## 重新打包
+使用apktool可以重新打开一个apk，比如可以调整debug属性，backup属性，甚至改包名, 不过一般需要先通过apktool if安装厂商的资源包
+
+```
+apktool_2.5.0.jar if framework-res.apk
+apktool_2.5.0.jar d xxx.apk
+REM 修改xxx\AndroidManifest.xml和apktool.yml，可以在apktool.yml里修改renameManifestPackage
+apktool_2.5.0.jar b xxx -o xxx2.apk
+jarsigner.exe -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore yyy.keystore xxx2.apk yyy
+```
+
+
 ## break语言
 java的break语句并不常用，但是在反编译的结果中却比较常见，break的意思是跳出当前scope，因此和goto是不一样的。
 ```
