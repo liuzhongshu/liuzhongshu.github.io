@@ -12,9 +12,8 @@ layout: post
 1. [soopat](http://www.soopat.com/) 专利检索
 1. [urlgot](https://v.urlgot.cn/) 下载某些视频网站的视频
 1. [itellyou](https://msdn.itellyou.cn/) 微软资源下载检索
-1. [google translate](https://translate.google.cn/) 谷歌翻译
+1. [deepL](https://www.deepl.com/) 目前最好的翻译工具，比谷歌微软都要好
 1. [slides](https://slides.com/) 不错的slide制作网站，但制作好的ppt不能下载
-1. [deepl](https://www.deepl.com/translator) 目前最好的翻译算法，比谷歌微软要好。
 
 ## 对比和评测
 1. [speedtest](https://www.speedtest.cn/) 测试网速
@@ -28,7 +27,7 @@ layout: post
 1. [iconvert](https://iconverticons.com/online/) png转换到icon
 1. [diagrams](https://app.diagrams.net/) 流程图工具
 1. [freesound](https://freesound.org/) 音频分享
-1. [flaticon](https://www.flaticon.com/) 图标分享，要注意版权的要求。
+1. [flaticon](https://www.flaticon.com/) 图标分享，要注意遵守它的版权要求。
 
 ## 程序员
 1. [online json viewer](http://jsonviewer.stack.hu/) 在线json格式化，查看工具
